@@ -59,8 +59,7 @@ MAPPING: list[tuple[str, str, tuple[str, ...]]] = [
     ("brand-logo-main.png", "2220048 秦艺榕 名字logo.png", ("01-设计稿",)),
     ("brand-logo-alt.png", "2220048 秦艺榕 名字logo-01.png", ("01-设计稿",)),
     ("brand-logo-restored.png", "2220048 秦艺榕 名字logo-01.png", ("01-设计稿",)),
-    ("peking-opera-cover.png", "2220048_秦艺榕_作品集封面.png", ("Web页面截图",)),
-    ("peking-opera-cover.png", "2220048_秦艺榕_作品集封面.png", ("页面截图",)),
+    # peking-opera-cover：桌面 Web 截图易误配 C4D 图，保留仓库/投递版版本
 ]
 
 RUN_SCREEN_ORDER = [

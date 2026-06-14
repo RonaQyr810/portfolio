@@ -7,6 +7,9 @@ echo.
 echo 正在同步设计截图到 assets/portfolio/ ...
 python sync_portfolio_assets.py
 echo.
+echo 正在同步项目卡片封面 ...
+python scripts\sync-project-covers.py
+echo.
 echo 正在同步视频到 assets/videos/ ...
 python scripts\sync-videos.py
 echo.
