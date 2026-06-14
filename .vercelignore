@@ -1,0 +1,6 @@
+assets/videos/**
+.git/**
+.gitattributes
+作品集/**
+projects/moyan-app/node_modules/**
+**/*.mp4

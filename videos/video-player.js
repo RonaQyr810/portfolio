@@ -1,5 +1,23 @@
+const GITHUB_MEDIA_BASE =
+  'https://media.githubusercontent.com/media/RonaQyr810/portfolio/main/assets/videos/';
 const ONLINE_ASSETS_BASE = '../assets/videos/';
 const LOCAL_PORTFOLIO_BASE = '../../作品集/';
+
+function isLocalPreview() {
+  const host = location.hostname;
+  return host === 'localhost' || host === '127.0.0.1' || host === '';
+}
+
+function toVideoAssetBase(assetBase) {
+  if (isLocalPreview()) {
+    return assetBase || ONLINE_ASSETS_BASE;
+  }
+  if (assetBase) {
+    const match = assetBase.match(/assets\/videos\/(.+)?/);
+    if (match) return GITHUB_MEDIA_BASE + (match[1] || '');
+  }
+  return GITHUB_MEDIA_BASE;
+}
 
 function resolveLocalPath(relativePath) {
   return encodeURI(LOCAL_PORTFOLIO_BASE + relativePath).replace(/#/g, '%23');
@@ -64,7 +82,7 @@ function initVideoPage(videos, options = {}) {
 
   function resolveSrc(item) {
     if (item.file) {
-      const base = assetBase || (ONLINE_ASSETS_BASE + (item.category || '') + '/');
+      const base = toVideoAssetBase(assetBase || (ONLINE_ASSETS_BASE + (item.category || '') + '/'));
       return base + item.file;
     }
     if (item.path) return resolveLocalPath(item.path);
