@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" role="img" aria-label="Brand Logo Design">
+  <rect width="1280" height="800" fill="#f7f4f0"/>
+  <rect x="56" y="56" width="1168" height="688" rx="24" fill="#fff" stroke="#e5e5e5" stroke-width="2"/>
+  <text x="96" y="120" fill="#737373" font-family="Segoe UI, sans-serif" font-size="18" letter-spacing=".12em">BRAND IDENTITY · 2220048</text>
+  <rect x="96" y="160" width="520" height="360" rx="20" fill="#0a0a0a"/>
+  <text x="356" y="340" text-anchor="middle" fill="#fafafa" font-family="Georgia, serif" font-size="120" font-weight="600">QYR</text>
+  <text x="356" y="410" text-anchor="middle" fill="#a3a3a3" font-family="Segoe UI, sans-serif" font-size="22">Qin Yirong</text>
+  <rect x="680" y="160" width="220" height="160" rx="16" fill="#fafafa" stroke="#e5e5e5"/>
+  <circle cx="790" cy="220" r="42" fill="#0a0a0a"/>
+  <text x="790" y="235" text-anchor="middle" fill="#fff" font-family="Georgia, serif" font-size="34">Q</text>
+  <rect x="940" y="160" width="220" height="160" rx="16" fill="#fafafa" stroke="#e5e5e5"/>
+  <rect x="1010" y="205" width="80" height="70" rx="8" fill="#d4d4d4"/>
+  <rect x="680" y="360" width="480" height="160" rx="16" fill="#fafafa" stroke="#e5e5e5"/>
+  <text x="720" y="420" fill="#0a0a0a" font-family="Segoe UI, sans-serif" font-size="28" font-weight="600">Logo System</text>
+  <text x="720" y="460" fill="#737373" font-family="Segoe UI, sans-serif" font-size="18">Primary mark · App icon · Course deliverables</text>
+  <rect x="720" y="480" width="120" height="8" rx="4" fill="#0a0a0a"/>
+  <rect x="720" y="500" width="180" height="8" rx="4" fill="#d4d4d4"/>
+</svg>

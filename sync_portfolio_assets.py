@@ -16,6 +16,7 @@ SEARCH_ROOTS = [
     DESKTOP / "软件素材",
     DESKTOP / "作品集-投递版-综合岗",
     DESKTOP / "作品集-投递版",
+    DESKTOP / "学校文档",
 ]
 
 MAPPING = [
@@ -65,12 +66,12 @@ MAPPING = [
     # 房屋租赁
     ("用户端打包/house/static/img/house-gb.jpg", "web-house-sample.jpg"),
     ("house-gb.jpg", "web-house-sample.jpg"),
-    # 品牌
+    # 品牌（源 PNG 可能损坏，线上封面已改用 SVG）
+    ("2220048-秦艺榕/04-演示与设计/2220048 秦艺榕 名字logo.png", "brand-logo-main.png"),
     ("2220048 秦艺榕 名字logo.png", "brand-logo-main.png"),
     ("UI设计/logo.png", "brand-logo-alt.png"),
     ("logo.png", "brand-logo-alt.png"),
-    ("UI设计/2220048 秦艺榕 名字logo-恢复的.png", "brand-logo-restored.png"),
-    ("2220048 秦艺榕 名字logo-恢复的.png", "brand-logo-restored.png"),
+    ("projects/rikxiniao/app/logo.png", "brand-logo-alt.png"),
 ]
 
 

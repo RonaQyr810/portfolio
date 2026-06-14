@@ -44,9 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
       { src: 'assets/portfolio/web-house-sample.jpg', caption: '房屋租赁可视化 Web · 系统界面素材' },
     ],
     brand: [
-      { src: 'assets/portfolio/brand-logo-main.png', caption: '品牌视觉设计 · 主 LOGO' },
+      { src: 'assets/portfolio/brand-logo-cover.svg', caption: '品牌视觉设计 · 主 LOGO 方案' },
       { src: 'assets/portfolio/brand-logo-alt.png', caption: '品牌视觉设计 · LOGO 变体' },
-      { src: 'assets/portfolio/brand-logo-restored.png', caption: '品牌视觉设计 · LOGO 精修版' },
+      { src: 'assets/portfolio/brand-logo-restored.svg', caption: '品牌视觉设计 · LOGO 精修版' },
     ],
     'peking-opera': [
       { src: 'assets/portfolio/peking-opera-cover.png', caption: '梨园之韵 · 京剧文化可视化（封面）' },

@@ -1,13 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" role="img" aria-label="Peking Opera Visualization">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1a1a2e"/>
-      <stop offset="100%" style="stop-color:#4a1942"/>
+    <linearGradient id="opera" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#4a1942"/>
     </linearGradient>
   </defs>
-  <rect width="800" height="500" fill="url(#bg)"/>
-  <circle cx="400" cy="200" r="80" fill="none" stroke="#c9a962" stroke-width="3" opacity="0.6"/>
-  <path d="M320 280 Q400 180 480 280" fill="none" stroke="#c45c4a" stroke-width="4"/>
-  <text x="400" y="360" text-anchor="middle" fill="#fff" font-size="36" font-family="serif">��K�</text>
-  <text x="400" y="400" text-anchor="middle" fill="#e8a090" font-size="18" font-family="sans-serif">�g��o�� � AE / PR</text>
+  <rect width="1280" height="800" fill="url(#opera)"/>
+  <circle cx="640" cy="300" r="160" fill="none" stroke="#c9a962" stroke-width="4" opacity=".7"/>
+  <path d="M500 500 Q640 280 780 500" fill="none" stroke="#c45c4a" stroke-width="8"/>
+  <circle cx="540" cy="260" r="28" fill="#c45c4a"/>
+  <circle cx="740" cy="260" r="28" fill="#c45c4a"/>
+  <path d="M580 360 Q640 420 700 360" fill="none" stroke="#c9a962" stroke-width="6"/>
+  <rect x="220" y="560" width="840" height="120" rx="16" fill="rgba(0,0,0,.35)"/>
+  <text x="640" y="635" text-anchor="middle" fill="#fff" font-family="Georgia, serif" font-size="48">Peking Opera</text>
+  <text x="640" y="680" text-anchor="middle" fill="#e8a090" font-family="Segoe UI, sans-serif" font-size="20">AE / PR cultural visualization</text>
 </svg>

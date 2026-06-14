@@ -1,26 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="AI ??????">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" role="img" aria-label="AI Vision Chat Assistant">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#1a2332"/>
-      <stop offset="55%" stop-color="#243447"/>
       <stop offset="100%" stop-color="#2f4a5c"/>
     </linearGradient>
-    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#5a9dad" stop-opacity="0"/>
-      <stop offset="50%" stop-color="#5a9dad" stop-opacity="0.55"/>
-      <stop offset="100%" stop-color="#5a9dad" stop-opacity="0"/>
-    </linearGradient>
   </defs>
-  <rect width="1600" height="1000" fill="url(#bg)"/>
-  <rect x="180" y="720" width="1240" height="4" fill="url(#glow)"/>
-  <circle cx="1180" cy="300" r="180" fill="none" stroke="#5a9dad" stroke-width="3" opacity="0.35"/>
-  <circle cx="1180" cy="300" r="120" fill="none" stroke="#a68b5b" stroke-width="2" opacity="0.45"/>
-  <rect x="220" y="180" width="720" height="520" rx="28" fill="#111820" stroke="#5a9dad" stroke-width="3"/>
-  <circle cx="580" cy="360" r="72" fill="#2f6b7a" opacity="0.35"/>
-  <rect x="300" y="500" width="280" height="18" rx="9" fill="#2a3545"/>
-  <rect x="300" y="540" width="420" height="18" rx="9" fill="#2a3545"/>
-  <rect x="300" y="580" width="360" height="18" rx="9" fill="#2a3545"/>
-  <rect x="300" y="640" width="180" height="44" rx="22" fill="#2f6b7a"/>
-  <text x="300" y="130" fill="#e8edf2" font-family="Noto Sans SC, sans-serif" font-size="56" font-weight="700">AI ??????</text>
-  <text x="300" y="200" fill="#8fa8b8" font-family="Noto Sans SC, sans-serif" font-size="30">???? ? ???? ? ????</text>
+  <rect width="1280" height="800" fill="url(#bg)"/>
+  <rect x="56" y="56" width="1168" height="688" rx="24" fill="#111820" stroke="#5a9dad" stroke-width="2"/>
+  <rect x="88" y="88" width="720" height="480" rx="16" fill="#0d1218" stroke="#2a3545"/>
+  <circle cx="448" cy="250" r="70" fill="#2f6b7a" opacity=".45"/>
+  <rect x="220" y="360" width="460" height="24" rx="12" fill="#243041"/>
+  <rect x="220" y="404" width="360" height="24" rx="12" fill="#243041"/>
+  <rect x="220" y="448" width="400" height="24" rx="12" fill="#243041"/>
+  <circle cx="760" cy="180" r="56" fill="none" stroke="#5a9dad" stroke-width="4"/>
+  <circle cx="760" cy="180" r="24" fill="#5a9dad"/>
+  <rect x="836" y="88" width="356" height="624" rx="16" fill="#1a2332" stroke="#2a3545"/>
+  <text x="868" y="140" fill="#8fa8b8" font-family="Segoe UI, sans-serif" font-size="16">Vision Chat</text>
+  <rect x="868" y="168" width="292" height="88" rx="12" fill="#243041"/>
+  <text x="888" y="220" fill="#e8edf2" font-family="Segoe UI, sans-serif" font-size="18">What do you see on camera?</text>
+  <rect x="868" y="280" width="220" height="44" rx="22" fill="#5a9dad"/>
+  <text x="978" y="309" text-anchor="middle" fill="#fff" font-family="Segoe UI, sans-serif" font-size="16">Start session</text>
+  <rect x="868" y="360" width="292" height="120" rx="12" fill="#0d1218"/>
+  <text x="888" y="400" fill="#a68b5b" font-family="Segoe UI, sans-serif" font-size="15">Mic + Camera</text>
+  <text x="888" y="430" fill="#8fa8b8" font-family="Segoe UI, sans-serif" font-size="14">Multimodal reply stream</text>
+  <rect x="88" y="600" width="1104" height="112" rx="14" fill="#1a2332" stroke="#2a3545"/>
+  <text x="120" y="668" fill="#e8edf2" font-family="Segoe UI, sans-serif" font-size="22" font-weight="600">AI Vision Assistant</text>
 </svg>
