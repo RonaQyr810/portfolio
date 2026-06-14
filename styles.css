@@ -1910,30 +1910,34 @@ a.contact-item:hover {
   align-items: center;
   justify-content: center;
   padding: 18px 12px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: var(--radius);
   transition: var(--transition);
 }
 
 .contact-highlight:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(232, 160, 144, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
 .contact-highlight-num {
   font-family: var(--font-serif);
   font-size: 1.65rem;
   font-weight: 600;
-  color: var(--accent-light);
+  color: #fafafa;
   line-height: 1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 .contact-highlight-label {
-  margin-top: 6px;
-  font-size: 0.76rem;
-  color: rgba(255, 255, 255, 0.42);
+  margin-top: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.82);
   text-align: center;
+  line-height: 1.45;
 }
 
 .contact-downloads {
