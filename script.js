@@ -16,13 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
       { src: 'assets/portfolio/looptrace-bill.png', caption: '环溯 LoopTrace · 环境账单详情' },
     ],
     'health-food': [
-      { src: 'assets/portfolio/health-food-home.png', caption: '健康食途 · 首页（大众会员 / AI定制 / 营养师定制）' },
       { src: 'assets/portfolio/health-food-logo.png', caption: '健康食途 · APP 图标' },
       { src: 'assets/portfolio/health-food-login.png', caption: '健康食途 · 登录页' },
-      { src: 'assets/portfolio/health-food-profile.png', caption: '健康食途 · 个人中心' },
+      { src: 'assets/portfolio/health-food-home-general.png', caption: '健康食途 · 首页 · 大众会员（每日套餐）' },
+      { src: 'assets/portfolio/health-food-home-ai.png', caption: '健康食途 · 首页 · AI 定制会员' },
+      { src: 'assets/portfolio/health-food-home-nutritionist.png', caption: '健康食途 · 首页 · 专属营养师定制' },
+      { src: 'assets/portfolio/health-food-profile.png', caption: '健康食途 · 个人中心（会员开通 / 目标设置）' },
       { src: 'assets/portfolio/health-food-bubble.png', caption: '健康食途 · 社区冒泡' },
-      { src: 'assets/portfolio/health-food-rank.png', caption: '健康食途 · 排行榜' },
-      { src: 'assets/portfolio/health-food-cover.jpg', caption: '健康食途 · 整体设计概览（思维导图）' },
+      { src: 'assets/portfolio/health-food-rank.png', caption: '健康食途 · 身体素质排行榜' },
     ],
     medical: [
       { src: 'assets/portfolio/medical-home.jpg', caption: '健康医疗网站 · 首页（DocWala）' },

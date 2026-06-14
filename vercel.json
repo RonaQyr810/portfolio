@@ -1,5 +1,11 @@
 {
   "version": 2,
+  "rewrites": [
+    {
+      "source": "/assets/videos/:path*",
+      "destination": "https://media.githubusercontent.com/media/RonaQyr810/portfolio/main/assets/videos/:path*"
+    }
+  ],
   "headers": [
     {
       "source": "/projects/rikxiniao/app/(.*)",
