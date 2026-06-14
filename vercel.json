@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "headers": [
+    {
+      "source": "/projects/rikxiniao/app/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    }
+  ]
+}

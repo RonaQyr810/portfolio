@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-nav-root="../" data-video-index="index.html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>惜食小站 · 演示录屏 · 秦艺榕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="video.css">
+</head>
+<body class="video-page">
+  <nav class="nav" id="nav"></nav>
+  <div class="wrap">
+    <div class="topbar">
+      <a href="index.html" class="back-link">← 视频索引</a>
+      <span class="breadcrumb">作品集 / 视频 / 惜食小站</span>
+    </div>
+    <div class="page-hero">
+      <span class="page-tag">Mini Program</span>
+      <h1 class="page-title">惜食小站 · 演示录屏</h1>
+      <p class="page-desc">环溯 LoopTrace 毕设项目完整交付演示：微信小程序用户端与管理端功能录屏，涵盖积分兑换、智能清单、企业红黑榜与后台管理等核心模块。</p>
+    </div>
+    <div class="main-player">
+      <video id="mainVideo" controls playsinline preload="metadata"></video>
+      <div class="player-info">
+        <h2 id="playerTitle">加载中…</h2>
+        <p id="playerDesc"></p>
+      </div>
+    </div>
+    <div class="video-grid" id="videoGrid"></div>
+    <p class="note-box" style="margin-top:24px">
+      <a href="../projects/xishixiaozhan/index.html">→ 查看完整项目页（原型 + 运行截图 + 视频）</a>
+    </p>
+  </div>
+  <script src="../nav.js"></script>
+  <script src="video-player.js"></script>
+  <script>
+    initVideoPage([
+      { id: 'user-demo', title: '用户端演示', desc: '微信小程序消费者端完整功能演示', file: 'user-demo.mp4', size: '6.9 MB' },
+      { id: 'admin-demo', title: '管理端演示', desc: '后台管理端订单、积分与数据统计演示', file: 'admin-demo.mp4', size: '9.6 MB' },
+    ], { assetBase: '../assets/videos/xishixiaozhan/' });
+  </script>
+</body>
+</html>

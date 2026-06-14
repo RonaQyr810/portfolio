@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      (function () {
+        var path = location.pathname;
+        if (!/\/index\.html$/i.test(path) && !path.endsWith('/')) {
+          location.replace(path + '/' + location.search + location.hash);
+        }
+      })();
+    </script>
+    <script>
+      try { localStorage.removeItem('salary-pet-cloud-token'); } catch (e) {}
+    </script>
+    <base href="./" />
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <link rel="apple-touch-icon" href="./icon-192.png" />
+    <link rel="manifest" href="./manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#4A90E2" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="日薪喵" />
+    <title>日薪喵 - 每秒收入计算器</title>
+    <script type="module" crossorigin src="./assets/index-BSkfxrfo.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/chunk-CMxvf4Kt.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-B-uX1mUs.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-BNystv7s.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="overlay-root"></div>
+  </body>
+</html>

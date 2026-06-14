@@ -1,0 +1,9 @@
+# 部署时排除大体积目录
+node_modules/
+projects/moyan-app/node_modules/
+projects/moyan-app/.next/
+__pycache__/
+.DS_Store
+.env
+.env.local
+.env.production

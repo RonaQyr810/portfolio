@@ -1,0 +1,32 @@
+<HTA:APPLICATION
+  ID="RikxiniaoLauncher"
+  SHOWINTASKBAR="no"
+  WINDOWSTATE="minimize"
+  SCROLL="no"
+  BORDER="none"
+  CAPTION="no"
+  SYSMENU="no"
+/>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>启动日薪喵</title>
+  <script language="VBScript">
+    Sub Window_OnLoad
+      Dim fso, shell, scriptPath, base, bat
+      fso = CreateObject("Scripting.FileSystemObject")
+      shell = CreateObject("WScript.Shell")
+      scriptPath = Replace(document.location.pathname, "/", "\")
+      If Left(scriptPath, 1) = "\" Then scriptPath = Mid(scriptPath, 2)
+      scriptPath = fso.GetAbsolutePathName(scriptPath)
+      base = fso.GetParentFolderName(scriptPath)
+      bat = fso.BuildPath(base, "start-demo.bat")
+      shell.Run Chr(34) & bat & Chr(34), 0, False
+      window.setTimeout "window.close()", 1500
+    End Sub
+  </script>
+</head>
+<body style="font-family:Segoe UI,sans-serif;padding:16px">
+  正在启动日薪喵，请稍候…
+</body>
+</html>

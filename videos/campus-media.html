@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-nav-root="../" data-video-index="index.html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>传媒实训与直播 · 秦艺榕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="video.css">
+</head>
+<body class="video-page">
+  <nav class="nav" id="nav"></nav>
+  <div class="wrap">
+    <div class="topbar">
+      <a href="index.html" class="back-link">← 视频索引</a>
+      <span class="breadcrumb">作品集 / 视频 / 传媒实训</span>
+    </div>
+    <div class="page-hero">
+      <span class="page-tag">Media Practice</span>
+      <h1 class="page-title">传媒实训与直播实践</h1>
+      <p class="page-desc">直播经济产业学院实训与课程影像作品，包含非遗主题「拾筑」实训成片、剧本视频、UI 设计答辩录屏等，体现镜头表现力与内容策划能力。</p>
+    </div>
+    <div class="main-player">
+      <video id="mainVideo" controls playsinline preload="metadata"></video>
+      <div class="player-info">
+        <h2 id="playerTitle">加载中…</h2>
+        <p id="playerDesc"></p>
+      </div>
+    </div>
+    <div class="video-grid" id="videoGrid"></div>
+    <div class="note-box">「拾筑」与「剧本」完整版文件较大（200MB+），首次加载可能需要等待片刻，建议使用本地浏览器播放。</div>
+  </div>
+  <script src="../nav.js"></script>
+  <script src="video-player.js"></script>
+  <script>
+    initVideoPage([
+      { id: 'script-video', title: '剧本视频', desc: '实训课程剧本拍摄与剪辑', file: 'script-video.mp4', size: '108 MB' },
+      { id: 'liyuan-short', title: '梨园主题短片', desc: '京剧文化相关影像创作', file: 'liyuan-short.mp4', size: '238 MB' },
+    ], { assetBase: '../assets/videos/campus-media/' });
+  </script>
+</body>
+</html>

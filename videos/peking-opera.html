@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-nav-root="../" data-video-index="index.html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>梨园之韵 · 京剧可视化 · 秦艺榕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="video.css">
+</head>
+<body class="video-page">
+  <nav class="nav" id="nav"></nav>
+  <div class="wrap">
+    <div class="topbar">
+      <a href="index.html" class="back-link">← 视频索引</a>
+      <span class="breadcrumb">作品集 / 视频 / 梨园之韵</span>
+    </div>
+    <div class="page-hero">
+      <span class="page-tag">信息可视化</span>
+      <h1 class="page-title">梨园之韵 · 京剧文化可视化</h1>
+      <p class="page-desc">以京剧文化为主题的信息可视化与动态影像作品。运用 After Effects、Premiere Pro、Illustrator 完成信息图表、海报动画与多轮剪辑迭代，探索传统文化与现代视觉表达的融合。</p>
+    </div>
+    <div class="main-player">
+      <video id="mainVideo" controls playsinline preload="metadata"></video>
+      <div class="player-info">
+        <h2 id="playerTitle">加载中…</h2>
+        <p id="playerDesc"></p>
+      </div>
+    </div>
+    <div class="video-grid" id="videoGrid"></div>
+  </div>
+  <script src="../nav.js"></script>
+  <script src="video-player.js"></script>
+  <script>
+    initVideoPage([
+      { id: 'final', title: '梨园之韵 · 最终成片', desc: '课程代表作完整版，含海报 AE 动画与整体剪辑优化', file: 'final.mp4', size: '240 MB' },
+      { id: 'opera-1', title: '京剧信息可视化 · 第一期', desc: '信息可视化系列剪辑第一版', file: 'opera-1.mp4', size: '16 MB' },
+      { id: 'opera-2', title: '京剧信息可视化 · 第二期', desc: '信息可视化系列剪辑第二版', file: 'opera-2.mp4', size: '28 MB' },
+      { id: 'opera-3', title: '京剧信息可视化 · 第三期', desc: '信息可视化系列剪辑第三版', file: 'opera-3.mp4', size: '13 MB' },
+      { id: 'revised-full', title: '京剧修改后 · 完整版', desc: '根据反馈优化后的完整剪辑', file: 'revised-full.mp4', size: '20 MB' },
+      { id: 'revised-short', title: '京剧修改后 · 精简版', desc: '优化版精简剪辑', file: 'revised-short.mp4', size: '10 MB' },
+    ], { assetBase: '../assets/videos/peking-opera/' });
+  </script>
+</body>
+</html>

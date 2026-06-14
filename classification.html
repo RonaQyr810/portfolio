@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>作品集分类整理 · 秦艺榕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#faf8f5; --card:#fff; --text:#2d2d3a; --muted:#6b6b7b; --accent:#c45c4a; --border:#e8e4df; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Noto Sans SC',sans-serif; background:var(--bg); color:var(--text); line-height:1.7; }
+    .wrap { max-width:1100px; margin:0 auto; padding:40px 24px 80px; }
+    h1 { font-size:2rem; margin-bottom:8px; }
+    .subtitle { color:var(--muted); margin-bottom:32px; }
+    .back { display:inline-block; margin-bottom:24px; color:var(--accent); text-decoration:none; font-weight:500; }
+    .stats { display:flex; gap:24px; flex-wrap:wrap; margin-bottom:40px; }
+    .stat { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px 28px; }
+    .stat strong { display:block; font-size:1.8rem; color:var(--accent); }
+    .cat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; margin-bottom:48px; }
+    .cat-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; cursor:pointer; transition:.2s; }
+    .cat-card:hover,.cat-card.active { border-color:var(--accent); box-shadow:0 4px 20px rgba(196,92,74,.12); }
+    .cat-num { font-size:.75rem; color:var(--accent); font-weight:600; }
+    .cat-card h3 { font-size:1rem; margin:6px 0; }
+    .cat-card p { font-size:.85rem; color:var(--muted); }
+    .cat-meta { display:flex; gap:12px; margin-top:10px; font-size:.8rem; color:var(--muted); }
+    h2 { font-size:1.4rem; margin:40px 0 12px; padding-bottom:8px; border-bottom:2px solid var(--border); }
+    .section-desc { color:var(--muted); margin-bottom:16px; }
+    table { width:100%; border-collapse:collapse; background:var(--card); border-radius:8px; overflow:hidden; margin-bottom:24px; font-size:.9rem; }
+    th,td { padding:10px 14px; text-align:left; border-bottom:1px solid var(--border); }
+    th { background:#f5f0ea; font-weight:600; }
+    code { font-size:.8rem; background:#f5f0ea; padding:2px 6px; border-radius:4px; word-break:break-all; }
+    .file-group { background:var(--card); border:1px solid var(--border); border-radius:8px; margin-bottom:10px; }
+    .file-group summary { padding:14px 18px; cursor:pointer; font-weight:500; }
+    .file-group table { margin:0; border-radius:0; }
+    .more { color:var(--muted); font-style:italic; }
+    .dep-note,.empty { color:var(--muted); font-size:.9rem; margin-bottom:12px; }
+    .filter-bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }
+    .filter-btn { padding:8px 18px; border:1px solid var(--border); background:var(--card); border-radius:100px; cursor:pointer; font-size:.85rem; }
+    .filter-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+    .file-section.hidden { display:none; }
+    small { color:var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a href="index.html" class="back">← 返回个人主页</a>
+    <h1>作品集分类整理</h1>
+    <p class="subtitle">基于「作品集」文件夹全部 3592 个文件自动扫描分类 · 总大小 6.22 GB</p>
+    <div class="stats">
+      <div class="stat"><strong>3592</strong>总文件数</div>
+      <div class="stat"><strong>3192</strong>有效文件（不含依赖）</div>
+      <div class="stat"><strong>10</strong>核心项目</div>
+      <div class="stat"><strong>10</strong>大分类</div>
+    </div>
+
+    <h2>分类总览</h2>
+    <div class="cat-grid" id="catGrid">
+        <div class="cat-card" data-cat="course">
+          <span class="cat-num">一</span>
+          <h3>课程作业与学术报告</h3>
+          <p>实验报告、课程设计、调研分析、创业计划书</p>
+          <div class="cat-meta"><span>20 个文件</span><span>205.9 MB</span></div>
+        </div>
+        <div class="cat-card" data-cat="ui">
+          <span class="cat-num">二</span>
+          <h3>UI/UX 产品设计</h3>
+          <p>APP 原型、界面设计、交互稿、功能结构文档</p>
+          <div class="cat-meta"><span>28 个文件</span><span>34.3 MB</span></div>
+        </div>
+        <div class="cat-card" data-cat="web">
+          <span class="cat-num">三</span>
+          <h3>Web 开发与编程</h3>
+          <p>网站项目源码、数据库、HTML 页面、部署文档</p>
+          <div class="cat-meta"><span>2971 个文件</span><span>115.2 MB</span></div>
+        </div>
+        <div class="cat-card" data-cat="video">
+          <span class="cat-num">四</span>
+          <h3>视频动画与三维制作</h3>
+          <p>AE/PR/C4D 工程、成片视频、信息可视化作品</p>
+          <div class="cat-meta"><span>57 个文件</span><span>4.60 GB</span></div>
+        </div>
+        <div class="cat-card" data-cat="visual">
+          <span class="cat-num">五</span>
+          <h3>品牌视觉与平面设计</h3>
+          <p>LOGO、海报、PPT 视觉、文创设计</p>
+          <div class="cat-meta"><span>11 个文件</span><span>255.3 MB</span></div>
+        </div>
+        <div class="cat-card" data-cat="work">
+          <span class="cat-num">六</span>
+          <h3>实习与工作项目</h3>
+          <p>实习相关产出（如有）</p>
+          <div class="cat-meta"><span>0 个文件</span><span>0 B</span></div>
+        </div>
+        <div class="cat-card" data-cat="live">
+          <span class="cat-num">七</span>
+          <h3>直播运营与传媒实践</h3>
+          <p>校招直播、带货运营、直播流程策划与数据统计</p>
+          <div class="cat-meta"><span>7 个文件</span><span>165.7 KB</span></div>
+        </div>
+        <div class="cat-card" data-cat="resume">
+          <span class="cat-num">八</span>
+          <h3>简历与个人资料</h3>
+          <p>个人简历、写真、演员模卡、社会实践等个人展示材料</p>
+          <div class="cat-meta"><span>79 个文件</span><span>98.0 MB</span></div>
+        </div>
+        <div class="cat-card" data-cat="archive">
+          <span class="cat-num">九</span>
+          <h3>压缩包与备份</h3>
+          <p>项目打包压缩文件</p>
+          <div class="cat-meta"><span>4 个文件</span><span>937.5 MB</span></div>
+        </div>
+        <div class="cat-card" data-cat="misc">
+          <span class="cat-num">十</span>
+          <h3>素材杂项与待整理</h3>
+          <p>零散素材、截图、待归档文件</p>
+          <div class="cat-meta"><span>15 个文件</span><span>5.0 MB</span></div>
+        </div></div>
+
+    <h2>核心项目一览</h2>
+    <table>
+      <thead><tr><th>项目</th><th>分类</th><th>角色</th><th>课程/场景</th><th>时间</th><th>关键文件</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>环溯 LoopTrace · 惜食小站</strong><br><small>微信小程序可持续消费平台，含环境账单、智能购物清单、碳积分商城、企业红黑榜等模块。</small></td>
+          <td>UI/UX 产品设计</td>
+          <td>课题规划设计（独立完成 18 页原型）</td>
+          <td>项目实战（虚拟现实与交互）</td>
+          <td>2025.07</td>
+          <td><code>2220048 秦艺榕/原型图/、系统功能结构设计.docx、惜食小站 PPT</code></td>
+        </tr>
+        <tr>
+          <td><strong>健康食途</strong><br><small>智能健康饮食配送 APP，含开屏、登录、首页三板块、社区冒泡、排行榜等完整 UI。</small></td>
+          <td>UI/UX 产品设计</td>
+          <td>APP 功能规划与设计</td>
+          <td>创新创业综合实践</td>
+          <td>2025.01</td>
+          <td><code>设计书.docx、健康食途*.png/jpg/psd/xmind、商业计划 PPT</code></td>
+        </tr>
+        <tr>
+          <td><strong>健康之路 · 医疗预约平台</strong><br><small>上海市医疗资源预约与症状-科室智能匹配平台，Node.js + MySQL + HTML5。</small></td>
+          <td>Web 开发与编程</td>
+          <td>可行性分析、调研、开发（团队协作）</td>
+          <td>Web 应用开发</td>
+          <td>2025.04</td>
+          <td><code>C1 秦艺榕 冷婷婷 陈艺璇/、healthy-serve/、网页展板.jpg</code></td>
+        </tr>
+        <tr>
+          <td><strong>健康医疗网站 (new-doctor)</strong><br><small>医疗健康服务平台，含医院列表、医生详情、预约、捐赠、帮助中心等页面。</small></td>
+          <td>Web 开发与编程</td>
+          <td>网站设计与页面开发</td>
+          <td>实习作品</td>
+          <td>2025</td>
+          <td><code>new-doctor/、健康医疗网站.png、医院列表/、各页面截图</code></td>
+        </tr>
+        <tr>
+          <td><strong>房屋租赁可视化 Web</strong><br><small>Flask 房屋租赁信息管理与数据可视化系统，含源码、SQL 数据库与录屏演示。</small></td>
+          <td>Web 开发与编程</td>
+          <td>Web 开发（小组作业）</td>
+          <td>Web 应用开发</td>
+          <td>2024</td>
+          <td><code>2220048 秦艺榕 web小组作业/、用户端打包/、首页.jpg</code></td>
+        </tr>
+        <tr>
+          <td><strong>梨园之韵 · 京剧信息可视化</strong><br><small>京剧文化主题信息可视化影像，AE/PR 完成剪辑与海报动画。</small></td>
+          <td>视频动画与三维制作</td>
+          <td>剪辑、动效、海报制作</td>
+          <td>信息可视化技术</td>
+          <td>2024-2025</td>
+          <td><code>梨园之韵/、信息可视化/、京剧*.mp4/ai/aep</code></td>
+        </tr>
+        <tr>
+          <td><strong>C4D / AE 动画练习</strong><br><small>小球抛物线、游动的鱼、摩天轮、MG 片头、赛博朋克风格特效等练习与综合作品。</small></td>
+          <td>视频动画与三维制作</td>
+          <td>三维与特效制作</td>
+          <td>数字合成与特效技术 / 三维模型设计</td>
+          <td>2024-2025</td>
+          <td><code>c4d动画合集/、ae/、赛博*.avi、mg*.avi、2220048 秦艺榕.mp4</code></td>
+        </tr>
+        <tr>
+          <td><strong>拾筑 · 非遗文化实训</strong><br><small>非物质文化遗产主题实训作品，含调研报告与剧本视频。</small></td>
+          <td>视频动画与三维制作</td>
+          <td>调研、剧本、视频制作</td>
+          <td>专业实训</td>
+          <td>2024</td>
+          <td><code>实训文件/、拾筑.mp4、剧本视频.mp4</code></td>
+        </tr>
+        <tr>
+          <td><strong>品牌 LOGO 与视觉设计</strong><br><small>个人品牌 LOGO 及「文人四友」等课程视觉设计作品。</small></td>
+          <td>品牌视觉与平面设计</td>
+          <td>标志与视觉识别设计</td>
+          <td>UI 设计 / 个人品牌</td>
+          <td>2024-2025</td>
+          <td><code>UI设计/、名字logo*.png/psd、logo.png</code></td>
+        </tr>
+        <tr>
+          <td><strong>直播经济产业学院实践</strong><br><small>辛江农业、佳农、来伊份等品类直播，校宣传主持人，137 小时社会实践。</small></td>
+          <td>直播运营与传媒实践</td>
+          <td>班长 / 直播主持人 / 账号运营</td>
+          <td>社会实践 + 直播课程</td>
+          <td>2025</td>
+          <td><code>社会实践考核表、校招直播流程、各主播任务表、演员资料</code></td>
+        </tr></tbody>
+    </table>
+
+    <h2>文件明细</h2>
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-filter="all">全部</button>
+      <button class="filter-btn" data-filter="course">课程作业与学术报告</button><button class="filter-btn" data-filter="ui">UI/UX 产品设计</button><button class="filter-btn" data-filter="web">Web 开发与编程</button><button class="filter-btn" data-filter="video">视频动画与三维制作</button><button class="filter-btn" data-filter="visual">品牌视觉与平面设计</button><button class="filter-btn" data-filter="work">实习与工作项目</button><button class="filter-btn" data-filter="live">直播运营与传媒实践</button><button class="filter-btn" data-filter="resume">简历与个人资料</button><button class="filter-btn" data-filter="archive">压缩包与备份</button><button class="filter-btn" data-filter="misc">素材杂项与待整理</button>
+    </div>
+    
+        <section class="file-section" id="cat-course" data-cat="course">
+          <h2>一、课程作业与学术报告</h2>
+          <p class="section-desc">实验报告、课程设计、调研分析、创业计划书</p>
+          
+          
+            <details class="file-group">
+              <summary>C1 秦艺榕 冷婷婷 陈艺璇（2 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>可行性分析报告.docx</td><td>.docx</td><td>121.8 KB</td></tr><tr><td>调研报告.docx</td><td>.docx</td><td>92.0 KB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>实训文件（4 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>个人PPT.pptx</td><td>.pptx</td><td>10.7 MB</td></tr><tr><td>第一组 2220048秦艺榕.pptx</td><td>.pptx</td><td>10.7 MB</td></tr><tr><td>2220048 秦艺榕 调研报告.docx</td><td>.docx</td><td>672.9 KB</td></tr><tr><td>2220048 秦艺榕 课程设计报告.doc</td><td>.doc</td><td>35.0 KB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>杂七杂八（5 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>第一组 2220048秦艺榕.pptx</td><td>.pptx</td><td>80.5 MB</td></tr><tr><td>第8组 2220048  秦艺榕.pptx</td><td>.pptx</td><td>10.2 MB</td></tr><tr><td>2220048 秦艺榕.docx</td><td>.docx</td><td>5.1 MB</td></tr><tr><td>实验九2220048秦艺榕.docx</td><td>.docx</td><td>125.3 KB</td></tr><tr><td>数媒B22-5班 2220048 秦艺榕.docx</td><td>.docx</td><td>25.7 KB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>（根目录）（9 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>2220048 秦艺榕.pptx</td><td>.pptx</td><td>47.3 MB</td></tr><tr><td>健康饮食配送商业计划ppt.pptx</td><td>.pptx</td><td>19.6 MB</td></tr><tr><td>最终ppt.pptx</td><td>.pptx</td><td>8.9 MB</td></tr><tr><td>2220048 秦艺榕.docx</td><td>.docx</td><td>5.0 MB</td></tr><tr><td>设计书(3)(2).docx</td><td>.docx</td><td>3.9 MB</td></tr><tr><td>设计书.docx</td><td>.docx</td><td>1.4 MB</td></tr><tr><td>测试.pptx</td><td>.pptx</td><td>1.0 MB</td></tr><tr><td>2059099-创新创业综合实践-课程设计报告-数媒B22.doc</td><td>.doc</td><td>202.0 KB</td></tr><tr><td>2220048秦艺榕.doc</td><td>.doc</td><td>190.5 KB</td></tr></tbody></table>
+            </details>
+        </section>
+        <section class="file-section" id="cat-ui" data-cat="ui">
+          <h2>二、UI/UX 产品设计</h2>
+          <p class="section-desc">APP 原型、界面设计、交互稿、功能结构文档</p>
+          
+          
+            <details class="file-group">
+              <summary>2220048 秦艺榕（16 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>企业黑红榜.png</td><td>.png</td><td>851.4 KB</td></tr><tr><td>2220048 秦艺榕 系统功能结构设计.docx</td><td>.docx</td><td>751.9 KB</td></tr><tr><td>首页.png</td><td>.png</td><td>306.1 KB</td></tr><tr><td>整改追溯系统.png</td><td>.png</td><td>245.9 KB</td></tr><tr><td>智能回收.png</td><td>.png</td><td>175.1 KB</td></tr><tr><td>订单管理.png</td><td>.png</td><td>158.9 KB</td></tr><tr><td>商品详情.png</td><td>.png</td><td>146.7 KB</td></tr><tr><td>设置.png</td><td>.png</td><td>142.2 KB</td></tr><tr><td>循环贡献.png</td><td>.png</td><td>108.3 KB</td></tr><tr><td>个人主页.png</td><td>.png</td><td>104.0 KB</td></tr><tr><td>商城.png</td><td>.png</td><td>93.0 KB</td></tr><tr><td>环保挑战中心.png</td><td>.png</td><td>88.8 KB</td></tr><tr><td>碳积分商城.png</td><td>.png</td><td>82.1 KB</td></tr><tr><td>智能购物清单.png</td><td>.png</td><td>70.8 KB</td></tr><tr><td>环境账单详情.png</td><td>.png</td><td>53.7 KB</td></tr><tr><td>确认订单.png</td><td>.png</td><td>45.7 KB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>（根目录）（12 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>基于微信小程序“惜食小站”珍惜粮食与积分兑换系统的设计与开发.pptx</td><td>.pptx</td><td>29.0 MB</td></tr><tr><td>首页_状态 1.png</td><td>.png</td><td>416.8 KB</td></tr><tr><td>健康食途.psd</td><td>.psd</td><td>401.0 KB</td></tr><tr><td>健康食途app设计.xmind</td><td>.xmind</td><td>295.9 KB</td></tr><tr><td>健康食途app设计.jpg</td><td>.jpg</td><td>182.9 KB</td></tr><tr><td>登录页.png</td><td>.png</td><td>176.5 KB</td></tr><tr><td>登录_状态 1.png</td><td>.png</td><td>176.1 KB</td></tr><tr><td>排行榜_状态 1.png</td><td>.png</td><td>154.7 KB</td></tr><tr><td>冒泡.png</td><td>.png</td><td>74.0 KB</td></tr><tr><td>讨论区_状态 1.png</td><td>.png</td><td>73.5 KB</td></tr><tr><td>个人页_状态 1.png</td><td>.png</td><td>59.8 KB</td></tr><tr><td>健康食途.png</td><td>.png</td><td>30.1 KB</td></tr></tbody></table>
+            </details>
+        </section>
+        <section class="file-section" id="cat-web" data-cat="web">
+          <h2>三、Web 开发与编程</h2>
+          <p class="section-desc">网站项目源码、数据库、HTML 页面、部署文档</p>
+          <p class='dep-note'>另有 400 个项目依赖文件已折叠</p>
+          
+            <details class="file-group">
+              <summary>2220048 秦艺榕 web小组作业（21 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>FlaskVideo-2220048.mp4</td><td>.mp4</td><td>18.8 MB</td></tr><tr><td>2220048 秦艺榕 网页录屏.mp4</td><td>.mp4</td><td>10.3 MB</td></tr><tr><td>house.sql</td><td>.sql</td><td>7.1 MB</td></tr><tr><td>house.sql</td><td>.sql</td><td>7.1 MB</td></tr><tr><td>2220048 秦艺榕 web.doc</td><td>.doc</td><td>1.7 MB</td></tr><tr><td>main.py</td><td>.py</td><td>9.2 KB</td></tr><tr><td>admin.py</td><td>.py</td><td>6.2 KB</td></tr><tr><td>register.html</td><td>.html</td><td>6.1 KB</td></tr><tr><td>search.html</td><td>.html</td><td>5.4 KB</td></tr><tr><td>review.html</td><td>.html</td><td>4.4 KB</td></tr><tr><td>models.py</td><td>.py</td><td>3.9 KB</td></tr><tr><td>visualization.html</td><td>.html</td><td>3.7 KB</td></tr><tr><td>index.html</td><td>.html</td><td>3.5 KB</td></tr><tr><td>base.html</td><td>.html</td><td>3.1 KB</td></tr><tr><td>profile.html</td><td>.html</td><td>1.8 KB</td></tr><tr><td>login.html</td><td>.html</td><td>1.4 KB</td></tr><tr><td>main.js</td><td>.js</td><td>1.1 KB</td></tr><tr><td>style.css</td><td>.css</td><td>610 B</td></tr><tr><td>settings.py</td><td>.py</td><td>537 B</td></tr><tr><td>app.py</td><td>.py</td><td>426 B</td></tr><tr><td>__init__.py</td><td>.py</td><td>0 B</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>C1 秦艺榕 冷婷婷 陈艺璇（453 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>666.png</td><td>.png</td><td>444.0 KB</td></tr><tr><td>444.png</td><td>.png</td><td>392.4 KB</td></tr><tr><td>fa-solid-900.ttf</td><td>.ttf</td><td>388.4 KB</td></tr><tr><td>555.png</td><td>.png</td><td>305.9 KB</td></tr><tr><td>05.jpg</td><td>.jpg</td><td>286.8 KB</td></tr><tr><td>details-02.jpg</td><td>.jpg</td><td>274.0 KB</td></tr><tr><td>details-01.jpg</td><td>.jpg</td><td>272.1 KB</td></tr><tr><td>888.png</td><td>.png</td><td>272.0 KB</td></tr><tr><td>999.png</td><td>.png</td><td>263.8 KB</td></tr><tr><td>9999.png</td><td>.png</td><td>239.4 KB</td></tr><tr><td>themify.svg</td><td>.svg</td><td>228.8 KB</td></tr><tr><td>bootstrap.min.css</td><td>.css</td><td>190.3 KB</td></tr><tr><td>777.png</td><td>.png</td><td>189.1 KB</td></tr><tr><td>fa-brands-400.ttf</td><td>.ttf</td><td>181.8 KB</td></tr><tr><td>js.js</td><td>.js</td><td>172.7 KB</td></tr><tr><td>014.jpg</td><td>.jpg</td><td>154.7 KB</td></tr><tr><td>fa-solid-900.woff2</td><td>.woff2</td><td>146.9 KB</td></tr><tr><td>Flaticon.svg</td><td>.svg</td><td>146.3 KB</td></tr><tr><td>style.css</td><td>.css</td><td>146.2 KB</td></tr><tr><td>03.png</td><td>.png</td><td>143.2 KB</td></tr><tr><td>333.png</td><td>.png</td><td>138.2 KB</td></tr><tr><td>masonry-04.jpg</td><td>.jpg</td><td>105.0 KB</td></tr><tr><td>fa-brands-400.woff2</td><td>.woff2</td><td>104.9 KB</td></tr><tr><td>all.min.css</td><td>.css</td><td>99.3 KB</td></tr><tr><td>034.jpg</td><td>.jpg</td><td>97.1 KB</td></tr><tr><td>1.jpg</td><td>.jpg</td><td>95.5 KB</td></tr><tr><td>11.jpg</td><td>.jpg</td><td>95.5 KB</td></tr><tr><td>023.jpg</td><td>.jpg</td><td>92.3 KB</td></tr><tr><td>07.png</td><td>.png</td><td>91.1 KB</td></tr><tr><td>10.png</td><td>.png</td><td>90.8 KB</td></tr><tr><td colspan='3' class='more'>... 另有 423 个文件</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>new-doctor（195 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>fa-solid-900.ttf</td><td>.ttf</td><td>388.4 KB</td></tr><tr><td>05.jpg</td><td>.jpg</td><td>286.8 KB</td></tr><tr><td>details-02.jpg</td><td>.jpg</td><td>274.0 KB</td></tr><tr><td>details-01.jpg</td><td>.jpg</td><td>272.1 KB</td></tr><tr><td>themify.svg</td><td>.svg</td><td>228.8 KB</td></tr><tr><td>bootstrap.min.css</td><td>.css</td><td>190.3 KB</td></tr><tr><td>fa-brands-400.ttf</td><td>.ttf</td><td>181.8 KB</td></tr><tr><td>js.js</td><td>.js</td><td>172.7 KB</td></tr><tr><td>014.jpg</td><td>.jpg</td><td>154.7 KB</td></tr><tr><td>fa-solid-900.woff2</td><td>.woff2</td><td>146.9 KB</td></tr><tr><td>Flaticon.svg</td><td>.svg</td><td>146.3 KB</td></tr><tr><td>style.css</td><td>.css</td><td>146.2 KB</td></tr><tr><td>03.png</td><td>.png</td><td>143.2 KB</td></tr><tr><td>masonry-04.jpg</td><td>.jpg</td><td>105.0 KB</td></tr><tr><td>fa-brands-400.woff2</td><td>.woff2</td><td>104.9 KB</td></tr><tr><td>all.min.css</td><td>.css</td><td>99.3 KB</td></tr><tr><td>项目部署.pdf</td><td>.pdf</td><td>98.8 KB</td></tr><tr><td>034.jpg</td><td>.jpg</td><td>97.1 KB</td></tr><tr><td>1.jpg</td><td>.jpg</td><td>95.5 KB</td></tr><tr><td>11.jpg</td><td>.jpg</td><td>95.5 KB</td></tr><tr><td>023.jpg</td><td>.jpg</td><td>92.3 KB</td></tr><tr><td>07.png</td><td>.png</td><td>91.1 KB</td></tr><tr><td>10.png</td><td>.png</td><td>90.8 KB</td></tr><tr><td>masonry-03.jpg</td><td>.jpg</td><td>88.1 KB</td></tr><tr><td>jquery.min.js</td><td>.js</td><td>87.6 KB</td></tr><tr><td>2.jpg</td><td>.jpg</td><td>86.9 KB</td></tr><tr><td>04.png</td><td>.png</td><td>86.5 KB</td></tr><tr><td>masonry-02.jpg</td><td>.jpg</td><td>84.6 KB</td></tr><tr><td>043.jpg</td><td>.jpg</td><td>81.3 KB</td></tr><tr><td>09.png</td><td>.png</td><td>80.9 KB</td></tr><tr><td colspan='3' class='more'>... 另有 165 个文件</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>医院列表（1 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>医院列表.png</td><td>.png</td><td>118.9 KB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>用户端打包（2285 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>house.sql</td><td>.sql</td><td>7.1 MB</td></tr><tr><td>house.png</td><td>.png</td><td>6.8 MB</td></tr><tr><td>about-bg.jpg</td><td>.jpg</td><td>2.4 MB</td></tr><tr><td>post-bg.jpg</td><td>.jpg</td><td>1.7 MB</td></tr><tr><td>all.js</td><td>.js</td><td>1.1 MB</td></tr><tr><td>all.min.js</td><td>.js</td><td>1.1 MB</td></tr><tr><td>fa-solid-900.svg</td><td>.svg</td><td>796.9 KB</td></tr><tr><td>echarts.min.js</td><td>.js</td><td>700.8 KB</td></tr><tr><td>fa-brands-400.svg</td><td>.svg</td><td>644.4 KB</td></tr><tr><td>solid.svg</td><td>.svg</td><td>641.5 KB</td></tr><tr><td>bootstrap.min.css.map</td><td>.map</td><td>594.5 KB</td></tr><tr><td>solid.js</td><td>.js</td><td>562.2 KB</td></tr><tr><td>solid.min.js</td><td>.js</td><td>550.2 KB</td></tr><tr><td>python.exe</td><td>.exe</td><td>512.6 KB</td></tr><tr><td>pythonw.exe</td><td>.exe</td><td>511.6 KB</td></tr><tr><td>contact-bg.jpg</td><td>.jpg</td><td>488.9 KB</td></tr><tr><td>bootstrap.css.map</td><td>.map</td><td>456.9 KB</td></tr><tr><td>brands.svg</td><td>.svg</td><td>440.0 KB</td></tr><tr><td>fontawesome-webfont.svg</td><td>.svg</td><td>434.0 KB</td></tr><tr><td>brands.js</td><td>.js</td><td>406.9 KB</td></tr><tr><td>brands.min.js</td><td>.js</td><td>400.2 KB</td></tr><tr><td>bootstrap.bundle.js.map</td><td>.map</td><td>380.0 KB</td></tr><tr><td>bootstrap.bundle.min.js.map</td><td>.map</td><td>296.3 KB</td></tr><tr><td>pyparsing.py</td><td>.py</td><td>267.0 KB</td></tr><tr><td>jquery.js</td><td>.js</td><td>265.4 KB</td></tr><tr><td>cacert.pem</td><td>.pem</td><td>257.6 KB</td></tr><tr><td>bootstrap.js.map</td><td>.map</td><td>232.3 KB</td></tr><tr><td>pyparsing.py</td><td>.py</td><td>226.6 KB</td></tr><tr><td>pyparsing.py</td><td>.py</td><td>226.6 KB</td></tr><tr><td>jquery.slim.js</td><td>.js</td><td>213.8 KB</td></tr><tr><td colspan='3' class='more'>... 另有 2255 个文件</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>（根目录）（16 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>关于我们.jpg</td><td>.jpg</td><td>1.4 MB</td></tr><tr><td>首页.jpg</td><td>.jpg</td><td>1.2 MB</td></tr><tr><td>软件需求规格说明书.pdf</td><td>.pdf</td><td>980.5 KB</td></tr><tr><td>web应用开发-实验报告1.doc</td><td>.doc</td><td>648.5 KB</td></tr><tr><td>医院列表.jpg</td><td>.jpg</td><td>454.4 KB</td></tr><tr><td>联系我们.jpg</td><td>.jpg</td><td>442.5 KB</td></tr><tr><td>2220048 秦艺榕 课题规划设计 Web网站设计与开发.docx</td><td>.docx</td><td>362.9 KB</td></tr><tr><td>捐赠.jpg</td><td>.jpg</td><td>332.8 KB</td></tr><tr><td>关于我们.png</td><td>.png</td><td>271.2 KB</td></tr><tr><td>指导网页.jpg</td><td>.jpg</td><td>161.3 KB</td></tr><tr><td>捐赠.png</td><td>.png</td><td>158.1 KB</td></tr><tr><td>联系我们.png</td><td>.png</td><td>150.1 KB</td></tr><tr><td>帮助.jpg</td><td>.jpg</td><td>149.2 KB</td></tr><tr><td>帮助.png</td><td>.png</td><td>56.0 KB</td></tr><tr><td>注册.jpg</td><td>.jpg</td><td>38.5 KB</td></tr><tr><td>登录网页.jpg</td><td>.jpg</td><td>37.9 KB</td></tr></tbody></table>
+            </details>
+        </section>
+        <section class="file-section" id="cat-video" data-cat="video">
+          <h2>四、视频动画与三维制作</h2>
+          <p class="section-desc">AE/PR/C4D 工程、成片视频、信息可视化作品</p>
+          
+          
+            <details class="file-group">
+              <summary>C1 秦艺榕 冷婷婷 陈艺璇（1 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>C1 秦艺榕 冷婷婷 陈艺璇.mp4</td><td>.mp4</td><td>38.0 MB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>UI设计（1 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>录屏文件.mp4</td><td>.mp4</td><td>107.7 MB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>ae（1 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>未命名.prproj</td><td>.prproj</td><td>12.7 KB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>c4d动画合集（15 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>摩天轮.mp4</td><td>.mp4</td><td>6.6 MB</td></tr><tr><td>2220048 秦艺榕 滚动的水滴.mp4</td><td>.mp4</td><td>6.3 MB</td></tr><tr><td>2220048 秦艺榕 变速.mp4</td><td>.mp4</td><td>3.0 MB</td></tr><tr><td>2220048 秦艺榕 游动的鱼.mp4</td><td>.mp4</td><td>2.8 MB</td></tr><tr><td>2220048 秦艺榕时钟.mp4</td><td>.mp4</td><td>2.8 MB</td></tr><tr><td>220048 秦艺榕 切红肠.mp4</td><td>.mp4</td><td>2.8 MB</td></tr><tr><td>2220048 秦艺榕 钟摆.mp4</td><td>.mp4</td><td>2.1 MB</td></tr><tr><td>游动的鱼.mp4</td><td>.mp4</td><td>1.9 MB</td></tr><tr><td>2220048 秦艺榕 路径动画.mp4</td><td>.mp4</td><td>1.5 MB</td></tr><tr><td>2220048 秦艺榕 小球变形.mp4</td><td>.mp4</td><td>1.2 MB</td></tr><tr><td>xiache.mp4</td><td>.mp4</td><td>1.1 MB</td></tr><tr><td>2220048 秦艺榕 水滴滴落.mp4</td><td>.mp4</td><td>1.1 MB</td></tr><tr><td>骨骼.mp4</td><td>.mp4</td><td>569.6 KB</td></tr><tr><td>2220048 秦艺榕 生长动画.mp4</td><td>.mp4</td><td>300.5 KB</td></tr><tr><td>220048 秦艺榕  小球抛物线.mp4</td><td>.mp4</td><td>87.9 KB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>京剧3.aep 日志（1 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>AE 2024-12-18 10-37-13.txt</td><td>.txt</td><td>286 B</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>信息可视化（10 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>京剧2.mp4</td><td>.mp4</td><td>27.8 MB</td></tr><tr><td>京剧1.mp4</td><td>.mp4</td><td>15.9 MB</td></tr><tr><td>京剧3.mp4</td><td>.mp4</td><td>13.4 MB</td></tr><tr><td>京剧2.ai</td><td>.ai</td><td>11.0 MB</td></tr><tr><td>京剧3.ai</td><td>.ai</td><td>9.2 MB</td></tr><tr><td>京剧2.aep</td><td>.aep</td><td>1.2 MB</td></tr><tr><td>京剧3.aep</td><td>.aep</td><td>618.0 KB</td></tr><tr><td>京剧3.prproj</td><td>.prproj</td><td>16.2 KB</td></tr><tr><td>京剧1.prproj</td><td>.prproj</td><td>14.3 KB</td></tr><tr><td>京剧2.prproj</td><td>.prproj</td><td>13.7 KB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>实训文件（4 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>拾筑.mp4</td><td>.mp4</td><td>236.5 MB</td></tr><tr><td>2220048 秦艺榕 剧本视频.mp4</td><td>.mp4</td><td>108.3 MB</td></tr><tr><td>《拾筑》.pptx</td><td>.pptx</td><td>4.1 MB</td></tr><tr><td>《拾筑》设计报告.doc</td><td>.doc</td><td>35.0 KB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>杂七杂八（4 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>剧本.mp4</td><td>.mp4</td><td>404.7 MB</td></tr><tr><td>小熊.c4d</td><td>.c4d</td><td>594.2 KB</td></tr><tr><td>人.c4d</td><td>.c4d</td><td>195.0 KB</td></tr><tr><td>未命名.prproj</td><td>.prproj</td><td>46.9 KB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>梨园之韵（6 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>梨园之韵 最终成品.mp4</td><td>.mp4</td><td>239.9 MB</td></tr><tr><td>海报制作.ai</td><td>.ai</td><td>9.2 MB</td></tr><tr><td>海报动画制作.aep</td><td>.aep</td><td>618.0 KB</td></tr><tr><td>梨园之韵 第一版初剪辑.prproj</td><td>.prproj</td><td>40.2 KB</td></tr><tr><td>第二版整体优化.prproj</td><td>.prproj</td><td>21.6 KB</td></tr><tr><td>海报ae动画导出.avi.baiduyun.uploading.cfg</td><td>.cfg</td><td>429 B</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>（根目录）（14 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>mg标题.avi</td><td>.avi</td><td>676.3 MB</td></tr><tr><td>mg开头.avi</td><td>.avi</td><td>652.6 MB</td></tr><tr><td>wanshp.avi</td><td>.avi</td><td>593.3 MB</td></tr><tr><td>赛博朋克.avi</td><td>.avi</td><td>427.7 MB</td></tr><tr><td>赛博.avi</td><td>.avi</td><td>427.2 MB</td></tr><tr><td>梨园.mp4</td><td>.mp4</td><td>237.8 MB</td></tr><tr><td>2220048 秦艺榕_1.mp4</td><td>.mp4</td><td>158.9 MB</td></tr><tr><td>2220048 秦艺榕.mp4</td><td>.mp4</td><td>80.5 MB</td></tr><tr><td>京剧.ai</td><td>.ai</td><td>70.9 MB</td></tr><tr><td>京剧2_1.mp4</td><td>.mp4</td><td>51.8 MB</td></tr><tr><td>京剧1.ai</td><td>.ai</td><td>41.9 MB</td></tr><tr><td>京剧修改后.mp4</td><td>.mp4</td><td>20.2 MB</td></tr><tr><td>京剧修改后_1.mp4</td><td>.mp4</td><td>9.9 MB</td></tr><tr><td>京剧1.aep</td><td>.aep</td><td>1.2 MB</td></tr></tbody></table>
+            </details>
+        </section>
+        <section class="file-section" id="cat-visual" data-cat="visual">
+          <h2>五、品牌视觉与平面设计</h2>
+          <p class="section-desc">LOGO、海报、PPT 视觉、文创设计</p>
+          
+          
+            <details class="file-group">
+              <summary>UI设计（4 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>第9组“文人四友”.pptx</td><td>.pptx</td><td>18.9 MB</td></tr><tr><td>2220048 秦艺榕 名字logo-恢复的.psd</td><td>.psd</td><td>1002.4 KB</td></tr><tr><td>2220048 秦艺榕 名字logo-恢复的.png</td><td>.png</td><td>45.0 KB</td></tr><tr><td>logo.png</td><td>.png</td><td>29.4 KB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>杂七杂八（2 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>非遗文化.pptx</td><td>.pptx</td><td>15.8 MB</td></tr><tr><td>手工DIY解压“捏捏乐”.pptx</td><td>.pptx</td><td>391.2 KB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>画布 (2)（1 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>工作台.png</td><td>.png</td><td>362.4 KB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>（根目录）（4 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>美甲.png</td><td>.png</td><td>218.3 MB</td></tr><tr><td>2220048 秦艺榕 名字logo.png</td><td>.png</td><td>473.3 KB</td></tr><tr><td>名字logo.png</td><td>.png</td><td>155.4 KB</td></tr><tr><td>生态_ 树叶_ 自然图标(Eco_ leaves_ natu-ai_爱给网_aigei_com.ai</td><td>.ai</td><td>1.7 KB</td></tr></tbody></table>
+            </details>
+        </section>
+        <section class="file-section" id="cat-work" data-cat="work">
+          <h2>六、实习与工作项目</h2>
+          <p class="section-desc">实习相关产出（如有）</p>
+          
+          <p class="empty">暂无独立文件</p>
+        </section>
+        <section class="file-section" id="cat-live" data-cat="live">
+          <h2>七、直播运营与传媒实践</h2>
+          <p class="section-desc">校招直播、带货运营、直播流程策划与数据统计</p>
+          
+          
+            <details class="file-group">
+              <summary>（根目录）（7 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>直播暑期班报名表.doc</td><td>.doc</td><td>59.5 KB</td></tr><tr><td>校招直播流程.docx</td><td>.docx</td><td>22.6 KB</td></tr><tr><td>各主播任务表.xlsx</td><td>.xlsx</td><td>18.9 KB</td></tr><tr><td>2025新生直播5天行程  8.29修改.xlsx</td><td>.xlsx</td><td>17.2 KB</td></tr><tr><td>副本副本直播暑期班统计表0626(1).xlsx</td><td>.xlsx</td><td>16.6 KB</td></tr><tr><td>副本直播暑期班统计表.xlsx</td><td>.xlsx</td><td>16.3 KB</td></tr><tr><td>广告用语禁用词汇.docx</td><td>.docx</td><td>14.7 KB</td></tr></tbody></table>
+            </details>
+        </section>
+        <section class="file-section" id="cat-resume" data-cat="resume">
+          <h2>八、简历与个人资料</h2>
+          <p class="section-desc">个人简历、写真、演员模卡、社会实践等个人展示材料</p>
+          
+          
+            <details class="file-group">
+              <summary>个人写真（69 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>微信图片_20250921203556_9_29.jpg</td><td>.jpg</td><td>8.4 MB</td></tr><tr><td>微信图片_20250921203558_10_29.jpg</td><td>.jpg</td><td>8.2 MB</td></tr><tr><td>微信图片_20250921211338_13_29.jpg</td><td>.jpg</td><td>3.2 MB</td></tr><tr><td>微信图片_20250921211341_14_29.jpg</td><td>.jpg</td><td>3.0 MB</td></tr><tr><td>微信图片_20250917125020_130_132.png</td><td>.png</td><td>2.5 MB</td></tr><tr><td>微信图片_20250921220141_1444_77.png</td><td>.png</td><td>2.3 MB</td></tr><tr><td>微信图片_20250917212632_152_132.jpg</td><td>.jpg</td><td>1.5 MB</td></tr><tr><td>微信图片_20250917212416_151_132.jpg</td><td>.jpg</td><td>1.3 MB</td></tr><tr><td>微信图片_20250917211638_144_132.jpg</td><td>.jpg</td><td>1.2 MB</td></tr><tr><td>微信图片_20250917210230_137_132.jpg</td><td>.jpg</td><td>1.1 MB</td></tr><tr><td>微信图片_20250917211955_145_132.jpg</td><td>.jpg</td><td>1.0 MB</td></tr><tr><td>微信图片_20250917211254_143_132.jpg</td><td>.jpg</td><td>1.0 MB</td></tr><tr><td>微信图片_20250917210130_136_132.jpg</td><td>.jpg</td><td>1.0 MB</td></tr><tr><td>微信图片_20250917212415_150_132.jpg</td><td>.jpg</td><td>987.5 KB</td></tr><tr><td>微信图片_20250917210639_140_132.jpg</td><td>.jpg</td><td>956.7 KB</td></tr><tr><td>微信图片_20250917124633_128_132.jpg</td><td>.jpg</td><td>880.9 KB</td></tr><tr><td>微信图片_20250917211957_146_132.jpg</td><td>.jpg</td><td>847.1 KB</td></tr><tr><td>微信图片_20250921214116_1415_77.jpg</td><td>.jpg</td><td>612.6 KB</td></tr><tr><td>微信图片_20250917211958_147_132.jpg</td><td>.jpg</td><td>583.0 KB</td></tr><tr><td>微信图片_20250917124359_126_132.jpg</td><td>.jpg</td><td>495.6 KB</td></tr><tr><td>微信图片_20250917124350_120_132.jpg</td><td>.jpg</td><td>475.4 KB</td></tr><tr><td>微信图片_20250917124356_123_132.jpg</td><td>.jpg</td><td>463.4 KB</td></tr><tr><td>微信图片_20250917124401_127_132.jpg</td><td>.jpg</td><td>457.3 KB</td></tr><tr><td>微信图片_20250917113202_89_132.jpg</td><td>.jpg</td><td>443.5 KB</td></tr><tr><td>微信图片_20250917124355_122_132.jpg</td><td>.jpg</td><td>439.3 KB</td></tr><tr><td>微信图片_20250917124358_125_132.jpg</td><td>.jpg</td><td>428.0 KB</td></tr><tr><td>微信图片_20250917211959_148_132.jpg</td><td>.jpg</td><td>393.2 KB</td></tr><tr><td>微信图片_20250921214109_1413_77.jpg</td><td>.jpg</td><td>334.0 KB</td></tr><tr><td>微信图片_20250917212001_149_132.jpg</td><td>.jpg</td><td>329.1 KB</td></tr><tr><td>微信图片_20250917210045_135_132.jpg</td><td>.jpg</td><td>317.8 KB</td></tr><tr><td colspan='3' class='more'>... 另有 39 个文件</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>杂七杂八（1 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>认识实习汇报.pptx</td><td>.pptx</td><td>16.7 MB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>（根目录）（9 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>演员 秦艺榕.pptx</td><td>.pptx</td><td>14.8 MB</td></tr><tr><td>模特 秦艺榕.pptx</td><td>.pptx</td><td>9.1 MB</td></tr><tr><td>秦艺榕个人简历.pptx</td><td>.pptx</td><td>4.1 MB</td></tr><tr><td>演员资料.docx</td><td>.docx</td><td>2.0 MB</td></tr><tr><td>2220048 秦艺榕 社会实践考核表.pdf</td><td>.pdf</td><td>1.7 MB</td></tr><tr><td>附件3：临时住宿证.docx</td><td>.docx</td><td>727.0 KB</td></tr><tr><td>2220048 秦艺榕 社会实践考核表.docx</td><td>.docx</td><td>126.5 KB</td></tr><tr><td>2220048 秦艺榕 个人简历.docx</td><td>.docx</td><td>83.9 KB</td></tr><tr><td>附件1：假期留宿申请表.docx</td><td>.docx</td><td>20.8 KB</td></tr></tbody></table>
+            </details>
+        </section>
+        <section class="file-section" id="cat-archive" data-cat="archive">
+          <h2>九、压缩包与备份</h2>
+          <p class="section-desc">项目打包压缩文件</p>
+          
+          
+            <details class="file-group">
+              <summary>（根目录）（4 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>信息可视化.zip</td><td>.zip</td><td>593.7 MB</td></tr><tr><td>梨园之韵.zip</td><td>.zip</td><td>242.3 MB</td></tr><tr><td>信息可视化 (2).zip</td><td>.zip</td><td>69.5 MB</td></tr><tr><td>healthy.zip</td><td>.zip</td><td>32.0 MB</td></tr></tbody></table>
+            </details>
+        </section>
+        <section class="file-section" id="cat-misc" data-cat="misc">
+          <h2>十、素材杂项与待整理</h2>
+          <p class="section-desc">零散素材、截图、待归档文件</p>
+          
+          
+            <details class="file-group">
+              <summary>C1 秦艺榕 冷婷婷 陈艺璇（1 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>网页展板.jpg</td><td>.jpg</td><td>2.0 MB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>杂七杂八（1 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>2220048秦艺榕.png</td><td>.png</td><td>424.0 KB</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>目前.aep 日志（7 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>AE 2025-5-31 2-55-59.txt</td><td>.txt</td><td>291 B</td></tr><tr><td>AE 2025-5-31 4-04-54.txt</td><td>.txt</td><td>283 B</td></tr><tr><td>AE 2025-5-31 4-24-16.txt</td><td>.txt</td><td>283 B</td></tr><tr><td>AE 2025-5-31 2-52-15.txt</td><td>.txt</td><td>273 B</td></tr><tr><td>AE 2025-5-31 4-06-19.txt</td><td>.txt</td><td>272 B</td></tr><tr><td>AE 2025-5-31 4-08-43.txt</td><td>.txt</td><td>272 B</td></tr><tr><td>AE 2025-5-31 3-44-49.txt</td><td>.txt</td><td>270 B</td></tr></tbody></table>
+            </details>
+            <details class="file-group">
+              <summary>（根目录）（6 个文件）</summary>
+              <table><thead><tr><th>文件名</th><th>类型</th><th>大小</th></tr></thead><tbody><tr><td>微信图片_20250917004749_86_132.png</td><td>.png</td><td>1.2 MB</td></tr><tr><td>微信图片_20250619010736.jpg</td><td>.jpg</td><td>687.4 KB</td></tr><tr><td>微信图片_20250619010815.png</td><td>.png</td><td>460.8 KB</td></tr><tr><td>健康医疗网站1.png</td><td>.png</td><td>93.1 KB</td></tr><tr><td>健康医疗网站.png</td><td>.png</td><td>83.1 KB</td></tr><tr><td>作品集分类整理.md</td><td>.md</td><td>24.8 KB</td></tr></tbody></table>
+            </details>
+        </section>
+  </div>
+  <script>
+    const cards = document.querySelectorAll('.cat-card');
+    const sections = document.querySelectorAll('.file-section');
+    const btns = document.querySelectorAll('.filter-btn');
+    function filter(cat) {
+      btns.forEach(b => b.classList.toggle('active', b.dataset.filter === cat));
+      cards.forEach(c => c.classList.toggle('active', cat === 'all' || c.dataset.cat === cat));
+      sections.forEach(s => s.classList.toggle('hidden', cat !== 'all' && s.dataset.cat !== cat));
+    }
+    btns.forEach(b => b.addEventListener('click', () => filter(b.dataset.filter)));
+    cards.forEach(c => c.addEventListener('click', () => {
+      filter(c.dataset.cat);
+      document.getElementById('cat-' + c.dataset.cat)?.scrollIntoView({ behavior:'smooth' });
+    }));
+  </script>
+</body>
+</html>

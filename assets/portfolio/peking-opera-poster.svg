@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#4a1942"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <circle cx="400" cy="200" r="80" fill="none" stroke="#c9a962" stroke-width="3" opacity="0.6"/>
+  <path d="M320 280 Q400 180 480 280" fill="none" stroke="#c45c4a" stroke-width="4"/>
+  <text x="400" y="360" text-anchor="middle" fill="#fff" font-size="36" font-family="serif">��K�</text>
+  <text x="400" y="400" text-anchor="middle" fill="#e8a090" font-size="18" font-family="sans-serif">�g��o�� � AE / PR</text>
+</svg>

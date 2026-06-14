@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-nav-root="../" data-video-index="index.html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C4D 三维动画 · 秦艺榕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="video.css">
+</head>
+<body class="video-page">
+  <nav class="nav" id="nav"></nav>
+  <div class="wrap">
+    <div class="topbar">
+      <a href="index.html" class="back-link">← 视频索引</a>
+      <span class="breadcrumb">作品集 / 视频 / C4D 动画</span>
+    </div>
+    <div class="page-hero">
+      <span class="page-tag">Cinema 4D</span>
+      <h1 class="page-title">C4D 三维动画练习合集</h1>
+      <p class="page-desc">三维模型设计与制作课程练习，涵盖刚体动力学、路径动画、变形器、粒子与摩天轮等综合场景，展示三维空间感知与动画节奏把控能力。</p>
+    </div>
+    <div class="main-player">
+      <video id="mainVideo" controls playsinline preload="metadata"></video>
+      <div class="player-info">
+        <h2 id="playerTitle">加载中…</h2>
+        <p id="playerDesc"></p>
+      </div>
+    </div>
+    <div class="video-grid" id="videoGrid"></div>
+  </div>
+  <script src="../nav.js"></script>
+  <script src="video-player.js"></script>
+  <script>
+    initVideoPage([
+      { id: 'water-roll', title: '滚动的水滴', desc: '流体形态路径动画', file: 'water-roll.mp4', size: '6.3 MB' },
+      { id: 'pendulum', title: '钟摆', desc: '刚体钟摆动力学', file: 'pendulum.mp4', size: '2.1 MB' },
+      { id: 'clock', title: '时钟', desc: '机械结构运动模拟', file: 'clock.mp4', size: '2.8 MB' },
+      { id: 'path-motion', title: '路径动画', desc: '沿样条线路径运动', file: 'path-motion.mp4', size: '1.5 MB' },
+      { id: 'water-drop', title: '水滴滴落', desc: '粒子与碰撞模拟', file: 'water-drop.mp4', size: '1.1 MB' },
+      { id: 'growth', title: '生长动画', desc: '缩放生长关键帧', file: 'growth.mp4', size: '0.3 MB' },
+    ], { assetBase: '../assets/videos/c4d/' });
+  </script>
+</body>
+</html>

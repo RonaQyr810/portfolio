@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="./favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#4A90E2" />
+  <title>日薪喵 - 每秒收入计算器</title>
+  <script>
+    (function () {
+      var path = location.pathname;
+      if (!/\/play\.html$/i.test(path) && !path.endsWith('/')) {
+        location.replace(path + '.html' + location.search + location.hash);
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="./assets/index-BNystv7s.css" />
+  <script>
+    try { localStorage.removeItem('salary-pet-cloud-token'); } catch (e) {}
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+  <div id="overlay-root"></div>
+  <script src="./bundle.js"></script>
+</body>
+</html>

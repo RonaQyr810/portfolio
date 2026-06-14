@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>墨演 MoYan · 在线演示</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1a1410;
+      --card: #2a221c;
+      --text: #f5efe6;
+      --muted: #a89f94;
+      --accent: #c45c3e;
+      --border: rgba(255,255,255,.08);
+    }
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: radial-gradient(ellipse at top, #3d2e24 0%, var(--bg) 55%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 64px;
+    }
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .9rem;
+      margin-bottom: 32px;
+    }
+    .back:hover { color: var(--text); }
+    h1 {
+      font-family: 'Noto Serif SC', serif;
+      font-size: clamp(2rem, 5vw, 2.6rem);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .subtitle { color: var(--muted); margin-bottom: 28px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #888;
+      flex-shrink: 0;
+    }
+    .dot.live { background: #4ade80; box-shadow: 0 0 12px rgba(74,222,128,.5); }
+    .dot.wait { background: #fbbf24; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 50% { opacity: .4; } }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-size: .95rem;
+      font-family: inherit;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { filter: brightness(1.08); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--muted); }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    ol { padding-left: 1.25rem; color: var(--muted); }
+    ol li { margin: 8px 0; }
+    code {
+      background: rgba(0,0,0,.25);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: .88rem;
+    }
+    .features {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .feature {
+      padding: 12px 14px;
+      background: rgba(0,0,0,.2);
+      border-radius: 10px;
+      font-size: .92rem;
+      color: var(--muted);
+    }
+    iframe {
+      width: 100%;
+      height: 70vh;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-top: 20px;
+      background: #111;
+    }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a href="../../index.html#portfolio" class="back">← 返回作品集</a>
+    <h1>墨演 MoYan</h1>
+    <p class="subtitle">AI 辅助剧本创作 · 小说自动转结构化 YAML 剧本</p>
+
+    <div class="card" id="launcher">
+      <div class="status">
+        <span class="dot wait" id="statusDot"></span>
+        <span id="statusText">正在检测演示服务…</span>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" id="openApp" href="http://127.0.0.1:3010" target="_blank" rel="noopener">进入在线演示</a>
+        <button type="button" class="btn btn-outline" id="retryBtn">重新检测</button>
+      </div>
+      <div id="instructions" class="hidden" style="margin-top:24px">
+        <p style="color:var(--muted);margin-bottom:12px">墨演需要本地 Node 服务（含 Mock AI 模式，无需 API Key）：</p>
+        <ol>
+          <li>双击运行本目录下的 <code>start-demo.bat</code></li>
+          <li>等待终端出现 <code>Ready</code> 或 <code>started server</code></li>
+          <li>点击上方「进入在线演示」，或直接访问 <code>http://127.0.0.1:3010</code></li>
+        </ol>
+        <p style="color:var(--muted);margin-top:12px;font-size:.9rem">提示：若你是直接双击打开的 HTML，检测可能不准确，但服务启动后仍可直接点击上方按钮进入。</p>
+      </div>
+      <div class="features">
+        <div class="feature">📖 粘贴文本 / 上传 .txt、.docx，自动识别分章</div>
+        <div class="feature">🤖 Mock 模式可完整体验转换流程（无需七牛 API）</div>
+        <div class="feature">📜 三视图：卷轴 YAML / 场景卡片 / 书场剧本排版</div>
+      </div>
+    </div>
+
+    <div class="card hidden" id="embedCard">
+      <p style="margin-bottom:8px;font-weight:600">演示已就绪，可直接在下方操作：</p>
+      <iframe id="demoFrame" src="about:blank" title="墨演演示"></iframe>
+    </div>
+  </div>
+  <script>
+    const DEMO_URL = 'http://127.0.0.1:3010';
+    const statusDot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
+    const openApp = document.getElementById('openApp');
+    const instructions = document.getElementById('instructions');
+    const embedCard = document.getElementById('embedCard');
+    const demoFrame = document.getElementById('demoFrame');
+    const retryBtn = document.getElementById('retryBtn');
+
+    const isHttpPage = location.protocol === 'http:' || location.protocol === 'https:';
+    const isLocalHost = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
+    function probeServer() {
+      return new Promise(resolve => {
+        const img = new Image();
+        const timer = setTimeout(() => {
+          img.src = '';
+          resolve(false);
+        }, 3000);
+        img.onload = () => { clearTimeout(timer); resolve(true); };
+        img.onerror = () => { clearTimeout(timer); resolve(false); };
+        img.src = DEMO_URL + '/favicon.ico?t=' + Date.now();
+      });
+    }
+
+    async function checkServer() {
+      statusDot.className = 'dot wait';
+      statusText.textContent = '正在检测演示服务…';
+      instructions.classList.add('hidden');
+      embedCard.classList.add('hidden');
+
+      const live = await probeServer();
+      if (live) onLive();
+      else onOffline();
+    }
+
+    function onLive() {
+      statusDot.className = 'dot live';
+      statusText.textContent = '演示服务已运行';
+      openApp.textContent = '进入在线演示';
+      instructions.classList.add('hidden');
+      if (isHttpPage) {
+        embedCard.classList.remove('hidden');
+        demoFrame.src = DEMO_URL;
+      }
+    }
+
+    function onOffline() {
+      statusDot.className = 'dot';
+      statusText.textContent = '演示服务未启动';
+      openApp.textContent = '尝试打开演示（需先启动服务）';
+      instructions.classList.remove('hidden');
+      embedCard.classList.add('hidden');
+      demoFrame.src = 'about:blank';
+    }
+
+    retryBtn.addEventListener('click', checkServer);
+    if (isHttpPage && !isLocalHost) {
+      onOffline();
+      statusText.textContent = '在线版暂不提供墨演演示（需本地 Node 服务）';
+      openApp.textContent = '查看项目说明';
+      openApp.href = '#';
+      openApp.onclick = (e) => { e.preventDefault(); instructions.classList.remove('hidden'); };
+    } else {
+      checkServer();
+    }
+    setInterval(checkServer, 5000);
+  </script>
+</body>
+</html>
