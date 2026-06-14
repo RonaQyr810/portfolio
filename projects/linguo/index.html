@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>同声传译 Linguo · 秦艺榕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1724;
+      --card: #1a2433;
+      --text: #e8edf2;
+      --muted: #8fa8b8;
+      --accent: #6366f1;
+      --accent2: #22d3ee;
+      --border: rgba(255,255,255,.08);
+    }
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: radial-gradient(ellipse at top, #1e2d45 0%, var(--bg) 55%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 48px 24px 72px; }
+    .back { color: var(--muted); text-decoration: none; font-size: .9rem; display: inline-block; margin-bottom: 28px; }
+    .tag {
+      display: inline-block;
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 12px;
+    }
+    h1 { font-size: 2rem; margin-bottom: 12px; }
+    .lead { color: var(--muted); margin-bottom: 28px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px 28px;
+      margin-bottom: 20px;
+    }
+    .card h2 { font-size: 1rem; margin-bottom: 12px; color: var(--accent); }
+    ul { padding-left: 1.2em; color: #c5d2dc; }
+    li { margin-bottom: 8px; }
+    .lang-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .lang-chip {
+      font-size: .85rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(99, 102, 241, .15);
+      border: 1px solid rgba(99, 102, 241, .3);
+      color: #c7d2fe;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-weight: 500;
+      text-decoration: none;
+      font-size: .92rem;
+    }
+    .btn-outline { border: 1px solid var(--border); color: var(--text); }
+    .note {
+      margin-top: 24px;
+      padding: 16px 18px;
+      border-radius: 12px;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      font-size: .9rem;
+      color: #b8c9d4;
+    }
+    code { background: rgba(0,0,0,.25); padding: 2px 6px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="../../index.html#portfolio">← 返回作品集</a>
+    <span class="tag">AI · Real-time Interpretation</span>
+    <h1>同声传译 Linguo</h1>
+    <p class="lead">面向面对面双语对话的 AI 同声传译应用。支持双向实时语音识别、即时翻译、语音朗读与双语对照记录，Web 与 iOS（Capacitor）双端可用。</p>
+
+    <div class="card">
+      <h2>核心能力</h2>
+      <ul>
+        <li>双向对话模式：自动识别说话语种，实时翻译到对方语言</li>
+        <li>双引擎语音识别：Web Speech API + Capacitor 原生识别，支持中英文自动切换</li>
+        <li>在线 / 离线翻译：OpenAI 云端翻译 + 本地 CTranslate2 离线兜底</li>
+        <li>本地 Whisper ASR 后端：FastAPI 提供音频转写与 WebSocket 流式传译</li>
+        <li>双语对照记录：支持复制、导出与清空会话</li>
+        <li>文本翻译栏：手动输入文本即时翻译</li>
+      </ul>
+      <div class="lang-grid">
+        <span class="lang-chip">🇨🇳 中文</span>
+        <span class="lang-chip">🇺🇸 英语</span>
+        <span class="lang-chip">🇯🇵 日语</span>
+        <span class="lang-chip">🇰🇷 韩语</span>
+        <span class="lang-chip">🇫🇷 法语</span>
+        <span class="lang-chip">🇩🇪 德语</span>
+        <span class="lang-chip">🇪🇸 西班牙语</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>技术栈</h2>
+      <ul>
+        <li>前端：React + TypeScript + Vite + Tailwind CSS + Capacitor iOS</li>
+        <li>后端：FastAPI + OpenAI API + 本地 Whisper 转写</li>
+        <li>离线：CTranslate2 本地翻译引擎（无网络时可用）</li>
+      </ul>
+    </div>
+
+    <div class="actions">
+      <a class="btn btn-outline" href="../../index.html#contact">联系我体验完整版</a>
+    </div>
+
+    <p class="note">本项目为全栈应用，需启动 Python 后端并配置 API Key 才能完整运行，无法像静态页面一样直接嵌入。本地可在桌面 <code>同声传译</code> 目录启动前后端；iOS 版已通过 Capacitor 打包。</p>
+  </div>
+</body>
+</html>

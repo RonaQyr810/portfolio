@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>野生动物收容救护平台 - H5线框图</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; background: #f0f2f5; padding: 20px; }
+.container { display: flex; flex-wrap: wrap; gap: 32px; justify-content: center; }
+.page-label { text-align: center; font-size: 13px; color: #666; margin-bottom: 8px; font-weight: 600; }
+.phone { width: 375px; height: 740px; background: #fff; border-radius: 40px; border: 3px solid #222; overflow: hidden; position: relative; flex-shrink: 0; box-shadow: 0 8px 40px rgba(0,0,0,0.12); }
+.phone-inner { height: 100%; display: flex; flex-direction: column; }
+.status-bar { height: 44px; background: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; font-size: 12px; color: #333; font-weight: 600; flex-shrink: 0; }
+.nav-bar { height: 44px; background: #fff; display: flex; align-items: center; padding: 0 16px; border-bottom: 1px solid #f0f0f0; font-size: 17px; font-weight: 600; color: #333; flex-shrink: 0; }
+.nav-bar .back { color: #1677ff; margin-right: 8px; font-size: 20px; cursor: pointer; }
+.content { flex: 1; overflow-y: auto; background: #f5f5f5; }
+.tab-bar { height: 56px; background: #fff; display: flex; border-top: 1px solid #e8e8e8; flex-shrink: 0; }
+.tab-bar .tab { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; color: #999; gap: 2px; }
+.tab-bar .tab.active { color: #1677ff; }
+.tab-bar .tab .icon { font-size: 20px; }
+.badge { background: #ff4d4f; color: #fff; font-size: 10px; padding: 0 5px; border-radius: 10px; margin-left: 4px; }
+
+/* Cards */
+.card { background: #fff; margin: 12px; border-radius: 12px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.card-urgent { border-left: 4px solid #ff4d4f; }
+.card-warn { border-left: 4px solid #faad14; }
+.card-title { font-size: 15px; font-weight: 600; color: #333; margin-bottom: 6px; }
+.card-sub { font-size: 13px; color: #888; margin-bottom: 3px; }
+.card-status { display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 4px; margin-top: 4px; }
+.status-red { background: #fff1f0; color: #ff4d4f; }
+.status-yellow { background: #fffbe6; color: #faad14; }
+.status-blue { background: #e6f4ff; color: #1677ff; }
+.status-green { background: #f6ffed; color: #52c41a; }
+.status-gray { background: #f5f5f5; color: #999; }
+
+/* FAB */
+.fab { position: absolute; bottom: 72px; right: 16px; width: 56px; height: 56px; background: #1677ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 28px; box-shadow: 0 4px 12px rgba(22,119,255,0.4); cursor: pointer; z-index: 10; }
+
+/* Segmented */
+.seg { display: flex; margin: 12px; background: #f0f0f0; border-radius: 8px; overflow: hidden; }
+.seg-item { flex: 1; text-align: center; padding: 8px 0; font-size: 14px; color: #666; cursor: pointer; }
+.seg-item.active { background: #fff; color: #1677ff; font-weight: 600; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+
+/* Form */
+.form-group { margin: 12px 16px; }
+.form-label { font-size: 14px; color: #333; margin-bottom: 6px; font-weight: 500; }
+.form-label .req { color: #ff4d4f; }
+.form-input { width: 100%; padding: 10px 12px; border: 1px solid #d9d9d9; border-radius: 8px; font-size: 14px; background: #fafafa; }
+.form-hint { font-size: 12px; color: #bbb; margin-top: 4px; }
+
+/* Chips */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 16px; }
+.chip { padding: 6px 14px; border: 1px solid #d9d9d9; border-radius: 20px; font-size: 13px; color: #666; cursor: pointer; background: #fff; }
+.chip.selected { background: #e6f4ff; border-color: #1677ff; color: #1677ff; }
+
+/* Radio */
+.radios { display: flex; gap: 16px; margin: 12px 16px; }
+.radio { font-size: 14px; color: #333; cursor: pointer; }
+
+/* Button */
+.btn { width: calc(100% - 32px); margin: 12px 16px; padding: 12px; border-radius: 8px; font-size: 16px; font-weight: 600; text-align: center; cursor: pointer; border: none; }
+.btn-primary { background: #1677ff; color: #fff; }
+.btn-secondary { background: #f0f5ff; color: #1677ff; border: 1px solid #1677ff; }
+.btn-row { display: flex; gap: 12px; padding: 12px 16px; }
+.btn-row .btn { margin: 0; flex: 1; }
+
+/* Bottom Sheet */
+.sheet-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 20; display: flex; align-items: flex-end; }
+.sheet { background: #fff; width: 100%; border-radius: 16px 16px 0 0; padding: 16px 0; max-height: 70%; overflow-y: auto; }
+.sheet-handle { width: 40px; height: 4px; background: #d9d9d9; border-radius: 2px; margin: 0 auto 12px; }
+.sheet-title { font-size: 17px; font-weight: 600; text-align: center; margin-bottom: 16px; color: #333; }
+.sheet-close { position: absolute; right: 16px; top: 20px; font-size: 18px; color: #999; cursor: pointer; }
+
+/* Timeline */
+.timeline { padding: 12px 16px; }
+.tl-item { display: flex; margin-bottom: 16px; }
+.tl-dot { width: 12px; height: 12px; border-radius: 50%; background: #1677ff; margin-top: 4px; flex-shrink: 0; margin-right: 12px; }
+.tl-dot.gray { background: #d9d9d9; }
+.tl-body { flex: 1; }
+.tl-time { font-size: 12px; color: #999; margin-bottom: 2px; }
+.tl-text { font-size: 14px; color: #333; line-height: 1.5; }
+.tl-sub { font-size: 13px; color: #888; }
+
+/* Stat cards */
+.stat-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; padding: 12px; }
+.stat-card { background: #fff; border-radius: 8px; padding: 12px 8px; text-align: center; }
+.stat-num { font-size: 24px; font-weight: 700; color: #333; }
+.stat-label { font-size: 11px; color: #999; margin-top: 2px; }
+
+/* Bar chart placeholder */
+.bar-chart { padding: 12px 16px; }
+.bar-row { display: flex; align-items: center; margin-bottom: 8px; }
+.bar-label { font-size: 12px; color: #666; width: 40px; }
+.bar-fill { height: 20px; background: #1677ff; border-radius: 4px; margin-right: 8px; opacity: 0.8; }
+.bar-val { font-size: 12px; color: #333; }
+
+/* Checklist */
+.checklist { margin: 12px 16px; }
+.check-item { display: flex; align-items: center; margin-bottom: 10px; font-size: 14px; }
+.check-icon { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; font-size: 12px; font-weight: 700; }
+.check-pass { background: #f6ffed; color: #52c41a; border: 1px solid #b7eb8f; }
+.check-fail { background: #fff1f0; color: #ff4d4f; border: 1px solid #ffa39e; }
+
+/* Upload area */
+.upload-row { display: flex; gap: 12px; margin: 12px 16px; }
+.upload-box { width: 72px; height: 72px; border: 2px dashed #d9d9d9; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 24px; cursor: pointer; }
+
+/* Alert banner */
+.alert-banner { margin: 0; padding: 8px 16px; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+.alert-warn { background: #fffbe6; color: #d48806; }
+.alert-error { background: #fff1f0; color: #cf1322; }
+
+/* Annotation */
+.anno { position: absolute; z-index: 30; }
+.anno-box { background: #fff7e6; border: 1px solid #ffd591; border-radius: 6px; padding: 6px 10px; font-size: 11px; color: #d46b08; line-height: 1.4; max-width: 160px; }
+.anno-arrow { color: #ffd591; font-size: 16px; }
+
+h1 { text-align: center; margin-bottom: 8px; font-size: 24px; color: #333; }
+.subtitle { text-align: center; margin-bottom: 32px; font-size: 14px; color: #999; }
+.section-title { width: 100%; text-align: center; font-size: 18px; font-weight: 700; color: #333; margin: 40px 0 16px; padding-top: 24px; border-top: 2px solid #e8e8e8; }
+.flow-note { width: 100%; text-align: center; font-size: 13px; color: #888; margin-bottom: 24px; line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<h1>野生动物收容救护管理平台 · H5线框图</h1>
+<p class="subtitle">救护工作台(4页) + 管理后台(2页) + 市民端(2页) · 共8个页面 · 底部抽屉交互 · 动物分类 · QR码 · 物流追踪</p>
+
+<div class="container">
+
+<!-- ====== 页面1：工单列表 ====== -->
+<div>
+  <p class="page-label">工作台·页面1：工单列表（含新建底部抽屉）</p>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="nav-bar">
+        救护工作台
+        <span style="margin-left:auto; font-size:18px; color:#ff4d4f; cursor:pointer;" onclick="document.getElementById('alertPage').style.display='flex'">🔔<span class="badge">3</span></span>
+      </div>
+      <div class="seg">
+        <div class="seg-item active">待办(3)</div>
+        <div class="seg-item">已办</div>
+      </div>
+      <div class="content">
+        <div class="card card-urgent" onclick="document.getElementById('detailPage').style.display='flex'" style="cursor:pointer">
+          <div class="card-title">FX260609003</div>
+          <div class="card-sub">白鹭 · 浦东新区世纪大道100号</div>
+          <div class="card-sub">受伤 · 本土物种</div>
+          <span class="card-status status-red">待响应 · 已超24h ⚠️</span>
+        </div>
+        <div class="card card-warn" style="cursor:pointer">
+          <div class="card-title">FX260609002</div>
+          <div class="card-sub">猕猴 · 奉贤区南亭公路</div>
+          <div class="card-sub">生病 · 国家重点保护</div>
+          <span class="card-status status-yellow">处理中 · 已用20h</span>
+        </div>
+        <div class="card" style="cursor:pointer">
+          <div class="card-title">FX260609001</div>
+          <div class="card-sub">珠颈斑鸠 · 奉贤区南桥镇</div>
+          <div class="card-sub">健康 · 本土物种</div>
+          <span class="card-status status-blue">治疗中 · 第12天</span>
+        </div>
+        <div class="card" style="cursor:pointer">
+          <div class="card-title">FX260608015</div>
+          <div class="card-sub">红隼 · 崇明区城桥镇</div>
+          <span class="card-status status-green">已放归</span>
+        </div>
+        <div style="height:70px"></div>
+      </div>
+      <div class="fab" onclick="document.getElementById('newPage').style.display='flex'">+</div>
+      <div class="tab-bar">
+        <div class="tab active"><span class="icon">📋</span>工单</div>
+        <div class="tab"><span class="icon">📁</span>档案</div>
+        <div class="tab"><span class="icon">👤</span>我的</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 页面2：新建工单（底部弹出抽屉） ====== -->
+<div id="newPage" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:100; align-items:flex-end; justify-content:center">
+  <div style="background:#fff; width:375px; border-radius:16px 16px 0 0; padding:0 0 20px; max-height:80%; overflow-y:auto">
+    <div style="width:40px; height:4px; background:#d9d9d9; border-radius:2px; margin:12px auto"></div>
+    <div style="font-size:17px; font-weight:600; text-align:center; margin-bottom:12px; color:#333">新建工单 <span style="position:absolute; right:16px; font-size:18px; color:#999; cursor:pointer" onclick="document.getElementById('newPage').style.display='none'">✕</span></div>
+    <div class="form-group">
+      <div class="form-label">联系电话 <span class="req">*</span></div>
+      <input class="form-input" placeholder="请输入来电人电话" value="13812341234">
+    </div>
+    <div class="form-group">
+      <div class="form-label">动物分类 <span class="req">*</span></div>
+      <div style="display:flex; gap:8px; margin:6px 0 0">
+        <span class="chip selected" style="flex:1; text-align:center">🐦 鸟类</span>
+        <span class="chip" style="flex:1; text-align:center">🦊 兽类</span>
+        <span class="chip" style="flex:1; text-align:center">🐍 爬行类</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-label">物种名称 <span class="req">*</span></div>
+      <input class="form-input" placeholder="输入物种名或形态描述">
+      <div class="form-hint">不确定物种？可填形态描述</div>
+    </div>
+    <div class="form-group">
+      <div class="form-label">发现地点 <span class="req">*</span></div>
+      <input class="form-input" placeholder="输入发现地点" value="浦东新区世纪大道100号">
+    </div>
+    <div class="form-group">
+      <div class="form-label">伤病情况 <span class="req">*</span></div>
+      <div class="chips" style="margin:6px 0 0">
+        <span class="chip selected">受伤</span>
+        <span class="chip">生病</span>
+        <span class="chip">染疫</span>
+        <span class="chip">攻击性</span>
+        <span class="chip">健康</span>
+        <span class="chip">不明</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-label">是否本土 <span class="req">*</span></div>
+      <div class="radios" style="margin:6px 0 0">
+        <span class="radio">● 是</span>
+        <span class="radio" style="color:#999">○ 否</span>
+        <span class="radio" style="color:#999">○ 不确定</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-label">照片</div>
+      <div class="upload-row" style="margin:6px 0 0">
+        <div class="upload-box">📷</div>
+      </div>
+    </div>
+    <button class="btn btn-primary" style="margin-top:12px" onclick="document.getElementById('newPage').style.display='none'">提 交</button>
+  </div>
+</div>
+
+<!-- ====== 页面3：工单详情 ====== -->
+<div id="detailPage" style="display:none">
+  <p class="page-label">工作台·页面2：工单详情（待响应）</p>
+  <div class="phone">
+    <div class="phone-inner" style="position:relative">
+      <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="nav-bar">
+        <span class="back" onclick="document.getElementById('detailPage').style.display='none'">←</span>
+        FX260609003
+        <span class="card-status status-red" style="margin-left:auto; font-size:11px">待响应</span>
+      </div>
+      <div class="alert-banner alert-error">⏱ 已用时 25小时 · 已超时</div>
+      <div class="content">
+        <div class="card" style="margin-top:0">
+          <div style="font-size:14px; color:#333; line-height:2">
+            📍 浦东新区世纪大道100号<br>
+            🐦 白鹭 · 国家一级 · 本土物种<br>
+            📞 13812341234<br>
+            🕐 创建于 2026-06-09 09:00
+          </div>
+        </div>
+        <div style="padding:8px 16px; font-size:14px; font-weight:600; color:#666">── 操作记录 ──</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-body">
+              <div class="tl-time">06-09 09:00</div>
+              <div class="tl-text">创建工单</div>
+              <div class="tl-sub">来源：市民来电 · 伤病：受伤</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot gray"></div>
+            <div class="tl-body">
+              <div class="tl-text" style="color:#bbb">等待后续操作...</div>
+            </div>
+          </div>
+        </div>
+        <div style="height:80px"></div>
+      </div>
+      <!-- 底部操作按钮（根据状态变化） -->
+      <div style="background:#fff; padding:10px 16px; border-top:1px solid #f0f0f0; display:flex; gap:12px; flex-shrink:0">
+        <button class="btn btn-secondary" style="margin:0; flex:1" onclick="document.getElementById('guideSheet').style.display='flex'">指导放归</button>
+        <button class="btn btn-primary" style="margin:0; flex:1" onclick="document.getElementById('detailPage').style.display='none'">上门接收</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 页面4：治疗中状态的工单详情 ====== -->
+<div>
+  <p class="page-label">工作台·页面2b：工单详情（治疗中）</p>
+  <div class="phone">
+    <div class="phone-inner" style="position:relative">
+      <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="nav-bar">
+        <span class="back">←</span>
+        FX260609001
+        <span class="card-status status-blue" style="margin-left:auto; font-size:11px">治疗中</span>
+      </div>
+      <div class="alert-banner alert-warn">🔬 检疫隔离第12天 / 30天 · 还剩18天</div>
+      <div class="content">
+        <div class="card" style="margin-top:0">
+          <div style="font-size:14px; color:#333; line-height:2">
+            📍 奉贤区南桥镇南亭公路929号<br>
+            🐦 珠颈斑鸠 · 一般物种 · 本土<br>
+            📞 13700001111<br>
+            🏠 笼舍 A-03 · 接收于 06-08
+          </div>
+        </div>
+        <div style="padding:8px 16px; font-size:14px; font-weight:600; color:#666">── 操作记录 ──</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-body">
+              <div class="tl-time">06-10 14:30</div>
+              <div class="tl-text">护理记录</div>
+              <div class="tl-sub">换药处理，喂食谷物30g，饮水正常</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-body">
+              <div class="tl-time">06-09 10:00</div>
+              <div class="tl-text">诊断记录</div>
+              <div class="tl-sub">左翅轻微骨折，夹板固定，口服消炎药</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-body">
+              <div class="tl-time">06-08 16:00</div>
+              <div class="tl-text">确认接收</div>
+              <div class="tl-sub">笼舍A-03 · 检疫开始06-08</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-body">
+              <div class="tl-time">06-08 14:00</div>
+              <div class="tl-text">初检记录</div>
+              <div class="tl-sub">精神正常，呼吸正常，体重0.18kg</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-body">
+              <div class="tl-time">06-08 11:00</div>
+              <div class="tl-text">创建工单</div>
+              <div class="tl-sub">来源：市民来电</div>
+            </div>
+          </div>
+        </div>
+        <div style="height:80px"></div>
+      </div>
+      <!-- 治疗中的底部按钮 -->
+      <div style="background:#fff; padding:10px 16px; border-top:1px solid #f0f0f0; display:flex; gap:8px; flex-shrink:0">
+        <button class="btn btn-secondary" style="margin:0; flex:1; font-size:13px; padding:10px 4px" onclick="document.getElementById('recordSheet').style.display='flex'">+ 记录</button>
+        <button class="btn btn-primary" style="margin:0; flex:1; font-size:13px; padding:10px 4px; opacity:0.4" disabled>放归</button>
+        <button class="btn btn-secondary" style="margin:0; flex:1; font-size:13px; padding:10px 4px">无害化</button>
+        <button class="btn btn-secondary" style="margin:0; flex:1; font-size:13px; padding:10px 4px">调配</button>
+      </div>
+      <!-- 放归按钮灰掉的标注 -->
+      <div style="position:absolute; bottom:62px; left:110px; z-index:5">
+        <div style="background:#fff7e6; border:1px solid #ffd591; border-radius:6px; padding:4px 8px; font-size:11px; color:#d46b08; white-space:nowrap">
+          ← 检疫未满30天，置灰
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 底部弹出：放归表单 ====== -->
+<div>
+  <p class="page-label">工作台·放归表单（底部弹出抽屉）</p>
+  <div class="phone">
+    <div class="phone-inner" style="position:relative">
+      <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="nav-bar"><span class="back">←</span>FX260609001</div>
+      <div class="content" style="opacity:0.4">
+        <div class="card"><div class="card-title">背景（已模糊）</div></div>
+      </div>
+      <!-- Bottom Sheet -->
+      <div class="sheet-overlay">
+        <div class="sheet">
+          <div class="sheet-handle"></div>
+          <div class="sheet-title">放归登记</div>
+          <div class="checklist">
+            <div class="check-item"><span class="check-icon check-pass">✓</span> 检疫隔离已满30天（第35天）</div>
+            <div class="check-item"><span class="check-icon check-pass">✓</span> 本土物种</div>
+            <div class="check-item"><span class="check-icon check-fail">✗</span> 在场人员（需≥2人，当前0人）</div>
+          </div>
+          <div class="form-group">
+            <div class="form-label">放归地点 <span class="req">*</span></div>
+            <input class="form-input" placeholder="输入放归地点" value="崇明东滩">
+          </div>
+          <div class="form-group">
+            <div class="form-label">在场人员 <span class="req">*</span>（≥2人）</div>
+            <input class="form-input" value="张三(001)" style="margin-bottom:8px">
+            <input class="form-input" value="李四(002)">
+            <div class="form-hint">+ 添加人员</div>
+          </div>
+          <div class="form-group">
+            <div class="form-label">附件 <span class="req">*</span></div>
+            <div class="upload-row" style="margin:6px 0 0">
+              <div class="upload-box" style="border-color:#1677ff; color:#1677ff; font-size:12px; flex-direction:column; gap:2px">
+                <span style="font-size:20px">🎬</span>
+                <span>视频</span>
+              </div>
+              <div class="upload-box" style="border-color:#1677ff; color:#1677ff; font-size:12px; flex-direction:column; gap:2px">
+                <span style="font-size:20px">📷</span>
+                <span>照片</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-label">文字记录 <span class="req">*</span></div>
+            <textarea class="form-input" rows="2" placeholder="描述放归过程">动物状态良好，飞行能力恢复，于崇明东滩湿地放归。</textarea>
+          </div>
+          <button class="btn btn-primary">提交放归</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 动物档案详情 ====== -->
+<div>
+  <p class="page-label">工作台·页面3：动物档案（列表+详情底部抽屉）</p>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="nav-bar"><span class="back">←</span>SD260609001</div>
+      <div class="content">
+        <div class="card" style="margin-top:0">
+          <div style="font-size:16px; font-weight:600; color:#333; margin-bottom:8px">🐦 白鹭 · 国家一级</div>
+          <div style="font-size:13px; color:#888; line-height:1.8">
+            雌性 · 成体 · 笼舍 A-03<br>
+            状态：<span style="color:#1677ff; font-weight:600">治疗中（第12天）</span><br>
+            检疫期：06/01 → 07/01（30天）
+          </div>
+        </div>
+        <div style="padding:8px 16px; font-size:14px; font-weight:600; color:#666">── 健康档案 ──</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-body">
+              <div class="tl-time">06-10 · 护理</div>
+              <div class="tl-text">换药处理，喂食小鱼500g</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-body">
+              <div class="tl-time">06-10 · 体重</div>
+              <div class="tl-text">1.52 kg <span style="color:#52c41a; font-size:12px">↑ +0.02</span></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-body">
+              <div class="tl-time">06-09 · 诊断</div>
+              <div class="tl-text">左翅骨折，夹板固定+消炎</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-body">
+              <div class="tl-time">06-08 · 初检</div>
+              <div class="tl-text">精神正常，呼吸正常，体重1.50kg</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:0 16px 12px">
+          <div style="background:#f6f8fa; border-radius:8px; padding:12px; text-align:center">
+            <div style="font-size:12px; color:#999; margin-bottom:8px">体重趋势 (kg)</div>
+            <svg width="280" height="60" viewBox="0 0 280 60">
+              <polyline points="10,40 80,35 150,30 220,25 270,20" fill="none" stroke="#1677ff" stroke-width="2"/>
+              <circle cx="10" cy="40" r="3" fill="#1677ff"/>
+              <circle cx="80" cy="35" r="3" fill="#1677ff"/>
+              <circle cx="150" cy="30" r="3" fill="#1677ff"/>
+              <circle cx="220" cy="25" r="3" fill="#1677ff"/>
+              <circle cx="270" cy="20" r="3" fill="#1677ff"/>
+              <text x="5" y="55" font-size="9" fill="#999">6/8</text>
+              <text x="75" y="55" font-size="9" fill="#999">6/9</text>
+              <text x="140" y="55" font-size="9" fill="#999">6/10</text>
+              <text x="210" y="55" font-size="9" fill="#999">6/11</text>
+              <text x="255" y="55" font-size="9" fill="#999">6/12</text>
+            </svg>
+          </div>
+        </div>
+        <button class="btn btn-secondary" style="font-size:14px">+ 添加记录</button>
+        <div style="height:20px"></div>
+      </div>
+      <div class="tab-bar">
+        <div class="tab"><span class="icon">📋</span>工单</div>
+        <div class="tab active"><span class="icon">📁</span>档案</div>
+        <div class="tab"><span class="icon">👤</span>我的</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 工作台·页面4：我的（含年报/通讯录/预警折叠面板） ====== -->
+<div>
+  <p class="page-label">工作台·页面4：我的（年报/通讯录/预警/消息折叠）</p>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="nav-bar">我的</div>
+      <div class="content">
+        <div class="card" style="margin-top:0">
+          <div style="font-size:16px; font-weight:600; color:#333; margin-bottom:4px">上海动物园</div>
+          <div style="font-size:14px; color:#888">救护员：张三</div>
+        </div>
+        <!-- 年度报表（展开状态） -->
+        <div class="card" style="padding:0">
+          <div style="padding:14px 16px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; border-bottom:1px solid #f0f0f0">
+            <span style="font-size:15px; font-weight:600; color:#333">▼ 📊 年度报表</span>
+            <span style="font-size:12px; color:#faad14; background:#fffbe6; padding:2px 8px; border-radius:4px">草稿</span>
+          </div>
+          <div style="padding:12px 16px">
+            <div style="font-size:13px; color:#666; margin-bottom:8px; background:#f6f8fa; border-radius:8px; padding:10px">
+              <strong>2026年自动统计：</strong><br>
+              工单342件 · 放归156 · 处置41 · 调配22 · 在养28
+            </div>
+            <div style="font-size:14px; color:#333; margin-bottom:8px; padding:8px; border:1px solid #d9d9d9; border-radius:8px; min-height:48px">
+              一、基本情况<br>二、收容救护情况...
+            </div>
+            <div style="display:flex; gap:8px">
+              <button class="btn btn-secondary" style="margin:0; flex:1; font-size:13px; padding:8px">保存草稿</button>
+              <button class="btn btn-primary" style="margin:0; flex:1; font-size:13px; padding:8px">提交年报</button>
+            </div>
+          </div>
+        </div>
+        <!-- 机构通讯录（折叠状态） -->
+        <div class="card" style="padding:14px 16px; cursor:pointer">
+          <span style="font-size:15px; font-weight:600; color:#333">▶ 📞 机构通讯录</span>
+        </div>
+        <!-- 预警中心（折叠状态，带数量红点） -->
+        <div class="card" style="padding:14px 16px; cursor:pointer; display:flex; align-items:center; justify-content:space-between">
+          <span style="font-size:15px; font-weight:600; color:#333">▶ ⚠️ 预警中心</span>
+          <span class="badge">3</span>
+        </div>
+        <!-- 消息通知（折叠状态） -->
+        <div class="card" style="padding:14px 16px; cursor:pointer">
+          <span style="font-size:15px; font-weight:600; color:#333">▶ 🔔 消息通知</span>
+        </div>
+        <div style="height:12px"></div>
+      </div>
+      <div class="tab-bar">
+        <div class="tab"><span class="icon">📋</span>工单</div>
+        <div class="tab"><span class="icon">📁</span>档案</div>
+        <div class="tab active"><span class="icon">👤</span>我的</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 市民端：拍照登记 ====== -->
+<div>
+  <p class="page-label">市民端·页面1：拍照登记表单</p>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="nav-bar" style="background:#52c41a; color:#fff; border:none; justify-content:center">
+        <span style="font-size:20px; margin-right:8px">🦜</span> 野生动物救护
+      </div>
+      <div class="content" style="background:#fff">
+        <div style="padding:20px 16px 8px; text-align:center">
+          <div style="font-size:20px; font-weight:700; color:#333; margin-bottom:4px">发现野生动物需要帮助？</div>
+          <div style="font-size:13px; color:#999">拍照登记，工作人员扫码即可交接</div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">拍照 <span class="req">*</span></div>
+          <div class="upload-row" style="margin:6px 0 0">
+            <div class="upload-box" style="position:relative">
+              <div style="width:100%; height:100%; background:#e8f5e9; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:28px">🐦</div>
+              <div style="position:absolute; bottom:2px; right:2px; background:#52c41a; color:#fff; border-radius:50%; width:18px; height:18px; display:flex; align-items:center; justify-content:center; font-size:10px">✓</div>
+            </div>
+            <div class="upload-box">📷</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">动物分类 <span class="req">*</span></div>
+          <div style="display:flex; gap:8px; margin:6px 0 0">
+            <span class="chip selected" style="border-color:#52c41a; background:#f6ffed; color:#52c41a; flex:1; text-align:center">🐦 鸟类</span>
+            <span class="chip" style="flex:1; text-align:center">🦊 兽类</span>
+            <span class="chip" style="flex:1; text-align:center">🐍 爬行类</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">发现地点 <span class="req">*</span></div>
+          <input class="form-input" value="📍 徐汇区漕溪北路（自动定位）" style="color:#1677ff">
+        </div>
+        <div class="form-group">
+          <div class="form-label">动物怎么了？<span class="req">*</span></div>
+          <div class="chips" style="margin:6px 0 0">
+            <span class="chip selected" style="border-color:#52c41a; background:#f6ffed; color:#52c41a">受伤</span>
+            <span class="chip">生病</span>
+            <span class="chip">正常</span>
+            <span class="chip">不确定</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">联系电话 <span class="req">*</span></div>
+          <input class="form-input" placeholder="请输入您的手机号">
+        </div>
+        <button class="btn btn-primary" style="background:#52c41a; margin-top:16px">提交求助</button>
+        <div style="display:flex; gap:16px; justify-content:center; margin:16px 0; padding-bottom:16px">
+          <span style="font-size:13px; color:#1677ff; cursor:pointer">📞 拨打12345电话求助</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 市民端：提交成功+二维码 ====== -->
+<div>
+  <p class="page-label">市民端·页面1a：提交后显示二维码+追踪（同页不跳）</p>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar"><span>9:42</span><span>📶 🔋</span></div>
+      <div class="nav-bar" style="background:#52c41a; color:#fff; border:none; justify-content:center">
+        ✅ 提交成功
+      </div>
+      <div class="content" style="background:#fff; display:flex; flex-direction:column; align-items:center; padding:24px 16px">
+        <div style="font-size:48px; margin-bottom:12px">🎉</div>
+        <div style="font-size:18px; font-weight:700; color:#333; margin-bottom:4px">工单已创建</div>
+        <div style="font-size:14px; color:#888; margin-bottom:20px">编号：XH260609001</div>
+        <div style="width:180px; height:180px; border:2px solid #52c41a; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:12px; background:#f6ffed">
+          <div style="text-align:center">
+            <div style="font-size:64px">📱</div>
+            <div style="font-size:12px; color:#52c41a; font-weight:600; margin-top:4px">QR 二维码</div>
+          </div>
+        </div>
+        <div style="font-size:13px; color:#666; text-align:center; line-height:1.8; margin-bottom:20px">
+          救护人员到达后扫描此码<br>即可交接，您会收到通知推送
+        </div>
+        <div style="display:flex; gap:12px; width:100%">
+          <button class="btn btn-secondary" style="margin:0; flex:1; border-color:#52c41a; color:#52c41a">保存到相册</button>
+          <button class="btn btn-primary" style="margin:0; flex:1; background:#52c41a">查看进度</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 市民端：物流式追踪 ====== -->
+<div>
+  <p class="page-label">市民端·页面1b：物流追踪 + 故事卡（放归后自动展示）</p>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar"><span>9:45</span><span>📶 🔋</span></div>
+      <div class="nav-bar" style="background:#52c41a; color:#fff; border:none">
+        <span class="back" style="color:#fff">←</span> 救护进度
+      </div>
+      <div class="content" style="background:#fff">
+        <div style="padding:12px 16px; background:#f6ffed; border-bottom:1px solid #e8f5e9">
+          <div style="font-size:15px; font-weight:600; color:#333">🐦 白鹭 · XH260609001</div>
+          <div style="font-size:13px; color:#888; margin-top:2px">徐汇区漕溪北路 · 2026-06-09</div>
+        </div>
+        <div class="timeline" style="padding:16px">
+          <div class="tl-item">
+            <div class="tl-dot" style="background:#52c41a"></div>
+            <div class="tl-body">
+              <div class="tl-time">06-09 09:00</div>
+              <div class="tl-text" style="font-weight:600">✅ 已提交</div>
+              <div class="tl-sub">您已拍照登记，等待救护人员</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:#52c41a"></div>
+            <div class="tl-body">
+              <div class="tl-time">06-09 10:30</div>
+              <div class="tl-text" style="font-weight:600">✅ 已接收</div>
+              <div class="tl-sub">救护人员张三已到达现场并扫码接收</div>
+              <div style="margin-top:6px; display:flex; gap:4px">
+                <div style="width:48px; height:48px; background:#e8f5e9; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:20px">📷</div>
+                <div style="width:48px; height:48px; background:#e8f5e9; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:20px">📷</div>
+              </div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot" style="background:#1677ff"></div>
+            <div class="tl-body">
+              <div class="tl-time">06-09 14:00</div>
+              <div class="tl-text" style="font-weight:600; color:#1677ff">🔄 治疗中</div>
+              <div class="tl-sub">已送至上海动物园<br>诊断：左翅骨折，正在治疗康复中...</div>
+              <div style="margin-top:6px">
+                <div style="width:48px; height:48px; background:#e6f4ff; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:20px">📷</div>
+              </div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot gray"></div>
+            <div class="tl-body">
+              <div class="tl-text" style="color:#bbb">○ 已放归</div>
+              <div class="tl-sub" style="color:#ccc">等待康复后放归...</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:0 16px 16px">
+          <button class="btn btn-secondary" style="border-color:#52c41a; color:#52c41a">📞 联系救护人员</button>
+        </div>
+        <!-- 救护故事卡（放归后自动展示） -->
+        <div style="margin:0 12px 12px; background:#f6ffed; border-radius:12px; padding:16px; border:1px solid #b7eb8f">
+          <div style="font-size:16px; font-weight:700; color:#333; margin-bottom:8px">🎉 救护成功！</div>
+          <div style="width:100%; height:120px; background:#e8f5e9; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:36px; margin-bottom:12px">🕊️ 放归照片</div>
+          <div style="font-size:14px; color:#333; line-height:1.8">
+            🐦 白鹭 · 2026年6月9日救助<br>
+            左翅骨折 → 上海动物园治疗35天<br>
+            康复放归 · 崇明东滩
+          </div>
+          <div style="display:flex; gap:24px; margin-top:12px; padding-top:12px; border-top:1px solid #d9f7be">
+            <span style="font-size:14px; color:#52c41a; cursor:pointer">👍 128</span>
+            <span style="font-size:14px; color:#1677ff; cursor:pointer">💬 分享</span>
+          </div>
+          <div style="margin-top:8px; font-size:13px; color:#888; font-style:italic">"感谢救护人员，辛苦了！"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 管理后台看板 ====== -->
+<div>
+  <p class="page-label">管理后台·页面1：数据看板（含Tab切换工单/档案/预警）</p>
+  <div class="phone">
+    <div class="phone-inner">
+      <div class="status-bar"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="nav-bar">管理后台 <span style="margin-left:auto; font-size:13px; color:#999; font-weight:400">2026年 ▼</span></div>
+      <div class="content">
+        <div class="stat-row">
+          <div class="stat-card"><div class="stat-num">342</div><div class="stat-label">工单总量</div></div>
+          <div class="stat-card"><div class="stat-num" style="color:#1677ff">28</div><div class="stat-label">在养</div></div>
+          <div class="stat-card"><div class="stat-num" style="color:#52c41a">156</div><div class="stat-label">已放归</div></div>
+          <div class="stat-card"><div class="stat-num" style="color:#999">41</div><div class="stat-label">已处置</div></div>
+        </div>
+        <div class="card">
+          <div style="font-size:14px; font-weight:600; color:#333; margin-bottom:12px">各区工单量</div>
+          <div class="bar-chart" style="padding:0">
+            <div class="bar-row"><span class="bar-label">浦东</span><div class="bar-fill" style="width:180px"></div><span class="bar-val">89</span></div>
+            <div class="bar-row"><span class="bar-label">奉贤</span><div class="bar-fill" style="width:134px"></div><span class="bar-val">67</span></div>
+            <div class="bar-row"><span class="bar-label">崇明</span><div class="bar-fill" style="width:104px"></div><span class="bar-val">52</span></div>
+            <div class="bar-row"><span class="bar-label">松江</span><div class="bar-fill" style="width:80px"></div><span class="bar-val">40</span></div>
+            <div class="bar-row"><span class="bar-label">闵行</span><div class="bar-fill" style="width:60px"></div><span class="bar-val">30</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:14px; font-weight:600; color:#333; margin-bottom:12px">处置方式分布</div>
+          <div style="text-align:center; padding:12px 0">
+            <svg width="140" height="140" viewBox="0 0 140 140">
+              <circle cx="70" cy="70" r="55" fill="none" stroke="#52c41a" stroke-width="22" stroke-dasharray="165 180" transform="rotate(-90 70 70)"/>
+              <circle cx="70" cy="70" r="55" fill="none" stroke="#1677ff" stroke-width="22" stroke-dasharray="65 280" transform="rotate(120 70 70)"/>
+              <circle cx="70" cy="70" r="55" fill="none" stroke="#faad14" stroke-width="22" stroke-dasharray="40 305" transform="rotate(200 70 70)"/>
+              <circle cx="70" cy="70" r="55" fill="none" stroke="#d9d9d9" stroke-width="22" stroke-dasharray="30 315" transform="rotate(260 70 70)"/>
+            </svg>
+            <div style="display:flex; justify-content:center; gap:16px; margin-top:8px; font-size:11px; color:#666">
+              <span>● 放归 46%</span>
+              <span style="color:#1677ff">● 在养 19%</span>
+              <span style="color:#faad14">● 调配 11%</span>
+              <span style="color:#999">● 处置 9%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 管理后台底部Tab -->
+      <div class="tab-bar">
+        <div class="tab active"><span class="icon">📊</span>看板</div>
+        <div class="tab"><span class="icon">📋</span>工单</div>
+        <div class="tab"><span class="icon">📁</span>档案</div>
+        <div class="tab" style="position:relative"><span class="icon">⚠️</span>预警<span class="badge" style="position:absolute; top:4px; right:16px">3</span></div>
+        <div class="tab"><span class="icon">📈</span>年报</div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- ====== 底部弹出：指导放归 ====== -->
+<div id="guideSheet" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:100; align-items:flex-end; justify-content:center">
+  <div style="background:#fff; width:375px; border-radius:16px 16px 0 0; padding:20px">
+    <div style="width:40px; height:4px; background:#d9d9d9; border-radius:2px; margin:0 auto 12px"></div>
+    <div style="font-size:17px; font-weight:600; text-align:center; margin-bottom:16px">指导放归</div>
+    <div style="margin-bottom:12px; font-size:14px; color:#888; background:#f6ffed; padding:10px; border-radius:8px; line-height:1.6">
+      📋 该动物为健康本土物种，无需上门救护。<br>请指导市民在发现地附近选择合适生境放归。
+    </div>
+    <div style="margin-bottom:12px">
+      <div style="font-size:14px; margin-bottom:6px; font-weight:500">指导意见 *</div>
+      <textarea style="width:100%; padding:10px; border:1px solid #d9d9d9; border-radius:8px; font-size:14px; height:60px" placeholder="请输入放归指导意见">动物健康，请在发现地附近树林中选择安静处释放，避免人群围观。</textarea>
+    </div>
+    <button class="btn btn-primary" onclick="document.getElementById('guideSheet').style.display='none'">确认结案</button>
+    <button class="btn" style="color:#999; text-align:center; background:none" onclick="document.getElementById('guideSheet').style.display='none'">取消</button>
+  </div>
+</div>
+
+<!-- ====== 底部弹出：添加记录 ====== -->
+<div id="recordSheet" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:100; align-items:flex-end; justify-content:center">
+  <div style="background:#fff; width:375px; border-radius:16px 16px 0 0; padding:20px">
+    <div style="width:40px; height:4px; background:#d9d9d9; border-radius:2px; margin:0 auto 12px"></div>
+    <div style="font-size:17px; font-weight:600; text-align:center; margin-bottom:16px">添加记录</div>
+    <div style="margin-bottom:12px">
+      <div style="font-size:14px; margin-bottom:8px; font-weight:500">记录类型</div>
+      <div style="display:flex; gap:8px">
+        <span class="chip selected">诊断</span>
+        <span class="chip">护理</span>
+        <span class="chip">体重</span>
+      </div>
+    </div>
+    <div style="margin-bottom:12px">
+      <div style="font-size:14px; margin-bottom:6px; font-weight:500">症状描述</div>
+      <textarea style="width:100%; padding:10px; border:1px solid #d9d9d9; border-radius:8px; font-size:14px; height:50px" placeholder="描述当前症状"></textarea>
+    </div>
+    <div style="margin-bottom:12px">
+      <div style="font-size:14px; margin-bottom:6px; font-weight:500">治疗方案</div>
+      <textarea style="width:100%; padding:10px; border:1px solid #d9d9d9; border-radius:8px; font-size:14px; height:50px" placeholder="描述治疗方案"></textarea>
+    </div>
+    <button class="btn btn-primary" onclick="document.getElementById('recordSheet').style.display='none'">保存记录</button>
+    <button class="btn" style="color:#999; text-align:center; background:none" onclick="document.getElementById('recordSheet').style.display='none'">取消</button>
+  </div>
+</div>
+
+</body>
+</html>

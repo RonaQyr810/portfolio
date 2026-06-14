@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>野生动物收容救护平台 · 秦艺榕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f0f4f8;
+      --card: #fff;
+      --text: #1a2332;
+      --muted: #5a6a7a;
+      --accent: #1677ff;
+      --green: #52c41a;
+      --border: rgba(0,0,0,.08);
+    }
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: linear-gradient(180deg, #e8f4ea 0%, var(--bg) 40%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 48px 24px 72px; }
+    .back { color: var(--muted); text-decoration: none; font-size: .9rem; display: inline-block; margin-bottom: 28px; }
+    .tag {
+      display: inline-block;
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+    h1 { font-size: clamp(1.6rem, 4vw, 2rem); margin-bottom: 12px; }
+    .lead { color: var(--muted); margin-bottom: 28px; max-width: 680px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px 28px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.04);
+    }
+    .card h2 { font-size: 1rem; margin-bottom: 12px; color: var(--accent); }
+    ul { padding-left: 1.2em; color: #3a4a5a; }
+    li { margin-bottom: 8px; }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .metric {
+      background: #f6ffed;
+      border: 1px solid #b7eb8f;
+      border-radius: 12px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .metric strong { display: block; font-size: 1.4rem; color: var(--green); }
+    .metric span { font-size: .82rem; color: var(--muted); }
+    .wireframe-preview {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-top: 16px;
+      background: #f5f5f5;
+    }
+    .wireframe-preview iframe {
+      width: 100%;
+      height: 520px;
+      border: none;
+      display: block;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-weight: 500;
+      text-decoration: none;
+      font-size: .92rem;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-outline { border: 1px solid var(--border); color: var(--text); background: #fff; }
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .role {
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: #f0f5ff;
+      border: 1px solid #adc6ff;
+      font-size: .88rem;
+    }
+    .role strong { display: block; color: var(--accent); margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="../../index.html#portfolio">← 返回作品集</a>
+    <span class="tag">Product Design · H5</span>
+    <h1>上海市陆生野生动物收容救护管理平台</h1>
+    <p class="lead">基于《上海市陆生野生动物收容救护工作指南（试行）》的 H5 产品方案。覆盖接收→初检→移交→治疗检疫→安置全流程，解决工单跨角色流转断链、合规计时靠人记、年报手工汇总三大痛点。</p>
+
+    <div class="card">
+      <h2>产品目标</h2>
+      <ul>
+        <li>三端 H5：救护工作台（手机）、管理后台（手机+PC 自适应）、市民端（手机）</li>
+        <li>8 页极简线框图 + 完整 PRD（v4.0），含合规计时与预警规则</li>
+        <li>动物分类：鸟类 / 兽类 / 爬行类，支撑统计分析与看板分组</li>
+      </ul>
+      <div class="metrics">
+        <div class="metric"><strong>≥90%</strong><span>工单系统使用率</span></div>
+        <div class="metric"><strong>≤5%</strong><span>24h 响应超时率</span></div>
+        <div class="metric"><strong>100%</strong><span>年报按时提交率</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>角色与端</h2>
+      <div class="role-grid">
+        <div class="role"><strong>救护员</strong>建单、填记录、移交、放归</div>
+        <div class="role"><strong>监管员</strong>数据看板、预警中心、催办</div>
+        <div class="role"><strong>审阅人</strong>年报审核通过 / 退回</div>
+        <div class="role"><strong>市民</strong>提交求助、查进度</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>核心功能（P0）</h2>
+      <ul>
+        <li>工单列表：待办 / 已办分栏，超时标红，20h 预警 / 24h 超时</li>
+        <li>新建工单：6 字段 + 扫码接收市民求助</li>
+        <li>工单处理：时间线 + 状态驱动操作按钮（检疫未满 30 天禁放归）</li>
+        <li>数据看板：4 数字卡片 + 2 图表，市 / 区两级权限</li>
+        <li>预警中心：超时 / 检疫 / 年报三类预警，一键催办</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>H5 线框图预览（8 页版）</h2>
+      <div class="wireframe-preview">
+        <iframe src="wireframes/野生动物收容救护平台-H5线框图-v4-8页版.html" title="野生动物平台 H5 线框图" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="wireframes/野生动物收容救护平台-H5线框图-v4-8页版.html" target="_blank" rel="noopener">全屏查看线框图</a>
+      <a class="btn btn-outline" href="wireframes/野生动物收容救护平台-PRD-v4-极简8页版.md" target="_blank" rel="noopener">阅读 PRD 文档</a>
+    </div>
+  </div>
+</body>
+</html>
