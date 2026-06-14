@@ -289,6 +289,14 @@
       if (e.key === 'ArrowLeft') document.getElementById('lightboxPrev').click();
       if (e.key === 'ArrowRight') document.getElementById('lightboxNext').click();
     });
+    (function () {
+      const host = location.hostname;
+      if (host === 'localhost' || host === '127.0.0.1') return;
+      const base =
+        'https://media.githubusercontent.com/media/RonaQyr810/portfolio/main/assets/videos/xishixiaozhan/';
+      document.querySelectorAll('.video-card video').forEach(video => {
+        const file = video.getAttribute('src').split('/').pop();
+        video.src = base + file;
+      });
+    })();
   </script>
-</body>
-</html>

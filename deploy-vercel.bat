@@ -37,6 +37,9 @@ if errorlevel 1 (
 )
 
 echo.
-echo [成功] 部署完成！请查看上方输出的 Production 网址。
+echo [成功] 部署完成！
 echo.
-pause
+echo 生产地址: https://portfolio-qyr.vercel.app
+echo 控制台:   https://vercel.com/queenqyrs-projects/portfolio-qyr
+echo.
+start "" "https://portfolio-qyr.vercel.app"
