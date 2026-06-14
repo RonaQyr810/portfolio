@@ -185,14 +185,14 @@
       <h2 class="section-title">作品展示录屏</h2>
       <div class="video-grid">
         <div class="video-card">
-          <video controls playsinline preload="metadata" src="../../assets/videos/xishixiaozhan/user-demo.mp4"></video>
+          <video controls playsinline preload="metadata" data-file="user-demo.mp4" src="https://media.githubusercontent.com/media/RonaQyr810/portfolio/main/assets/videos/xishixiaozhan/user-demo.mp4"></video>
           <div class="video-card-body">
             <h3>用户端演示</h3>
             <p>微信小程序消费者端：积分兑换、清单管理、环保挑战等核心流程。</p>
           </div>
         </div>
         <div class="video-card">
-          <video controls playsinline preload="metadata" src="../../assets/videos/xishixiaozhan/admin-demo.mp4"></video>
+          <video controls playsinline preload="metadata" data-file="admin-demo.mp4" src="https://media.githubusercontent.com/media/RonaQyr810/portfolio/main/assets/videos/xishixiaozhan/admin-demo.mp4"></video>
           <div class="video-card-body">
             <h3>管理端演示</h3>
             <p>后台管理端：订单审核、积分配置、企业红黑榜与数据统计。</p>
@@ -291,12 +291,21 @@
     });
     (function () {
       const host = location.hostname;
-      if (host === 'localhost' || host === '127.0.0.1') return;
-      const base =
-        'https://media.githubusercontent.com/media/RonaQyr810/portfolio/main/assets/videos/xishixiaozhan/';
+      const isLocal = host === 'localhost' || host === '127.0.0.1' || host === '';
+      const localBase = '../../assets/videos/xishixiaozhan/';
       document.querySelectorAll('.video-card video').forEach(video => {
-        const file = video.getAttribute('src').split('/').pop();
-        video.src = base + file;
+        const file = video.dataset.file;
+        if (!file) return;
+        if (isLocal) video.src = localBase + file;
+        video.addEventListener('error', () => {
+          const note = document.createElement('p');
+          note.style.cssText = 'color:#b33;font-size:.82rem;margin-top:8px';
+          note.textContent = '视频加载失败，请检查网络连接后刷新重试。';
+          if (!video.parentElement.querySelector('[data-video-error]')) {
+            note.dataset.videoError = '';
+            video.insertAdjacentElement('afterend', note);
+          }
+        }, { once: true });
       });
     })();
   </script>

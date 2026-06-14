@@ -1,14 +1,14 @@
 :root {
-  --bg: #f6f4f1;
-  --bg-elevated: #fcfaf7;
-  --bg-dark: #1a2332;
+  --bg: #ffffff;
+  --bg-elevated: #fafafa;
+  --bg-dark: #0a0a0a;
   --card: #fff;
-  --text: #243041;
-  --muted: #4d5d6f;
-  --accent: #2f6b7a;
-  --accent-light: #5a9dad;
-  --accent-dark: #1f4f5c;
-  --border: #e2ddd4;
+  --text: #0a0a0a;
+  --muted: #737373;
+  --accent: #0a0a0a;
+  --accent-light: #525252;
+  --accent-dark: #000000;
+  --border: #e5e5e5;
   --shadow: 0 2px 16px rgba(26, 35, 50, 0.06);
   --shadow-md: 0 8px 32px rgba(26, 35, 50, 0.08);
   --radius: 14px;
@@ -246,8 +246,8 @@ body.video-page .wrap {
 .note-box {
   margin-top: 36px;
   padding: 18px 22px;
-  background: rgba(47, 107, 122, 0.06);
-  border: 1px solid rgba(47, 107, 122, 0.15);
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: var(--radius);
   font-size: 0.88rem;
   color: var(--muted);

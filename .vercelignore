@@ -1,6 +1,8 @@
 assets/videos/**
+!assets/videos/xishixiaozhan/**
 .git/**
 .gitattributes
 作品集/**
 projects/moyan-app/node_modules/**
 **/*.mp4
+!assets/videos/xishixiaozhan/*.mp4

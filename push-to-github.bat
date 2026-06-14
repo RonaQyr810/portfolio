@@ -24,7 +24,7 @@ if errorlevel 1 (
 
 echo.
 echo 正在提交并推送到 GitHub...
-echo 若弹出登录窗口，请用 Apple 账号登录 GitHub。
+echo 若弹出登录窗口，请用 RonaQyr810 账号登录（不要用 Queen-qyr）。
 echo.
 
 "%GIT%" add -A
