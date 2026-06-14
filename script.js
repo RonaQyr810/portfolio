@@ -178,12 +178,38 @@ document.addEventListener('DOMContentLoaded', () => {
     openUrl(LIXIANG_PLAY_URL);
   }
 
+  function openPortfolioItem(item) {
+    if (item.dataset.autoStart) {
+      openRikxiniaoDemo();
+      return;
+    }
+    const demoUrl = item.dataset.demo;
+    if (demoUrl) {
+      if (demoUrl.includes('lixiang')) {
+        openLixiangDemo();
+        return;
+      }
+      openUrl(new URL(demoUrl, location.href).href);
+      return;
+    }
+    const galleryKey = item.dataset.gallery;
+    if (galleryKey) {
+      openLightbox(galleryKey);
+    }
+  }
+
   document.querySelectorAll('.portfolio-item').forEach(item => {
     const galleryKey = item.dataset.gallery;
     const demoUrl = item.dataset.demo;
-    const cover = item.querySelector('.portfolio-cover');
     const coverImg = item.querySelector('.portfolio-cover img');
     const gallery = galleries[galleryKey];
+    const isInteractive = !!(item.dataset.autoStart || demoUrl || galleryKey);
+
+    if (isInteractive) {
+      item.classList.add('is-interactive');
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('role', 'link');
+    }
 
     if (gallery && gallery.length && coverImg && item.dataset.coverSync !== 'false') {
       const coverIndex = Number.parseInt(item.dataset.coverIndex || '0', 10);
@@ -192,23 +218,20 @@ document.addEventListener('DOMContentLoaded', () => {
       coverImg.alt = gallery[idx].caption;
     }
 
-    if (cover) {
-      cover.addEventListener('click', () => {
-        if (item.dataset.autoStart) {
-          openRikxiniaoDemo();
-          return;
-        }
-        if (demoUrl) {
-          if (demoUrl.includes('lixiang')) {
-            openLixiangDemo();
-            return;
-          }
-          openUrl(new URL(demoUrl, location.href).href);
-        } else if (galleryKey) {
-          openLightbox(galleryKey);
-        }
-      });
-    }
+    if (!isInteractive) return;
+
+    item.addEventListener('click', e => {
+      if (e.target.closest('a')) return;
+      openPortfolioItem(item);
+    });
+
+    item.addEventListener('keydown', e => {
+      if (e.target.closest('a')) return;
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openPortfolioItem(item);
+      }
+    });
   });
 
   lightboxClose.addEventListener('click', closeLightbox);

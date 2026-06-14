@@ -1149,7 +1149,21 @@ img {
   text-decoration: underline;
 }
 
-.portfolio-item[data-demo] .portfolio-cover {
+.portfolio-item.is-interactive {
+  cursor: pointer;
+}
+
+.portfolio-item.is-interactive .portfolio-info h3 {
+  transition: color var(--transition);
+}
+
+.portfolio-item.is-interactive:hover .portfolio-info h3 {
+  color: var(--accent);
+}
+
+.portfolio-item[data-demo] .portfolio-cover,
+.portfolio-item[data-gallery] .portfolio-cover,
+.portfolio-item[data-auto-start] .portfolio-cover {
   cursor: pointer;
 }
 
@@ -1228,7 +1242,7 @@ img {
 
 .highlight-card:hover {
   background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.25);
   transform: translateY(-4px);
 }
 
@@ -2037,18 +2051,18 @@ a.contact-item:hover {
   border-top: 3px solid transparent;
 }
 
-.highlight-card:nth-child(1) { border-top-color: #1a1a1a; }
-.highlight-card:nth-child(1) .highlight-num { color: #1a1a1a; }
-.highlight-card:nth-child(2) { border-top-color: #333333; }
-.highlight-card:nth-child(2) .highlight-num { color: #333333; }
-.highlight-card:nth-child(3) { border-top-color: #4a4a4a; }
-.highlight-card:nth-child(3) .highlight-num { color: #4a4a4a; }
-.highlight-card:nth-child(4) { border-top-color: #5c5c5c; }
-.highlight-card:nth-child(4) .highlight-num { color: #5c5c5c; }
-.highlight-card:nth-child(5) { border-top-color: #737373; }
-.highlight-card:nth-child(5) .highlight-num { color: #737373; }
-.highlight-card:nth-child(6) { border-top-color: #8a8a8a; }
-.highlight-card:nth-child(6) .highlight-num { color: #8a8a8a; }
+.highlight-card:nth-child(1) { border-top-color: #f0c14b; }
+.highlight-card:nth-child(1) .highlight-num { color: #f0c14b; }
+.highlight-card:nth-child(2) { border-top-color: #7eb8da; }
+.highlight-card:nth-child(2) .highlight-num { color: #7eb8da; }
+.highlight-card:nth-child(3) { border-top-color: #a8d5a2; }
+.highlight-card:nth-child(3) .highlight-num { color: #a8d5a2; }
+.highlight-card:nth-child(4) { border-top-color: #d4a5f9; }
+.highlight-card:nth-child(4) .highlight-num { color: #d4a5f9; }
+.highlight-card:nth-child(5) { border-top-color: #f5a962; }
+.highlight-card:nth-child(5) .highlight-num { color: #f5a962; }
+.highlight-card:nth-child(6) { border-top-color: #6ecfc7; }
+.highlight-card:nth-child(6) .highlight-num { color: #6ecfc7; }
 
 .skills .section-header {
   border-left-color: var(--accent-light);
