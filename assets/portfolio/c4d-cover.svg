@@ -21,6 +21,6 @@
   <polygon points="980,520 1040,380 1100,520" fill="#3dd68c"/>
   <circle cx="1020" cy="220" r="36" fill="#ffc93c"/>
   <rect x="56" y="56" width="220" height="56" rx="12" fill="rgba(0,0,0,.35)"/>
-  <text x="80" y="92" fill="#fff" font-family="Segoe UI, sans-serif" font-size="22" font-weight="600">C4D Motion Lab</text>
-  <text x="80" y="748" fill="#a0a0b0" font-family="Segoe UI, sans-serif" font-size="18">14 dynamics exercises · Cinema 4D</text>
+  <text x="80" y="92" fill="#ffffff" font-family="Segoe UI, sans-serif" font-size="22" font-weight="600">C4D Motion Lab</text>
+  <text x="80" y="748" fill="#a0a0b0" font-family="Segoe UI, sans-serif" font-size="18">14 dynamics exercises</text>
 </svg>
