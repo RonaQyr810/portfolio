@@ -113,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const portfolioFilters = document.getElementById('portfolioFilters');
   const portfolioItems = document.querySelectorAll('.portfolio-item');
+  const portfolioMoreLabels = document.querySelectorAll('.portfolio-more-label');
 
   if (portfolioFilters) {
     portfolioFilters.querySelectorAll('.portfolio-filter').forEach(btn => {
@@ -124,6 +125,10 @@ document.addEventListener('DOMContentLoaded', () => {
           const categories = item.dataset.category.split(' ');
           const show = filter === 'all' || categories.includes(filter);
           item.classList.toggle('hidden', !show);
+        });
+        portfolioMoreLabels.forEach(label => {
+          const showFilters = (label.dataset.showFilters || 'all').split(' ');
+          label.classList.toggle('hidden', !showFilters.includes(filter));
         });
       });
     });

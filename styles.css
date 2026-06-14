@@ -1340,6 +1340,46 @@ img {
   align-items: stretch;
 }
 
+.portfolio-item[data-pm-order="1"] { order: 1; }
+.portfolio-item[data-pm-order="2"] { order: 2; }
+.portfolio-item[data-pm-order="3"] { order: 3; }
+.portfolio-item[data-pm-order="4"] { order: 4; }
+.portfolio-item[data-pm-order="5"] { order: 5; }
+.portfolio-item[data-pm-order="6"] { order: 6; }
+.portfolio-more-label[data-pm-order="7"] { order: 7; }
+.portfolio-item[data-pm-order="8"] { order: 8; }
+.portfolio-item[data-pm-order="9"] { order: 9; }
+.portfolio-item[data-pm-order="10"] { order: 10; }
+.portfolio-item[data-pm-order="11"] { order: 11; }
+.portfolio-item[data-pm-order="12"] { order: 12; }
+.portfolio-item[data-pm-order="13"] { order: 13; }
+.portfolio-item[data-pm-order="14"] { order: 14; }
+.portfolio-item[data-pm-order="15"] { order: 15; }
+.portfolio-item[data-pm-order="16"] { order: 16; }
+.portfolio-item[data-pm-order="17"] { order: 17; }
+.portfolio-item[data-pm-order="18"] { order: 18; }
+
+.portfolio-more-label {
+  grid-column: 1 / -1;
+  padding: 8px 0 4px;
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+}
+
+.portfolio-more-label h3 {
+  font-size: 1.15rem;
+  margin-bottom: 4px;
+}
+
+.portfolio-more-label p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.portfolio-more-label.hidden {
+  display: none;
+}
+
 .portfolio-item {
   position: relative;
   background: var(--bg-card);
@@ -2097,22 +2137,30 @@ a.contact-item:hover {
   border-color: var(--bg-dark);
 }
 
-.portfolio-filter[data-filter="ui"].active {
+.portfolio-filter[data-filter="core"].active {
   background: var(--accent);
   border-color: var(--accent);
 }
 
-.portfolio-filter[data-filter="dev"].active,
-.portfolio-filter[data-filter="visual"].active,
-.portfolio-filter[data-filter="video"].active {
+.portfolio-filter[data-filter="ai"].active {
+  background: #5b6eae;
+  border-color: #5b6eae;
+}
+
+.portfolio-filter[data-filter="prototype"].active {
+  background: #3d8b7a;
+  border-color: #3d8b7a;
+}
+
+.portfolio-filter[data-filter="more"].active {
   background: var(--accent-light);
   border-color: var(--accent-light);
 }
 
-.portfolio-filter[data-filter="ui"]:hover:not(.active),
-.portfolio-filter[data-filter="dev"]:hover:not(.active),
-.portfolio-filter[data-filter="visual"]:hover:not(.active),
-.portfolio-filter[data-filter="video"]:hover:not(.active) {
+.portfolio-filter[data-filter="core"]:hover:not(.active),
+.portfolio-filter[data-filter="ai"]:hover:not(.active),
+.portfolio-filter[data-filter="prototype"]:hover:not(.active),
+.portfolio-filter[data-filter="more"]:hover:not(.active) {
   border-color: var(--border);
   color: var(--text);
 }

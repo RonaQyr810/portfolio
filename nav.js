@@ -31,12 +31,13 @@
     { href: pageLink('about'), title: '个人简介', desc: '背景、教育与实践概况' },
     { href: pageLink('school'), title: '就读院校', desc: '上海建桥学院与数媒专业' },
     { href: pageLink('highlights'), title: '核心亮点', desc: '用数据说话的能力证明' },
-    { href: pageLink('skills'), title: '专业技能', desc: '设计、产品、开发、商务四条能力线' },
+    { href: pageLink('skills'), title: '专业技能', desc: '产品管理、AI 验证、原型与技术协作' },
   ]);
 
-  const portfolioDropdown = buildDropdown('navPortfolio', '作品集', [
-    { href: designHref, title: '设计作品', desc: 'UI 设计、产品开发与 AI 应用，共 11 个代表项目' },
-    { href: videoIndexHref, title: '视频作品', desc: '京剧可视化、C4D 动画、Web 录屏等 31 部已上线' },
+  const portfolioDropdown = buildDropdown('navPortfolio', '产品案例', [
+    { href: designHref, title: '核心产品案例', desc: '0→1 交付、AI 应用与原型方案，共 6 个核心项目' },
+    { href: `${designHref}`, title: '更多作品', desc: '开发验证、课程作业与影像创作补充' },
+    { href: videoIndexHref, title: '视频库', desc: '演示录屏、动画与课程影像，31 部已上线' },
   ]);
 
   const practiceDropdown = buildDropdown('navPractice', '实践', [
