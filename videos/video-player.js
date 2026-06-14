@@ -1,3 +1,4 @@
+const GH_PAGES_VIDEO_BASE = 'https://ronaqyr810.github.io/portfolio/assets/videos/';
 const GITHUB_MEDIA_BASE =
   'https://media.githubusercontent.com/media/RonaQyr810/portfolio/main/assets/videos/';
 const ONLINE_ASSETS_BASE = '../assets/videos/';
@@ -8,15 +9,22 @@ function isLocalPreview() {
   return host === 'localhost' || host === '127.0.0.1' || host === '';
 }
 
-function toVideoAssetBase(assetBase) {
-  if (isLocalPreview()) {
-    return assetBase || ONLINE_ASSETS_BASE;
+function extractVideoSubpath(assetBase) {
+  const match = (assetBase || '').match(/assets\/videos\/(.*)/);
+  return match ? match[1] : '';
+}
+
+function buildVideoCandidates(file, assetBase) {
+  const subpath = extractVideoSubpath(assetBase);
+  const relativeBase = assetBase || (ONLINE_ASSETS_BASE + subpath);
+  const candidates = [relativeBase + file];
+
+  if (!isLocalPreview()) {
+    candidates.push(GH_PAGES_VIDEO_BASE + subpath + file);
+    candidates.push(GITHUB_MEDIA_BASE + subpath + file);
   }
-  if (assetBase) {
-    const match = assetBase.match(/assets\/videos\/(.+)?/);
-    if (match) return GITHUB_MEDIA_BASE + (match[1] || '');
-  }
-  return GITHUB_MEDIA_BASE;
+
+  return candidates;
 }
 
 function resolveLocalPath(relativePath) {
@@ -77,27 +85,45 @@ function initVideoPage(videos, options = {}) {
 
   const initialHint = getVideoHint();
   let currentIndex = resolveVideoIndex(videos, initialHint, defaultIndex);
+  let activeCandidates = [];
+  let candidateIndex = 0;
 
-  mainVideo.addEventListener('error', () => showVideoLoadError(mainVideo, playerDesc));
-
-  function resolveSrc(item) {
-    if (item.file) {
-      const base = toVideoAssetBase(assetBase || (ONLINE_ASSETS_BASE + (item.category || '') + '/'));
-      return base + item.file;
-    }
-    if (item.path) return resolveLocalPath(item.path);
-    return '';
+  function resolveCandidates(item) {
+    if (item.file) return buildVideoCandidates(item.file, assetBase);
+    if (item.path) return [resolveLocalPath(item.path)];
+    return [];
   }
+
+  function onVideoError() {
+    candidateIndex += 1;
+    if (candidateIndex < activeCandidates.length) {
+      mainVideo.src = activeCandidates[candidateIndex];
+      mainVideo.load();
+      return;
+    }
+    showVideoLoadError(mainVideo, playerDesc);
+  }
+
+  mainVideo.addEventListener('error', onVideoError);
 
   function playVideo(index, { scrollCard = false, updateUrl = true } = {}) {
     currentIndex = index;
     const item = videos[index];
-    mainVideo.src = resolveSrc(item);
-    mainVideo.load();
-    if (playerTitle) playerTitle.textContent = item.title;
-    if (playerDesc) {
+    activeCandidates = resolveCandidates(item);
+    candidateIndex = 0;
+
+    if (!activeCandidates.length) {
+      showVideoLoadError(mainVideo, playerDesc);
+      return;
+    }
+
+    if (playerDesc && item.desc) {
       playerDesc.textContent = item.desc + (item.size ? ` · ${item.size}` : '');
     }
+
+    mainVideo.src = activeCandidates[0];
+    mainVideo.load();
+    if (playerTitle) playerTitle.textContent = item.title;
     document.querySelectorAll('.video-card').forEach((card, i) => {
       const active = i === index;
       card.classList.toggle('active', active);

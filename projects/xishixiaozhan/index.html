@@ -296,19 +296,23 @@
     });
     (function () {
       const localBase = '../../assets/videos/xishixiaozhan/';
-      const cdnBase =
+      const pagesBase = 'https://ronaqyr810.github.io/portfolio/assets/videos/xishixiaozhan/';
+      const mediaBase =
         'https://media.githubusercontent.com/media/RonaQyr810/portfolio/main/assets/videos/xishixiaozhan/';
       document.querySelectorAll('.video-card video').forEach(video => {
         const file = video.dataset.file;
         if (!file) return;
-        const localSrc = localBase + file;
-        const cdnSrc = cdnBase + file;
-        video.src = localSrc;
-        video.addEventListener('error', () => {
-          if (video.dataset.fallback === 'cdn') return;
-          video.dataset.fallback = 'cdn';
-          video.src = cdnSrc;
-        }, { once: true });
+        const fallbacks = [localBase + file, pagesBase + file, mediaBase + file];
+        let index = 0;
+        const tryNext = () => {
+          index += 1;
+          if (index < fallbacks.length) {
+            video.src = fallbacks[index];
+            video.load();
+          }
+        };
+        video.src = fallbacks[0];
+        video.addEventListener('error', tryNext);
       });
     })();
   </script>
