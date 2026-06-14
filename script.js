@@ -1,4 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const SITE_BASE = (() => {
+    const path = window.location.pathname || '/';
+    if (path.includes('/portfolio/')) return '/portfolio/';
+    if (path.endsWith('/portfolio')) return '/portfolio/';
+    return '/';
+  })();
+
+  const GH_PAGES_CDN = 'https://ronaqyr810.github.io/portfolio/';
+
+  document.querySelectorAll('.portfolio-cover img').forEach(img => {
+    const rawSrc = img.getAttribute('src');
+    if (!rawSrc || rawSrc.startsWith('http') || rawSrc.startsWith('data:')) return;
+
+    const normalized = rawSrc.replace(/^\.\//, '');
+    if (SITE_BASE !== '/' && !normalized.startsWith('/')) {
+      img.src = SITE_BASE + normalized;
+    }
+
+    img.addEventListener('error', () => {
+      const current = img.getAttribute('src') || '';
+      if (current.startsWith(GH_PAGES_CDN)) return;
+      const path = (current.startsWith(SITE_BASE) ? current.slice(SITE_BASE.length) : normalized).split('?')[0];
+      img.src = GH_PAGES_CDN + path + '?v=6';
+    }, { once: true });
+  });
+
   const expTabs = document.getElementById('expTabs');
 
   const galleries = {
@@ -44,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
       { src: 'assets/portfolio/web-house-sample.jpg', caption: '房屋租赁可视化 Web · 系统界面素材' },
     ],
     brand: [
-      { src: 'assets/portfolio/brand-logo-cover.svg', caption: '品牌视觉设计 · 主 LOGO 方案' },
+      { src: 'assets/portfolio/brand-logo-cover.png?v=6', caption: '品牌视觉设计 · 主 LOGO 方案' },
       { src: 'assets/portfolio/brand-logo-alt.png', caption: '品牌视觉设计 · LOGO 变体' },
       { src: 'assets/portfolio/brand-logo-restored.svg', caption: '品牌视觉设计 · LOGO 精修版' },
     ],
