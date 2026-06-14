@@ -1188,16 +1188,32 @@ img {
 
 .portfolio-video-cta h3 {
   font-size: 1.2rem;
-  margin-bottom: 8px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #fff;
 }
 
 .portfolio-video-cta p {
-  font-size: 0.9rem;
-  color: rgba(255,255,255,.65);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.65;
   max-width: none;
   word-break: keep-all;
   overflow-wrap: break-word;
   text-wrap: pretty;
+}
+
+.portfolio-video-cta .btn-outline {
+  flex-shrink: 0;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.portfolio-video-cta .btn-outline:hover {
+  color: #fff;
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.18);
 }
 
 /* ===== Highlights ===== */
