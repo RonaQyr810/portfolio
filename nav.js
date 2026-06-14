@@ -35,8 +35,8 @@
   ]);
 
   const portfolioDropdown = buildDropdown('navPortfolio', '作品集', [
-    { href: designHref, title: '设计作品', desc: 'UI 设计、产品开发与品牌视觉，共 10 个代表项目' },
-    { href: videoIndexHref, title: '视频作品', desc: '京剧可视化、C4D 三维、AE 特效、小程序演示等 39 部影像' },
+    { href: designHref, title: '设计作品', desc: 'UI 设计、产品开发与 AI 应用，共 11 个代表项目' },
+    { href: videoIndexHref, title: '视频作品', desc: '京剧可视化、C4D 动画、Web 录屏等 31 部已上线' },
   ]);
 
   const practiceDropdown = buildDropdown('navPractice', '实践', [

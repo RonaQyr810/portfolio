@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 视觉对话助手 · 秦艺榕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1a2332;
+      --card: #243041;
+      --text: #e8edf2;
+      --muted: #8fa8b8;
+      --accent: #5a9dad;
+      --gold: #a68b5b;
+      --border: rgba(255,255,255,.08);
+    }
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: radial-gradient(ellipse at top, #2f4a5c 0%, var(--bg) 55%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 48px 24px 72px; }
+    .back { color: var(--muted); text-decoration: none; font-size: .9rem; display: inline-block; margin-bottom: 28px; }
+    .tag {
+      display: inline-block;
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    h1 { font-size: 2rem; margin-bottom: 12px; }
+    .lead { color: var(--muted); margin-bottom: 28px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px 28px;
+      margin-bottom: 20px;
+    }
+    .card h2 { font-size: 1rem; margin-bottom: 12px; color: var(--gold); }
+    ul { padding-left: 1.2em; color: #c5d2dc; }
+    li { margin-bottom: 8px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-weight: 500;
+      text-decoration: none;
+      font-size: .92rem;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-outline { border: 1px solid var(--border); color: var(--text); }
+    .note {
+      margin-top: 24px;
+      padding: 16px 18px;
+      border-radius: 12px;
+      background: rgba(90, 157, 173, 0.12);
+      border: 1px solid rgba(90, 157, 173, 0.25);
+      font-size: .9rem;
+      color: #b8c9d4;
+    }
+    code { background: rgba(0,0,0,.25); padding: 2px 6px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="../../index.html#portfolio">← 返回作品集</a>
+    <span class="tag">Multimodal AI</span>
+    <h1>AI 视觉对话助手</h1>
+    <p class="lead">打开摄像头与麦克风，让 AI 看见你的画面、听见你说的话，并给出自然的中文回复。实习期间独立发起的 AI 产品验证项目。</p>
+
+    <div class="card">
+      <h2>核心能力</h2>
+      <ul>
+        <li>实时摄像头预览 + 连续语音识别（Web Speech API）</li>
+        <li>用户说完一句话后自动截取画面，发送多模态大模型分析</li>
+        <li>结合画面与对话历史回复，支持本地 / 云端语音朗读</li>
+        <li>端云协同成本控制：按需截图、压缩去重、历史裁剪</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>技术栈</h2>
+      <ul>
+        <li>前端：React + TypeScript + Vite</li>
+        <li>后端：Node.js + Express，对接 OpenAI 多模态 API</li>
+        <li>部署：Docker / Render 云端一键部署</li>
+      </ul>
+    </div>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="https://github.com/Queen-qyr/vision-chat" target="_blank" rel="noopener noreferrer">查看 GitHub 源码</a>
+      <a class="btn btn-outline" href="../../index.html#contact">联系我体验</a>
+    </div>
+
+    <p class="note">本项目需要 Node.js 后端与 API Key 才能完整运行，无法像静态页面一样直接嵌入。本地可双击项目目录中的 <code>启动.bat</code> 体验；云端部署见仓库内 <code>docs/GITHUB_DEPLOY.md</code>。</p>
+  </div>
+</body>
+</html>

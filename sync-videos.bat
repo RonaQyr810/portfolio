@@ -15,7 +15,7 @@ if not defined PORTFOLIO (
   exit /b 1
 )
 
-set "REC=%PORTFOLIO%\01-已恢复-视频资料"
+set "REC=%PORTFOLIO%\01-视频动画"
 echo 作品集: %PORTFOLIO%
 echo 目标: %DST%
 

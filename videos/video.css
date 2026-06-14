@@ -1,15 +1,16 @@
 :root {
-  --bg: #f7f4f0;
-  --bg-elevated: #fffcfa;
-  --bg-dark: #1a1a2e;
+  --bg: #f6f4f1;
+  --bg-elevated: #fcfaf7;
+  --bg-dark: #1a2332;
   --card: #fff;
-  --text: #2a2a36;
-  --muted: #5c5c6e;
-  --accent: #c45c4a;
-  --accent-light: #e8a090;
-  --border: #e6e0d8;
-  --shadow: 0 2px 16px rgba(26, 26, 46, 0.06);
-  --shadow-md: 0 8px 32px rgba(26, 26, 46, 0.08);
+  --text: #243041;
+  --muted: #4d5d6f;
+  --accent: #2f6b7a;
+  --accent-light: #5a9dad;
+  --accent-dark: #1f4f5c;
+  --border: #e2ddd4;
+  --shadow: 0 2px 16px rgba(26, 35, 50, 0.06);
+  --shadow-md: 0 8px 32px rgba(26, 35, 50, 0.08);
   --radius: 14px;
   --radius-lg: 22px;
   --font: 'Noto Sans SC', sans-serif;
@@ -27,7 +28,7 @@ body {
 }
 
 a { color: var(--accent); text-decoration: none; font-weight: 500; transition: color 0.25s; }
-a:hover { color: #a34435; }
+a:hover { color: var(--accent-dark, #1f4f5c); }
 
 .wrap {
   max-width: 1140px;
@@ -212,6 +213,11 @@ body.video-page .wrap {
   box-shadow: var(--shadow-md);
 }
 
+.hub-card-muted {
+  opacity: 0.88;
+  border-style: dashed;
+}
+
 .hub-icon {
   font-size: 2rem;
   margin-bottom: 14px;
@@ -240,8 +246,8 @@ body.video-page .wrap {
 .note-box {
   margin-top: 36px;
   padding: 18px 22px;
-  background: rgba(196, 92, 74, 0.06);
-  border: 1px solid rgba(196, 92, 74, 0.15);
+  background: rgba(47, 107, 122, 0.06);
+  border: 1px solid rgba(47, 107, 122, 0.15);
   border-radius: var(--radius);
   font-size: 0.88rem;
   color: var(--muted);
