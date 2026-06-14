@@ -1,8 +1,10 @@
-assets/videos/**
-!assets/videos/xishixiaozhan/**
+# 排除体积较大的视频目录，保留惜食小站演示视频随站部署
+assets/videos/c4d/**
+assets/videos/peking-opera/**
+assets/videos/campus-media/**
+assets/videos/ae-effects/**
+assets/videos/web-dev/**
 .git/**
 .gitattributes
 作品集/**
 projects/moyan-app/node_modules/**
-**/*.mp4
-!assets/videos/xishixiaozhan/*.mp4

@@ -1,16 +1,17 @@
 {
   "version": 2,
-  "rewrites": [
-    {
-      "source": "/assets/videos/:path*",
-      "destination": "https://media.githubusercontent.com/media/RonaQyr810/portfolio/main/assets/videos/:path*"
-    }
-  ],
   "headers": [
     {
       "source": "/projects/rikxiniao/app/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/assets/videos/xishixiaozhan/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "Content-Type", "value": "video/mp4" }
       ]
     }
   ]
