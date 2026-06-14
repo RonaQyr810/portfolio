@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 语音绘图工具 · 秦艺榕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1419;
+      --card: #1a222d;
+      --text: #e8edf2;
+      --muted: #8fa8b8;
+      --accent: #6b9fff;
+      --border: rgba(255,255,255,.08);
+    }
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: radial-gradient(ellipse at top, #1e2a3a 0%, var(--bg) 55%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 48px 24px 72px; }
+    .back { color: var(--muted); text-decoration: none; font-size: .9rem; display: inline-block; margin-bottom: 28px; }
+    .tag {
+      display: inline-block;
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    h1 { font-size: 2rem; margin-bottom: 12px; }
+    .lead { color: var(--muted); margin-bottom: 28px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px 28px;
+      margin-bottom: 20px;
+    }
+    .card h2 { font-size: 1rem; margin-bottom: 12px; color: var(--accent); }
+    ul { padding-left: 1.2em; color: #c5d2dc; }
+    li { margin-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; margin-top: 8px; }
+    th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); }
+    th { color: var(--muted); font-weight: 500; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-weight: 500;
+      text-decoration: none;
+      font-size: .92rem;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-outline { border: 1px solid var(--border); color: var(--text); }
+    .note {
+      margin-top: 24px;
+      padding: 16px 18px;
+      border-radius: 12px;
+      background: rgba(107, 159, 255, 0.12);
+      border: 1px solid rgba(107, 159, 255, 0.25);
+      font-size: .9rem;
+      color: #b8c9d4;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="../../index.html#portfolio">← 返回作品集</a>
+    <span class="tag">Voice + Canvas</span>
+    <h1>AI 语音绘图工具</h1>
+    <p class="lead">纯语音控制的 Web 绘图应用——无需鼠标和键盘，通过中文语音指令在 Canvas 上完成创作。支持复合指令、撤销与画布清空。</p>
+
+    <div class="card">
+      <h2>核心能力</h2>
+      <ul>
+        <li>Web Speech API 中文语音识别，实时显示 interim / final 文本</li>
+        <li>自然语言指令解析：形状、颜色、位置、尺寸与复合绘图</li>
+        <li>麦克风音量可视化，自动检测权限与监听状态</li>
+        <li>撤销 / 清空画布，指令执行反馈日志</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>常用指令示例</h2>
+      <table>
+        <thead><tr><th>语音</th><th>效果</th></tr></thead>
+        <tbody>
+          <tr><td>开始监听 / 停止监听</td><td>控制语音识别</td></tr>
+          <tr><td>画一个红色的圆</td><td>绘制红色圆形</td></tr>
+          <tr><td>在中心画蓝色矩形 宽200 高100</td><td>指定位置与尺寸</td></tr>
+          <tr><td>从左上到右下画一条线</td><td>绘制直线</td></tr>
+          <tr><td>撤销 / 清空画布</td><td>撤销或清空</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>技术栈</h2>
+      <ul>
+        <li>HTML5 Canvas + 原生 JavaScript（无框架依赖）</li>
+        <li>Web Speech API + 麦克风音量检测</li>
+        <li>模块化：指令解析 / 绘图引擎 / 语音控制器</li>
+      </ul>
+    </div>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="app/index.html">▶ 立即在线体验</a>
+      <a class="btn btn-outline" href="../../index.html#portfolio">返回作品集</a>
+    </div>
+
+    <p class="note">请使用 <strong>Chrome</strong> 或 <strong>Edge</strong> 浏览器，并允许麦克风权限。说「开始监听」后即可用语音绘图。</p>
+  </div>
+</body>
+</html>

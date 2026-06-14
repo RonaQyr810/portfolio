@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart C Cleaner · 秦艺榕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card: #161b22;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --green: #3fb950;
+      --border: rgba(255,255,255,.08);
+    }
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: radial-gradient(ellipse at top, #1c2333 0%, var(--bg) 55%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 48px 24px 72px; }
+    .back { color: var(--muted); text-decoration: none; font-size: .9rem; display: inline-block; margin-bottom: 28px; }
+    .tag {
+      display: inline-block;
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    h1 { font-size: 2rem; margin-bottom: 12px; }
+    .lead { color: var(--muted); margin-bottom: 28px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px 28px;
+      margin-bottom: 20px;
+    }
+    .card h2 { font-size: 1rem; margin-bottom: 12px; color: var(--accent); }
+    ul { padding-left: 1.2em; color: #c9d1d9; }
+    li { margin-bottom: 8px; }
+    .tier { display: inline-block; font-size: .75rem; padding: 2px 8px; border-radius: 4px; margin-left: 6px; }
+    .tier-safe { background: rgba(63,185,80,.15); color: var(--green); }
+    .tier-deep { background: rgba(210,153,34,.15); color: #d29922; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-weight: 500;
+      text-decoration: none;
+      font-size: .92rem;
+    }
+    .btn-outline { border: 1px solid var(--border); color: var(--text); }
+    .note {
+      margin-top: 24px;
+      padding: 16px 18px;
+      border-radius: 12px;
+      background: rgba(88, 166, 255, 0.1);
+      border: 1px solid rgba(88, 166, 255, 0.2);
+      font-size: .9rem;
+      color: #b8c9d4;
+    }
+    code { background: rgba(0,0,0,.3); padding: 2px 6px; border-radius: 4px; font-size: .85rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="../../index.html#portfolio">← 返回作品集</a>
+    <span class="tag">Python Desktop</span>
+    <h1>Smart C Cleaner</h1>
+    <p class="lead">Windows 智能 C 盘清理工具，提供图形界面与命令行双模式。分类扫描临时文件、缓存与可安全删除项，深度清理项会二次确认，避免误删。</p>
+
+    <div class="card">
+      <h2>核心能力</h2>
+      <ul>
+        <li>Tkinter 图形界面：分类树形列表、勾选清理、进度条与磁盘空间概览</li>
+        <li>安全清理 <span class="tier tier-safe">Safe</span> 与深度清理 <span class="tier tier-deep">Deep</span> 分级策略</li>
+        <li>命令行模式：<code>scan --deep</code> / <code>clean --deep -y</code></li>
+        <li>管理员权限检测，部分系统目录需提权后清理</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>技术栈</h2>
+      <ul>
+        <li>Python 3 + Tkinter GUI</li>
+        <li>模块化：scanner / clean_engine / categories</li>
+        <li>可选 psutil 读取磁盘信息</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>本地运行</h2>
+      <ul>
+        <li>源码位于桌面 <code>开发项目/smart-c-cleaner/</code></li>
+        <li>双击 <code>启动图形界面.bat</code> 或运行 <code>python main.py</code></li>
+        <li>依赖：<code>pip install -r requirements.txt</code></li>
+      </ul>
+    </div>
+
+    <div class="actions">
+      <a class="btn btn-outline" href="../../index.html#portfolio">返回作品集</a>
+    </div>
+
+    <p class="note">本项目为 Windows 桌面应用，无法在浏览器中直接运行。如需源码或演示，欢迎通过主页联系方式与我沟通。</p>
+  </div>
+</body>
+</html>

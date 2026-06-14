@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" fill="#0d1117"/>
+  <ellipse cx="320" cy="180" rx="140" ry="140" fill="#161b22" stroke="#58a6ff" stroke-width="3"/>
+  <ellipse cx="320" cy="180" rx="100" ry="100" fill="none" stroke="#30363d" stroke-width="8" stroke-dasharray="12 8"/>
+  <path d="M320 80v40M320 240v40M180 180h40M420 180h40" stroke="#58a6ff" stroke-width="2" opacity=".5"/>
+  <text x="320" y="188" text-anchor="middle" fill="#58a6ff" font-family="monospace" font-size="28" font-weight="bold">C:</text>
+  <rect x="420" y="260" width="160" height="56" rx="12" fill="#238636"/>
+  <text x="500" y="295" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="16">Clean</text>
+  <text x="40" y="340" fill="#8b949e" font-family="sans-serif" font-size="18">Smart C Cleaner · Python</text>
+</svg>
