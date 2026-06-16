@@ -82,6 +82,14 @@ def sync_smart_c_cleaner() -> None:
         print("OK smart-c-cleaner/src/", n, "files")
 
 
+def sync_rikxiniao() -> None:
+    import subprocess
+    import sys
+
+    script = Path(__file__).resolve().parent / "sync-rikxiniao.py"
+    subprocess.run([sys.executable, str(script)], check=False)
+
+
 def sync_wildlife_wireframes() -> None:
     roots = [
         DESKTOP / "???" / "04-????" / "??????????-H5????",
@@ -109,6 +117,7 @@ def main() -> int:
     print("-" * 40)
     sync_voice_draw()
     sync_smart_c_cleaner()
+    sync_rikxiniao()
     sync_wildlife_wireframes()
     print("-" * 40)
     print("?????? python sync_portfolio_assets.py ???????")

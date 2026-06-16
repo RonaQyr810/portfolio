@@ -1,0 +1,1 @@
+import{c as e}from"./index-D0ZAIIz8.js";var t;(function(e){e.Up=`UP`,e.Down=`DOWN`,e.Left=`LEFT`,e.Right=`RIGHT`})(t||={});var n=e(`CapacitorOcr`,{});export{n as Ocr};

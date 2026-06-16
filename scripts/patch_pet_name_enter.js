@@ -1,10 +1,12 @@
 const fs = require("fs");
 const path = require("path");
 
-const files = [
-  "projects/rikxiniao/app/bundle.js",
-  "projects/rikxiniao/app/assets/index-BSkfxrfo.js",
-];
+const files = fs
+  .readdirSync(path.join(root, "projects/rikxiniao/app/assets"), { withFileTypes: true })
+  .filter((e) => e.isFile() && e.name.endsWith(".js"))
+  .map((e) => path.join("projects/rikxiniao/app/assets", e.name));
+const bundle = path.join(root, "projects/rikxiniao/app/bundle.js");
+if (fs.existsSync(bundle)) files.push("projects/rikxiniao/app/bundle.js");
 
 const root = path.resolve(__dirname, "..");
 

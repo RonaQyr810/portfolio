@@ -4,7 +4,9 @@ import re
 from pathlib import Path
 
 APP = Path(__file__).resolve().parent.parent / "projects/rikxiniao/app"
-FILES = [APP / "assets/index-BSkfxrfo.js", APP / "bundle.js"]
+FILES = list((APP / "assets").glob("*.js")) if (APP / "assets").is_dir() else []
+if (APP / "bundle.js").is_file():
+    FILES.append(APP / "bundle.js")
 
 CLOUD_PATTERNS = [
     "http://192.168.10.157:8787",
