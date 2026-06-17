@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import shutil
+import subprocess
+import sys
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
@@ -40,8 +42,12 @@ MIRROR_FALLBACK: tuple[str, ...] = (
     "health-food-logo.png",
     "health-food-rank.png",
     "health-food-home.png",
+    "health-food-login.png",
+    "health-food-profile.png",
     "peking-opera-cover.png",
     "moyan-cover.png",
+    "brand-logo-main.png",
+    "brand-logo-restored.png",
 )
 
 MAPPING: list[tuple[str, str, tuple[str, ...]]] = [
@@ -63,13 +69,9 @@ MAPPING: list[tuple[str, str, tuple[str, ...]]] = [
     ("looptrace-poster.jpg", "2220048 秦艺榕 基于微信小程序“惜食小站”珍惜粮食与积分兑换系统的设计与开发 作品海报.jpg", ("毕业设计",)),
     ("looptrace-poster.jpg", "2220048 秦艺榕 基于微信小程序“惜食小站”珍惜粮食与积分兑换系统的设计与开发 作品海报.jpg", ("01-设计稿",)),
     ("looptrace-poster.jpg", "2220048 秦艺榕 基于微信小程序“惜食小站”珍惜粮食与积分兑换系统的设计与开发 作品海报.jpg", ("03-毕设-惜食小站",)),
-    ("health-food-login.png", "2220048_秦艺榕__列表页.JPG", ("UI设计稿",)),
-    ("health-food-login.png", "2220048_秦艺榕__列表页.JPG", ("03-设计素材",)),
-    ("health-food-home-general.png", "2220048_秦艺榕_首页.png", ("UI设计稿", "03-设计素材")),
-    ("health-food-home-ai.png", "2220048_秦艺榕_作业1.png", ("UI设计稿", "03-设计素材")),
-    ("health-food-home-nutritionist.png", "2220048_秦艺榕_作业2.png", ("UI设计稿", "03-设计素材")),
-    ("health-food-profile.png", "2220048_秦艺榕_我的.png", ("UI设计稿", "03-设计素材")),
-    # health-food-logo / cover / bubble / rank：桌面无对应源文件，保留仓库版本不覆盖
+    # health-food-home-general / home-ai / home-nutritionist：仅保留在仓库/投递版镜像，
+    # 勿映射到 UI 课作业素材（2220048_作业*.png 等为英语/音乐模板，非健康食途）
+    # health-food-login / profile / logo / cover / bubble / rank：从投递版镜像同步
     ("medical-home.jpg", "首页.jpg", ("健康医疗网站", "低保")),
     ("medical-home.jpg", "首页.jpg", ("健康医疗网站", "高保")),
     ("medical-home.jpg", "首页.jpg", ("new-doctor",)),
@@ -85,9 +87,7 @@ MAPPING: list[tuple[str, str, tuple[str, ...]]] = [
     ("health-pathway.jpg", "网页展板.jpg", ("12-团队Web",)),
     ("web-house-sample.jpg", "house-gb.jpg", ("house", "static", "img")),
     ("web-house-sample.jpg", "2220048_秦艺榕_列表页截图.png", ("12-团队Web", "页面截图")),
-    ("brand-logo-main.png", "2220048 秦艺榕 名字logo.png", ("01-设计稿", "05-UI与平面设计")),
-    ("brand-logo-alt.png", "2220048 秦艺榕 名字logo-01.png", ("01-设计稿", "05-UI与平面设计")),
-    ("brand-logo-restored.png", "2220048 秦艺榕 名字logo-01.png", ("01-设计稿", "05-UI与平面设计")),
+    # brand-logo-*：桌面源 PNG 为 EFS 加密，改由 mirror + scripts/fix-brand-logos.py 处理
     # peking-opera-cover：桌面 Web 截图易误配 C4D 图，保留仓库/投递版版本
 ]
 
@@ -245,6 +245,12 @@ def main() -> int:
     mirror_ok, mirror_synced = sync_from_mirror(seen)
     ok += mirror_ok
     missing = [m for m in missing if not m.split(" <= ")[0].split(":")[0] in mirror_synced]
+
+    fix_script = BASE / "scripts" / "fix-brand-logos.py"
+    if fix_script.is_file():
+        import subprocess
+        print("\n运行品牌 LOGO 后处理 …")
+        subprocess.run([sys.executable, str(fix_script)], check=False)
 
     print(f"\n完成: {ok} 个文件已同步")
     if missing:

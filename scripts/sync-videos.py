@@ -22,12 +22,28 @@ SEARCH_ROOTS = [
 ]
 
 
+def is_valid_mp4(path: Path) -> bool:
+    try:
+        with path.open("rb") as handle:
+            head = handle.read(12)
+        if len(head) >= 8 and head[4:8] == b"ftyp":
+            return True
+        with path.open("rb") as handle:
+            chunk = handle.read(1024 * 1024)
+        return b"ftyp" in chunk or b"moov" in chunk
+    except OSError:
+        return False
+
+
 def copy(src: Path, category: str, name: str) -> bool:
     if not src.is_file():
         return False
+    if not is_valid_mp4(src):
+        print(f"ERROR invalid mp4 {category}/{name} <- {src}")
+        return False
     out = DST / category / name
     out.parent.mkdir(parents=True, exist_ok=True)
-    if out.is_file() and out.stat().st_size == src.stat().st_size:
+    if out.is_file() and out.stat().st_size == src.stat().st_size and is_valid_mp4(out):
         print(f"SKIP same {category}/{name}")
         return False
     shutil.copy2(src, out)
@@ -79,11 +95,11 @@ def main() -> int:
 
     for name, patterns in [
         ("final.mp4", ((("梨园之韵",), "梨园之韵 最终成品.mp4"), (("梨园之韵",), "梨园之韵 最终成片.mp4"))),
-        ("opera-1.mp4", ((("信息可视化",), "京剧1.mp4"),)),
-        ("opera-2.mp4", ((("信息可视化",), "京剧2.mp4"),)),
-        ("opera-3.mp4", ((("信息可视化",), "京剧3.mp4"),)),
-        ("revised-full.mp4", ((("信息可视化",), "京剧修改后.mp4"),)),
-        ("revised-short.mp4", ((("信息可视化",), "京剧修改后_1.mp4"),)),
+        ("opera-1.mp4", ((("作品集", "信息可视化"), "京剧1.mp4"), (("信息可视化",), "京剧1.mp4"))),
+        ("opera-2.mp4", ((("作品集", "信息可视化"), "京剧2.mp4"), (("信息可视化",), "京剧2.mp4"))),
+        ("opera-3.mp4", ((("作品集", "信息可视化"), "京剧3.mp4"), (("信息可视化",), "京剧3.mp4"))),
+        ("revised-full.mp4", ((("作品集", "信息可视化"), "京剧修改后.mp4"), (("信息可视化",), "京剧修改后.mp4"))),
+        ("revised-short.mp4", ((("作品集", "信息可视化"), "京剧修改后_1.mp4"), (("信息可视化",), "京剧修改后_1.mp4"))),
     ]:
         put("peking-opera", name, *patterns)
 
@@ -101,14 +117,54 @@ def main() -> int:
         put("campus-media", item[0], *item[1:])
 
     web = [
-        ("flask-house.mp4", (("12-团队Web", "Flask"), "FlaskVideo-2220048.mp4"), (("web小组",), "2220048 秦艺榕 网页录屏.mp4")),
-        ("web-group.mp4", (("01-视频动画",), "2220048 秦艺榕 网页录屏.mp4"),),
-        ("health-pathway.mp4", (("09-课程动画",), "C1 秦艺榕 冷婷婷 陈艺璇.mp4"), (("C1 秦艺榕",), "C1 秦艺榕 冷婷婷 陈艺璇.mp4"), (("课程动画作业",), "C1 秦艺榕 冷婷婷 陈艺璇.mp4")),
+        ("flask-house.mp4",
+         (("03-课程项目", "Flask"), "Flask功能演示.mp4"),
+         (("03-课程项目",), "flask-house.mp4"),
+         (("12-团队Web", "Flask"), "FlaskVideo-2220048.mp4"),
+         (("web小组",), "2220048 秦艺榕 网页录屏.mp4")),
+        ("web-group.mp4",
+         (("03-课程项目",), "web-group.mp4"),
+         (("01-视频动画",), "2220048 秦艺榕 网页录屏.mp4")),
+        ("health-pathway.mp4",
+         (("12-团队Web", "健康之路医疗网站"), "录屏文件.mp4"),
+         (("03-课程项目", "健康之路"), "录屏文件.mp4"),
+         (("09-课程动画",), "C1 秦艺榕 冷婷婷 陈艺璇.mp4"),
+         (("课程动画作业",), "C1 秦艺榕 冷婷婷 陈艺璇.mp4")),
     ]
     for item in web:
         put("web-dev", item[0], *item[1:])
 
-    c4d_map = {
+    c4d_home = DESKTOP / "作品集" / "01-视频动画" / "课程动画作业"
+    c4d_entries = [
+        ("2220048_秦艺榕_摩天轮.mp4", "ferris-wheel.mp4"),
+        ("2220048_秦艺榕_滚动的水滴.mp4", "water-roll.mp4"),
+        ("2220048_秦艺榕_游动的鱼.mp4", "swimming-fish.mp4"),
+        ("2220048_秦艺榕_钟摆.mp4", "pendulum.mp4"),
+        ("2220048_秦艺榕_闹钟.mp4", "clock.mp4"),
+        ("2220048_秦艺榕_切红肠.mp4", "cut-sausage.mp4"),
+        ("2220048_秦艺榕_变速.mp4", "variable-speed.mp4"),
+        ("2220048_秦艺榕_路径动画.mp4", "path-motion.mp4"),
+        ("2220048_秦艺榕_小球变形.mp4", "ball-morph.mp4"),
+        ("2220048_秦艺榕_水滴滴落.mp4", "water-drop.mp4"),
+        ("2220048_秦艺榕_生长动画.mp4", "growth.mp4"),
+        ("2220048_秦艺榕_小球抛物线.mp4", "parabola.mp4"),
+        ("2220048_秦艺榕_生气锤.mp4", "angry-hammer.mp4"),
+        ("2220048_秦艺榕_小汽车.mp4", "small-car.mp4"),
+        ("2220048_秦艺榕_变颜色.mp4", "color-change.mp4"),
+        ("2220048_秦艺榕_传送射线可视.mp4", "ray-visual.mp4"),
+        ("2220048_秦艺榕_交互.mp4", "interaction.mp4"),
+        ("2220048_秦艺榕_UI交互.mp4", "ui-interaction.mp4"),
+        ("2220048_秦艺榕_Ui交互 (1).MP4", "ui-interaction-demo.mp4"),
+        ("2220048_秦艺榕_演示视频-1.mp4", "demo-1.mp4"),
+        ("2220048_秦艺榕_演示视频-2.mp4", "demo-2.mp4"),
+        ("2220048_秦艺榕_综合演示.mp4", "composite-demo.mp4"),
+        ("2220048_秦艺榕_剧本视频.mp4", "script-video.mp4"),
+        ("C1 秦艺榕 冷婷婷 陈艺璇.mp4", "team-c1.mp4"),
+        ("录屏视频.mp4", "screen-record.mp4"),
+        ("游动的鱼.mp4", "swimming-fish-alt.mp4"),
+        ("秦艺榕_基于大数据的动漫分析.mp4", "anime-analysis.mp4"),
+    ]
+    c4d_legacy = {
         "2220048 秦艺榕 滚动的水滴.mp4": "water-roll.mp4",
         "2220048 秦艺榕 游动的鱼.mp4": "swimming-fish.mp4",
         "2220048 秦艺榕 钟摆.mp4": "pendulum.mp4",
@@ -120,12 +176,22 @@ def main() -> int:
         "2220048 秦艺榕 水滴滴落.mp4": "water-drop.mp4",
         "2220048 秦艺榕 生长动画.mp4": "growth.mp4",
         "220048 秦艺榕  小球抛物线.mp4": "parabola.mp4",
-        "骨骼.mp4": "skeleton.mp4",
+        "骨骼.mp4": "angry-hammer.mp4",
         "摩天轮.mp4": "ferris-wheel.mp4",
-        "xiache.mp4": "get-off.mp4",
+        "xiache.mp4": "small-car.mp4",
     }
     seen: set[str] = set()
-    for src_name, out_name in c4d_map.items():
+    for src_name, out_name in c4d_entries:
+        if out_name in seen:
+            continue
+        direct = c4d_home / src_name
+        if direct.is_file():
+            if copy(direct, "c4d", out_name):
+                copied += 1
+        else:
+            put("c4d", out_name, (("课程动画作业",), src_name), (("01-视频动画",), src_name), (("09-课程动画",), src_name))
+        seen.add(out_name)
+    for src_name, out_name in c4d_legacy.items():
         if out_name in seen:
             continue
         put("c4d", out_name, (("01-视频动画",), src_name), (("09-课程动画",), src_name), (("课程动画作业",), src_name))
@@ -136,6 +202,12 @@ def main() -> int:
 
     print(f"\nTotal copies: {copied}")
     print(f"Output: {DST}")
+
+    invalid = [p.name for p in (DST / "peking-opera").glob("*.mp4") if not is_valid_mp4(p)]
+    if invalid:
+        print("\nWARN peking-opera 无效视频:", ", ".join(sorted(invalid)))
+        print("     请用 Premiere 重新导出到 桌面/作品集/信息可视化/ 后再次运行本脚本")
+
     return 0
 
 

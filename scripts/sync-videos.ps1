@@ -6,9 +6,9 @@ $dst = Join-Path $root 'assets\videos'
 
 $map = @{
     'web-dev' = @{
-        'flask-house.mp4'     = '2220048 秦艺榕 web小组作业\FlaskVideo-2220048.mp4'
-        'web-group.mp4'       = '2220048 秦艺榕 web小组作业\2220048 秦艺榕 网页录屏.mp4'
-        'health-pathway.mp4'  = 'C1 秦艺榕 冷婷婷 陈艺璇\C1 秦艺榕 冷婷婷 陈艺璇.mp4'
+        'flask-house.mp4'     = '..\学校文档\2220048-秦艺榕\03-课程项目\Flask功能演示.mp4'
+        'web-group.mp4'       = '..\学校文档\2220048-秦艺榕\03-课程项目\web-group.mp4'
+        'health-pathway.mp4'  = '00-投递版本\作品集-投递版-综合岗\12-团队Web项目\健康之路医疗网站\录屏文件.mp4'
     }
     'xishixiaozhan' = @{
         'user-demo.mp4'  = '..\毕设项目\项目-惜食小站-毕业设计\2220048 秦艺榕 作品展示视频（用户端）.mp4'
