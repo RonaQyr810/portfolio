@@ -37,7 +37,7 @@
   const portfolioDropdown = buildDropdown('navPortfolio', '产品案例', [
     { href: designHref, title: '核心产品案例', desc: '0→1 交付、AI 应用与原型方案，共 6 个核心项目' },
     { href: `${designHref}`, title: '更多作品', desc: '开发验证、课程作业与影像创作补充' },
-    { href: videoIndexHref, title: '视频库', desc: '演示录屏、动画与课程影像，31 部已上线' },
+    { href: videoIndexHref, title: '视频库', desc: '演示录屏、动画与课程影像，共 31 部' },
   ]);
 
   const practiceDropdown = buildDropdown('navPractice', '实践', [
