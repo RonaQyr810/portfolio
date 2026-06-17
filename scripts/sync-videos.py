@@ -71,7 +71,7 @@ def copy(src: Path, category: str, name: str) -> bool:
         return False
     out = DST / category / name
     out.parent.mkdir(parents=True, exist_ok=True)
-    if out.is_file() and out.stat().st_size == src.stat().st_size and is_valid_mp4(out):
+    if out.is_file() and out.stat().st_size == src.stat().st_size and is_valid_mp4(out) and is_faststart(out):
         print(f"SKIP same {category}/{name}")
         return False
     if out.is_file() and not is_valid_mp4(out):
@@ -130,8 +130,11 @@ def main() -> int:
         put("peking-opera", name, *patterns)
 
     campus = [
-        ("shizhu.mp4", (("08-传媒影像", "拾筑"), "拾筑.mp4"), (("08-传媒影像",), "拾筑.mp4")),
-        ("script-video.mp4", (("01-视频动画",), "2220048 秦艺榕 剧本视频.mp4"), (("08-传媒影像",), "2220048 秦艺榕 剧本视频.mp4")),
+        ("script-video.mp4",
+         (("课程动画作业",), "2220048_秦艺榕_剧本视频.mp4"),
+         (("09-课程动画",), "2220048_秦艺榕_剧本视频.mp4"),
+         (("01-视频动画",), "2220048 秦艺榕 剧本视频.mp4"),
+         (("08-传媒影像",), "2220048 秦艺榕 剧本视频.mp4")),
         ("ui-defense.mp4",
          (("12-团队Web",), "录屏文件.mp4"),
          (("12-团队Web", "健康之路医疗网站"), "录屏文件.mp4"),
@@ -156,9 +159,7 @@ def main() -> int:
         ("modao-web.mp4",
          (("03-代码项目", "文人四友"), "录屏文件.mp4"),
          (("03-代码项目", "文人四友-网站设计"), "录屏文件.mp4"),
-         (("12-团队Web", "文人四友"), "录屏文件.mp4"),
-         (("03-代码项目",), "web-group.mp4"),
-         (("03-课程项目",), "web-group.mp4")),
+         (("12-团队Web", "文人四友"), "录屏文件.mp4")),
     ]
     for item in web:
         put("web-dev", item[0], *item[1:])

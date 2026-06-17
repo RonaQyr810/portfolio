@@ -17,24 +17,12 @@
     <div class="page-hero">
       <span class="page-tag">After Effects</span>
       <h1 class="page-title">AE 合成与特效作品</h1>
-      <p class="page-desc">数字合成与特效技术课程综合作品。包含 MG 片头动画（多层圆环修剪路径 + 文字动效）与综合特效合成实验，掌握 AE 图层样式、效果预设与时间轴节奏控制。</p>
+      <p class="page-desc">数字合成与特效技术课程综合作品。包含 MG 片头动画与综合特效合成实验，掌握 AE 图层样式、效果预设与时间轴节奏控制。</p>
     </div>
-    <div class="main-player">
-      <video id="mainVideo" controls playsinline preload="metadata"></video>
-      <div class="player-info">
-        <h2 id="playerTitle">加载中…</h2>
-        <p id="playerDesc"></p>
-      </div>
+    <div class="note-box">
+      官网托管的 AE 视频源文件已损坏（非有效 MP4），暂时无法在线播放。请从 After Effects 重新导出 H.264 MP4 到桌面「作品集」，再运行 <code>python scripts/sync-videos.py</code> 同步上线。
     </div>
-    <div class="video-grid" id="videoGrid"></div>
   </div>
   <script src="../nav.js"></script>
-  <script src="video-player.js"></script>
-  <script>
-    initVideoPage([
-      { id: 'mg-intro', title: 'AE 合成 · MG 片头动画', desc: '圆环修剪路径 + 文字缩放旋转 + 投影浮雕综合练习', file: 'mg-intro.mp4', size: '80 MB' },
-      { id: 'composite-2', title: 'AE 合成 · 综合作品 2', desc: '课程实验综合作品第二版', file: 'composite-2.mp4', size: '159 MB' },
-    ], { assetBase: '../assets/videos/ae-effects/' });
-  </script>
 </body>
 </html>
