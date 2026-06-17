@@ -13,18 +13,10 @@ APP = BASE / "projects" / "rikxiniao" / "app"
 
 KEEP_IN_APP = {"icons.svg", "favicon.svg", "portfolio-employment.css"}
 
-EMPLOYMENT_CSS_MIN = (
-    ".employment-panel{color:#5d4037;background:#fce4ec;border:1px solid #f8bbd0;"
-    "border-radius:12px;margin-top:12px;padding:12px;font-size:.82rem;line-height:1.7}"
-    '.employment-panel::before{content:"💼 就业状态";display:block;font-weight:600;'
-    "margin-bottom:8px;color:#880e4f;font-size:.9rem}"
-    ".employment-status.unemployed{color:#c62828;font-weight:600;margin-bottom:4px}"
-    ".employment-panel .secondary-btn.danger,.employment-panel .primary-btn{width:100%;margin-top:10px}"
-)
-
 EMPLOYMENT_CSS_FILE = """\
 /* 就业状态 / 离职 */
 .employment-panel {
+  box-sizing: border-box;
   color: #5d4037;
   background: #fce4ec;
   border: 1px solid #f8bbd0;
@@ -33,6 +25,8 @@ EMPLOYMENT_CSS_FILE = """\
   padding: 12px;
   font-size: 0.82rem;
   line-height: 1.7;
+  overflow: hidden;
+  max-width: 100%;
 }
 
 .employment-panel::before {
@@ -50,9 +44,32 @@ EMPLOYMENT_CSS_FILE = """\
   margin-bottom: 4px;
 }
 
+.employment-panel .input-group {
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.employment-panel .inline-label {
+  white-space: normal;
+}
+
+.employment-panel .input-field,
+.employment-panel input[type="date"] {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  flex: none;
+}
+
 .employment-panel .secondary-btn.danger,
 .employment-panel .primary-btn {
+  box-sizing: border-box;
   width: 100%;
+  max-width: 100%;
   margin-top: 10px;
 }
 """
@@ -178,15 +195,6 @@ def write_html(target: Path, assets: dict[str, list[str]], *, entry_name: str) -
 
 
 def patch_css(app_dir: Path, dist_dir: Path) -> None:
-    styles = parse_dist_index(dist_dir / "index.html").get("styles") or []
-    if not styles:
-        return
-    css_path = app_dir / "assets" / Path(styles[0]).name
-    if css_path.is_file():
-        text = css_path.read_text(encoding="utf-8")
-        if ".employment-panel" not in text:
-            css_path.write_text(text + EMPLOYMENT_CSS_MIN, encoding="utf-8")
-            print("OK patched employment CSS in", css_path.name)
     (app_dir / "portfolio-employment.css").write_text(EMPLOYMENT_CSS_FILE, encoding="utf-8")
     print("OK portfolio-employment.css")
 

@@ -1,5 +1,6 @@
 /* 就业状态 / 离职 */
 .employment-panel {
+  box-sizing: border-box;
   color: #5d4037;
   background: #fce4ec;
   border: 1px solid #f8bbd0;
@@ -8,6 +9,8 @@
   padding: 12px;
   font-size: 0.82rem;
   line-height: 1.7;
+  overflow: hidden;
+  max-width: 100%;
 }
 
 .employment-panel::before {
@@ -25,8 +28,31 @@
   margin-bottom: 4px;
 }
 
+.employment-panel .input-group {
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.employment-panel .inline-label {
+  white-space: normal;
+}
+
+.employment-panel .input-field,
+.employment-panel input[type="date"] {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  flex: none;
+}
+
 .employment-panel .secondary-btn.danger,
 .employment-panel .primary-btn {
+  box-sizing: border-box;
   width: 100%;
+  max-width: 100%;
   margin-top: 10px;
 }
