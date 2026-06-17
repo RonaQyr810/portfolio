@@ -39,6 +39,8 @@ def main() -> int:
         svg = OUT_DIR / f"{slug}.svg"
         mmd.write_text(block.strip() + "\n", encoding="utf-8")
         print(f"渲染 {label} -> {svg.name}")
+        width = "2400" if slug != "5-0-business-flow" else "1600"
+        height = "1200" if slug != "5-0-business-flow" else "1400"
         subprocess.run(
             [
                 "npx.cmd",
@@ -51,9 +53,9 @@ def main() -> int:
                 "-b",
                 "transparent",
                 "--width",
-                "1400",
+                width,
                 "--height",
-                "900",
+                height,
             ],
             check=True,
             cwd=str(ROOT),
