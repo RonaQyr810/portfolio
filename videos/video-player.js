@@ -17,12 +17,13 @@ function extractVideoSubpath(assetBase) {
 function buildVideoCandidates(file, assetBase) {
   const subpath = extractVideoSubpath(assetBase);
   const relativeBase = assetBase || (ONLINE_ASSETS_BASE + subpath);
-  const candidates = [relativeBase + file];
+  const candidates = [];
 
   if (!isLocalPreview()) {
-    candidates.push(GH_PAGES_VIDEO_BASE + subpath + file);
     candidates.push(GITHUB_MEDIA_BASE + subpath + file);
+    candidates.push(GH_PAGES_VIDEO_BASE + subpath + file);
   }
+  candidates.push(relativeBase + file);
 
   return candidates;
 }
@@ -103,9 +104,6 @@ function initVideoPage(videos, options = {}) {
       localPaths.forEach(rel => candidates.push(resolveLocalPath(rel)));
     }
     if (item.file) candidates.push(...buildVideoCandidates(item.file, assetBase));
-    if (!isLocalPreview()) {
-      localPaths.forEach(rel => candidates.push(resolveLocalPath(rel)));
-    }
     return [...new Set(candidates)];
   }
 

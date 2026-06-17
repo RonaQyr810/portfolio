@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import shutil
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -36,6 +37,32 @@ def is_valid_mp4(path: Path) -> bool:
         return False
 
 
+def is_faststart(path: Path) -> bool:
+    try:
+        data = path.read_bytes()
+        moov, mdat = data.find(b"moov"), data.find(b"mdat")
+        return moov > 0 and mdat > 0 and moov < mdat
+    except OSError:
+        return True
+
+
+def ensure_faststart(path: Path) -> None:
+    if is_faststart(path):
+        return
+    ffmpeg = shutil.which("ffmpeg")
+    if not ffmpeg:
+        print(f"WARN {path.name} needs faststart — install ffmpeg to auto-fix")
+        return
+    tmp = path.with_suffix(".faststart.tmp.mp4")
+    subprocess.run(
+        [ffmpeg, "-y", "-hide_banner", "-loglevel", "error", "-i", str(path),
+         "-c", "copy", "-movflags", "+faststart", str(tmp)],
+        check=True,
+    )
+    tmp.replace(path)
+    print(f"FIX faststart {path.name}")
+
+
 def copy(src: Path, category: str, name: str) -> bool:
     if not src.is_file():
         return False
@@ -50,6 +77,7 @@ def copy(src: Path, category: str, name: str) -> bool:
     if out.is_file() and not is_valid_mp4(out):
         print(f"WARN replacing invalid mp4 {category}/{name}")
     shutil.copy2(src, out)
+    ensure_faststart(out)
     mb = out.stat().st_size / (1024 * 1024)
     print(f"OK  {category}/{name} ({mb:.1f} MB) <- {src.name}")
     return True
