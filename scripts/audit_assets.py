@@ -46,7 +46,7 @@ def main() -> None:
         "campus-media/script-video.mp4": ["剧本视频.mp4", "剧本.mp4"],
         "web-dev/flask-house.mp4": ["Flask功能演示", "flask-house.mp4", "FlaskVideo", "网页录屏"],
         "web-dev/web-group.mp4": ["web-group.mp4", "网页录屏"],
-        "web-dev/health-pathway.mp4": ["健康之路", "录屏文件.mp4"],
+        "web-dev/health-pathway.mp4": ["02-医疗与医生项目", "录屏软件医疗网站设置", "健康之路", "录屏文件.mp4"],
         "ae-effects/mg-intro.mp4": ["mg开头", "mg标题"],
     }
     for dst, keywords in expected.items():
