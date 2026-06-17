@@ -20,6 +20,63 @@ DIAGRAMS = [
     ("8-2-state-flow", "8.2 工单状态流转规则"),
 ]
 
+NODE_LABEL_RE = re.compile(
+    r'(<rect class="basic label-container"[^>]*y=")(-?[\d.]+)("[^>]*height=")(\d+)("[^>]*/>\s*'
+    r'<g class="label"[^>]*transform="translate\([^,]+,\s*)(-?[\d.]+)(\)[^>]*>\s*'
+    r'<rect/>\s*<foreignObject width="[^"]+" height=")(\d+)(">)(.*?)(</foreignObject>)',
+    re.S,
+)
+
+
+def _extra_label_padding(br_count: int) -> int:
+    """Mermaid often under-allocates foreignObject height for multi-line HTML labels."""
+    if br_count >= 2:
+        return 24
+    if br_count == 1:
+        return 12
+    return 0
+
+
+def fix_multiline_label_clipping(svg_path: Path) -> None:
+    text = svg_path.read_text(encoding="utf-8")
+    extra_bottom = 0.0
+
+    def patch_label(match: re.Match[str]) -> str:
+        nonlocal extra_bottom
+        inner = match.group(10)
+        br_count = inner.count("<br")
+        extra = _extra_label_padding(br_count)
+        if extra <= 0:
+            return match.group(0)
+
+        half = extra / 2
+        extra_bottom = max(extra_bottom, half)
+
+        rect_y = float(match.group(2)) - half
+        rect_h = int(match.group(4)) + extra
+        label_y = float(match.group(6)) - half
+        fo_h = int(match.group(8)) + extra
+
+        return (
+            f"{match.group(1)}{rect_y:g}{match.group(3)}{rect_h}{match.group(5)}"
+            f"{label_y:g}{match.group(7)}{fo_h}{match.group(9)}{inner}{match.group(11)}"
+        )
+
+    text = NODE_LABEL_RE.sub(patch_label, text)
+
+    viewbox_match = re.search(
+        r'viewBox="(-?[\d.]+) (-?[\d.]+) (-?[\d.]+) (-?[\d.]+)"',
+        text,
+    )
+    if viewbox_match and extra_bottom:
+        x, y, width, height = map(float, viewbox_match.groups())
+        new_height = height + extra_bottom + 8
+        old = viewbox_match.group(0)
+        new = f'viewBox="{x:g} {y:g} {width:g} {new_height:g}"'
+        text = text.replace(old, new, 1)
+
+    svg_path.write_text(text, encoding="utf-8")
+
 
 def main() -> int:
     if not MD_FILE.is_file():
@@ -61,6 +118,7 @@ def main() -> int:
             cwd=str(ROOT),
             shell=True,
         )
+        fix_multiline_label_clipping(svg)
 
     print(f"完成，共 {len(DIAGRAMS)} 张 SVG -> {OUT_DIR}")
     return 0
