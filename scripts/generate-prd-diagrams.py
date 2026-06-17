@@ -26,6 +26,11 @@ NODE_LABEL_RE = re.compile(
     r'<rect/>\s*<foreignObject width="[^"]+" height=")(\d+)(">)(.*?)(</foreignObject>)',
     re.S,
 )
+EDGE_LABEL_RE = re.compile(
+    r'(<g class="edgeLabel"[^>]*>\s*<g class="label"[^>]*transform="translate\([^,]+,\s*)'
+    r'(-?[\d.]+)(\)[^>]*>\s*<foreignObject width="[^"]+" height=")(\d+)(">)(.*?)(</foreignObject>)',
+    re.S,
+)
 
 
 def _extra_label_padding(br_count: int) -> int:
@@ -44,6 +49,9 @@ def fix_multiline_label_clipping(svg_path: Path) -> None:
     def patch_label(match: re.Match[str]) -> str:
         nonlocal extra_bottom
         inner = match.group(10)
+        fo_h = int(match.group(8))
+        if fo_h not in (42, 63):
+            return match.group(0)
         br_count = inner.count("<br")
         extra = _extra_label_padding(br_count)
         if extra <= 0:
@@ -63,6 +71,27 @@ def fix_multiline_label_clipping(svg_path: Path) -> None:
         )
 
     text = NODE_LABEL_RE.sub(patch_label, text)
+
+    def patch_edge_label(match: re.Match[str]) -> str:
+        inner = match.group(6)
+        fo_h = int(match.group(4))
+        br_count = inner.count("<br")
+        if br_count <= 0 or fo_h != 42:
+            return match.group(0)
+        extra = _extra_label_padding(br_count)
+        if extra <= 0:
+            return match.group(0)
+
+        half = extra / 2
+        label_y = float(match.group(2)) - half
+        fo_h = int(match.group(4)) + extra
+
+        return (
+            f"{match.group(1)}{label_y:g}{match.group(3)}{fo_h}{match.group(5)}"
+            f"{inner}{match.group(7)}"
+        )
+
+    text = EDGE_LABEL_RE.sub(patch_edge_label, text)
 
     viewbox_match = re.search(
         r'viewBox="(-?[\d.]+) (-?[\d.]+) (-?[\d.]+) (-?[\d.]+)"',
