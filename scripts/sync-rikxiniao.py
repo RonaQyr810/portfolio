@@ -11,7 +11,51 @@ BASE = Path(__file__).resolve().parent.parent
 DESKTOP = BASE.parent
 APP = BASE / "projects" / "rikxiniao" / "app"
 
-KEEP_IN_APP = {"icons.svg", "favicon.svg"}
+KEEP_IN_APP = {"icons.svg", "favicon.svg", "portfolio-employment.css"}
+
+EMPLOYMENT_CSS_MIN = (
+    ".employment-panel{color:#5d4037;background:#fce4ec;border:1px solid #f8bbd0;"
+    "border-radius:12px;margin-top:12px;padding:12px;font-size:.82rem;line-height:1.7}"
+    '.employment-panel::before{content:"💼 就业状态";display:block;font-weight:600;'
+    "margin-bottom:8px;color:#880e4f;font-size:.9rem}"
+    ".employment-status.unemployed{color:#c62828;font-weight:600;margin-bottom:4px}"
+    ".employment-panel .secondary-btn.danger,.employment-panel .primary-btn{width:100%;margin-top:10px}"
+)
+
+EMPLOYMENT_CSS_FILE = """\
+/* 就业状态 / 离职 */
+.employment-panel {
+  color: #5d4037;
+  background: #fce4ec;
+  border: 1px solid #f8bbd0;
+  border-radius: 12px;
+  margin-top: 12px;
+  padding: 12px;
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+.employment-panel::before {
+  content: "💼 就业状态";
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #880e4f;
+  font-size: 0.9rem;
+}
+
+.employment-status.unemployed {
+  color: #c62828;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.employment-panel .secondary-btn.danger,
+.employment-panel .primary-btn {
+  width: 100%;
+  margin-top: 10px;
+}
+"""
 
 CLOUD_PATTERNS = [
     "http://192.168.10.157:8787",
@@ -120,6 +164,7 @@ def write_html(target: Path, assets: dict[str, list[str]], *, entry_name: str) -
     <title>日薪喵 - 每秒收入计算器</title>
 {preload_lines}
 {style_lines}
+    <link rel="stylesheet" href="./portfolio-employment.css" />
     <script type="module" crossorigin src="{module}"></script>
   </head>
   <body>
@@ -130,6 +175,20 @@ def write_html(target: Path, assets: dict[str, list[str]], *, entry_name: str) -
 """
     target.write_text(html, encoding="utf-8")
     print("OK", target.relative_to(BASE))
+
+
+def patch_css(app_dir: Path, dist_dir: Path) -> None:
+    styles = parse_dist_index(dist_dir / "index.html").get("styles") or []
+    if not styles:
+        return
+    css_path = app_dir / "assets" / Path(styles[0]).name
+    if css_path.is_file():
+        text = css_path.read_text(encoding="utf-8")
+        if ".employment-panel" not in text:
+            css_path.write_text(text + EMPLOYMENT_CSS_MIN, encoding="utf-8")
+            print("OK patched employment CSS in", css_path.name)
+    (app_dir / "portfolio-employment.css").write_text(EMPLOYMENT_CSS_FILE, encoding="utf-8")
+    print("OK portfolio-employment.css")
 
 
 def write_manifest(app_dir: Path) -> None:
@@ -192,6 +251,7 @@ def sync() -> int:
     write_html(APP / "play.html", assets, entry_name="play.html")
     write_html(APP / "index.html", assets, entry_name="index.html")
     write_manifest(APP)
+    patch_css(APP, dist)
 
     if not (APP / "favicon.svg").is_file():
         legacy = BASE / "assets" / "portfolio" / "rikxiniao-cover.svg"

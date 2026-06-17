@@ -1,0 +1,32 @@
+/* 就业状态 / 离职 */
+.employment-panel {
+  color: #5d4037;
+  background: #fce4ec;
+  border: 1px solid #f8bbd0;
+  border-radius: 12px;
+  margin-top: 12px;
+  padding: 12px;
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+.employment-panel::before {
+  content: "💼 就业状态";
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #880e4f;
+  font-size: 0.9rem;
+}
+
+.employment-status.unemployed {
+  color: #c62828;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.employment-panel .secondary-btn.danger,
+.employment-panel .primary-btn {
+  width: 100%;
+  margin-top: 10px;
+}
