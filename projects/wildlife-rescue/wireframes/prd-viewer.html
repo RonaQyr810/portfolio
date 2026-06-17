@@ -6,7 +6,6 @@
   <title>PRD · 上海市陆生野生动物收容救护管理平台</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <style>
     :root {
       --bg: #f4f7f5;
@@ -289,24 +288,21 @@
       font-size: 0.84em;
     }
 
-    /* ── Mermaid ── */
-    .mermaid-wrap {
+    /* ── Flow diagram images ── */
+    .diagram-wrap {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 24px;
+      padding: 20px;
       margin: 24px 0 32px;
       overflow-x: auto;
       box-shadow: var(--shadow);
+      text-align: center;
     }
-    .mermaid-wrap .mermaid {
-      display: flex;
-      justify-content: center;
-      min-height: 120px;
-    }
-    .mermaid-wrap svg {
+    .diagram-wrap img {
       max-width: 100%;
       height: auto;
+      display: inline-block;
     }
 
     /* ── H5 wireframe embed (section 6) ── */
@@ -436,6 +432,13 @@
   <script>
     const MD_FILE = '野生动物收容救护平台-PRD-v4-极简8页版.md';
     const WIREFRAME_HTML = '野生动物收容救护平台-H5线框图-v4-8页版.html';
+    const DIAGRAM_FILES = [
+      'diagrams/5-0-business-flow.svg',
+      'diagrams/5-1-workbench-flow.svg',
+      'diagrams/5-2-citizen-flow.svg',
+      'diagrams/5-3-admin-flow.svg',
+      'diagrams/8-2-state-flow.svg',
+    ];
 
     async function fetchMarkdown() {
       const candidates = [
@@ -454,41 +457,19 @@
       breaks: false,
     });
 
-    function prepareMermaidBlocks(root) {
-      root.querySelectorAll('pre > code[class*="mermaid"]').forEach((codeEl) => {
+    function injectDiagramImages(root) {
+      root.querySelectorAll('pre > code[class*="mermaid"]').forEach((codeEl, index) => {
+        const src = DIAGRAM_FILES[index];
+        if (!src) return;
         const wrap = document.createElement('div');
-        wrap.className = 'mermaid-wrap';
-        const diagram = document.createElement('div');
-        diagram.className = 'mermaid';
-        diagram.textContent = codeEl.textContent;
-        wrap.appendChild(diagram);
+        wrap.className = 'diagram-wrap';
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = '流程图';
+        img.loading = index === 0 ? 'eager' : 'lazy';
+        wrap.appendChild(img);
         codeEl.parentElement.replaceWith(wrap);
       });
-    }
-
-    async function renderMermaid(root) {
-      const nodes = root.querySelectorAll('.mermaid');
-      if (!nodes.length) return;
-
-      mermaid.initialize({
-        startOnLoad: false,
-        securityLevel: 'loose',
-        theme: 'base',
-        themeVariables: {
-          primaryColor: '#e8f5ee',
-          primaryTextColor: '#1a2e24',
-          primaryBorderColor: '#2d8f5f',
-          lineColor: '#5c6b63',
-          secondaryColor: '#f4f7f5',
-          tertiaryColor: '#fff',
-          noteBkgColor: '#f4f7f5',
-          noteTextColor: '#1a2e24',
-        },
-        flowchart: { curve: 'basis', padding: 16, htmlLabels: true },
-        sequence: { actorMargin: 60, messageMargin: 40, useMaxWidth: true },
-      });
-
-      await mermaid.run({ nodes });
     }
 
     function isWireframePre(pre) {
@@ -619,10 +600,9 @@
           wrap.appendChild(table);
         });
 
-        prepareMermaidBlocks(content);
+        injectDiagramImages(content);
         enhanceWireframeSection(content);
         buildToc(content);
-        await renderMermaid(content);
       } catch (err) {
         content.innerHTML =
           '<div class="error">文档加载失败：' +
