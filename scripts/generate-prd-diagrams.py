@@ -42,6 +42,20 @@ def _extra_label_padding(br_count: int) -> int:
     return 0
 
 
+def _min_foreign_object_height(br_count: int, *, edge: bool = False) -> int:
+    if edge:
+        if br_count >= 2:
+            return 90
+        if br_count == 1:
+            return 66
+        return 0
+    if br_count >= 2:
+        return 87
+    if br_count == 1:
+        return 54
+    return 0
+
+
 def fix_multiline_label_clipping(svg_path: Path) -> None:
     text = svg_path.read_text(encoding="utf-8")
     extra_bottom = 0.0
@@ -49,13 +63,12 @@ def fix_multiline_label_clipping(svg_path: Path) -> None:
     def patch_label(match: re.Match[str]) -> str:
         nonlocal extra_bottom
         inner = match.group(10)
-        fo_h = int(match.group(8))
-        if fo_h not in (42, 63):
-            return match.group(0)
         br_count = inner.count("<br")
-        extra = _extra_label_padding(br_count)
-        if extra <= 0:
+        fo_h = int(match.group(8))
+        min_height = _min_foreign_object_height(br_count, edge=False)
+        if br_count <= 0 or fo_h >= min_height:
             return match.group(0)
+        extra = min_height - fo_h
 
         half = extra / 2
         extra_bottom = max(extra_bottom, half)
@@ -74,13 +87,12 @@ def fix_multiline_label_clipping(svg_path: Path) -> None:
 
     def patch_edge_label(match: re.Match[str]) -> str:
         inner = match.group(6)
-        fo_h = int(match.group(4))
         br_count = inner.count("<br")
-        if br_count <= 0 or fo_h != 42:
+        fo_h = int(match.group(4))
+        min_height = _min_foreign_object_height(br_count, edge=True)
+        if br_count <= 0 or fo_h >= min_height:
             return match.group(0)
-        extra = _extra_label_padding(br_count)
-        if extra <= 0:
-            return match.group(0)
+        extra = min_height - fo_h
 
         half = extra / 2
         label_y = float(match.group(2)) - half

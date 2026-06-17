@@ -439,6 +439,7 @@
       'diagrams/5-3-admin-flow.svg',
       'diagrams/8-2-state-flow.svg',
     ];
+    const DIAGRAM_VERSION = '20250617b';
 
     async function fetchMarkdown() {
       const candidates = [
@@ -464,7 +465,7 @@
         const wrap = document.createElement('div');
         wrap.className = 'diagram-wrap';
         const img = document.createElement('img');
-        img.src = src;
+        img.src = src + '?v=' + DIAGRAM_VERSION;
         img.alt = '流程图';
         img.loading = index === 0 ? 'eager' : 'lazy';
         wrap.appendChild(img);
