@@ -14,6 +14,14 @@ CLOUD_PATTERNS = [
 ]
 
 
+ASSET_PATH_PATCHES = [
+    ("/logo.png", "./logo.png"),
+    ("/favicon.png", "./favicon.png"),
+    ("/icon-192.png", "./icon-192.png"),
+    ("/icon-512.png", "./icon-512.png"),
+]
+
+
 def patch_file(path: Path) -> bool:
     if not path.exists():
         return False
@@ -22,6 +30,8 @@ def patch_file(path: Path) -> bool:
     for url in CLOUD_PATTERNS:
         text = text.replace(url, "")
     text = re.sub(r"http://192\.168\.\d+\.\d+:8787", "", text)
+    for old, new in ASSET_PATH_PATCHES:
+        text = text.replace(old, new)
     if text != original:
         path.write_text(text, encoding="utf-8")
         print("patched", path.name)

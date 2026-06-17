@@ -11,7 +11,22 @@ BASE = Path(__file__).resolve().parent.parent
 DESKTOP = BASE.parent
 APP = BASE / "projects" / "rikxiniao" / "app"
 
-KEEP_IN_APP = {"icons.svg", "favicon.svg", "portfolio-employment.css"}
+KEEP_IN_APP = {
+    "icons.svg",
+    "favicon.svg",
+    "favicon.png",
+    "logo.png",
+    "icon-192.png",
+    "icon-512.png",
+    "portfolio-employment.css",
+}
+
+ASSET_PATH_PATCHES = [
+    ("/logo.png", "./logo.png"),
+    ("/favicon.png", "./favicon.png"),
+    ("/icon-192.png", "./icon-192.png"),
+    ("/icon-512.png", "./icon-512.png"),
+]
 
 EMPLOYMENT_CSS_FILE = """\
 /* 就业状态 / 离职 */
@@ -127,6 +142,8 @@ def patch_bundle(path: Path) -> bool:
     for old, new in PET_NAME_PATCHES + ONBOARDING_PATCHES:
         if old in text:
             text = text.replace(old, new)
+    for old, new in ASSET_PATH_PATCHES:
+        text = text.replace(old, new)
     if text != original:
         path.write_text(text, encoding="utf-8")
         print("patched", path.relative_to(APP))
@@ -210,12 +227,9 @@ def write_manifest(app_dir: Path) -> None:
         "theme_color": "#4A90E2",
         "orientation": "portrait",
         "icons": [
-            {
-                "src": "./favicon.svg",
-                "sizes": "any",
-                "type": "image/svg+xml",
-                "purpose": "any maskable",
-            }
+            {"src": "./logo.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+            {"src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"},
+            {"src": "./favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"},
         ],
     }
     (app_dir / "manifest.json").write_text(
