@@ -115,6 +115,22 @@ RUN_HINTS = (
     "毕业设计",
 )
 
+BRAND_UI_DIR = DESKTOP / "软件素材" / "UI设计稿"
+BRAND_UI_FILES: list[tuple[str, str]] = [
+    ("wireframe.png", "低保真原型图.png"),
+    ("home.png", "2220048_秦艺榕_首页.png"),
+    ("home-revised.png", "修改后_首页.png"),
+    ("list.jpg", "2220048_秦艺榕__列表页.JPG"),
+    ("list-shot.png", "2220048_秦艺榕_列表页截图.png"),
+    ("workbench.png", "2220048_秦艺榕_工作台.png"),
+    ("profile.png", "2220048_秦艺榕_我的.png"),
+    ("profile-revised.png", "修改后_我的.png"),
+    ("homework-1.png", "2220048_秦艺榕_作业1.png"),
+    ("homework-2.png", "2220048_秦艺榕_作业2.png"),
+    ("sculpture-poster.png", "2220048_秦艺榕_雕塑设计-学无止境步步高升.png"),
+    ("app-icon.png", "1781512647136.png"),
+]
+
 
 def score_path(path: Path, hints: tuple[str, ...], filename: str) -> int:
     if path.name != filename and path.name.lower() != filename.lower():
@@ -171,6 +187,25 @@ def copy_file(src: Path, dst: Path) -> None:
     if dst.is_file() and dst.stat().st_size == src.stat().st_size:
         return
     shutil.copy2(src, dst)
+
+
+def sync_brand_ui() -> int:
+    if not BRAND_UI_DIR.is_dir():
+        return 0
+    ok = 0
+    dest_dir = PORT / "brand-ui"
+    for dst_name, src_name in BRAND_UI_FILES:
+        src = BRAND_UI_DIR / src_name
+        if not src.is_file():
+            print("SKIP brand-ui/", dst_name, "<= missing", src_name)
+            continue
+        dst = dest_dir / dst_name
+        before = dst.stat().st_size if dst.is_file() else -1
+        copy_file(src, dst)
+        if not dst.is_file() or dst.stat().st_size != before:
+            print("OK brand-ui/", dst_name, "<-", src_name)
+            ok += 1
+    return ok
 
 
 def mirror_roots() -> list[Path]:
@@ -245,6 +280,8 @@ def main() -> int:
     mirror_ok, mirror_synced = sync_from_mirror(seen)
     ok += mirror_ok
     missing = [m for m in missing if not m.split(" <= ")[0].split(":")[0] in mirror_synced]
+
+    ok += sync_brand_ui()
 
     fix_script = BASE / "scripts" / "fix-brand-logos.py"
     if fix_script.is_file():
