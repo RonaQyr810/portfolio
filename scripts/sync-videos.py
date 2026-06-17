@@ -47,6 +47,8 @@ def copy(src: Path, category: str, name: str) -> bool:
     if out.is_file() and out.stat().st_size == src.stat().st_size and is_valid_mp4(out):
         print(f"SKIP same {category}/{name}")
         return False
+    if out.is_file() and not is_valid_mp4(out):
+        print(f"WARN replacing invalid mp4 {category}/{name}")
     shutil.copy2(src, out)
     mb = out.stat().st_size / (1024 * 1024)
     print(f"OK  {category}/{name} ({mb:.1f} MB) <- {src.name}")
@@ -113,21 +115,22 @@ def main() -> int:
 
     web = [
         ("flask-house.mp4",
+         (("03-录屏与网页后台",), "房屋租赁系统网页后台.mp4"),
+         (("01-从主目录", "03-录屏与网页后台"), "房屋租赁系统网页后台.mp4"),
          (("03-课程项目", "Flask"), "Flask功能演示.mp4"),
          (("03-课程项目",), "flask-house.mp4"),
          (("12-团队Web", "Flask"), "FlaskVideo-2220048.mp4"),
          (("web小组",), "2220048 秦艺榕 网页录屏.mp4")),
-        ("web-group.mp4",
+        ("health-pathway.mp4",
+         (("02-医疗与医生项目",), "录屏软件医疗网站设置.mp4"),
+         (("01-从主目录", "02-医疗与医生项目"), "录屏软件医疗网站设置.mp4"),
+         (("02-医疗与医生项目",), "在线医生咨询网站.mp4")),
+        ("modao-web.mp4",
          (("03-代码项目", "文人四友"), "录屏文件.mp4"),
+         (("03-代码项目", "文人四友-网站设计"), "录屏文件.mp4"),
          (("12-团队Web", "文人四友"), "录屏文件.mp4"),
          (("03-代码项目",), "web-group.mp4"),
-         (("03-课程项目",), "web-group.mp4"),
-         (("01-视频动画",), "2220048 秦艺榕 网页录屏.mp4")),
-        ("health-pathway.mp4",
-         (("01-从主目录", "02-医疗与医生项目"), "录屏软件医疗网站设置.mp4"),
-         (("02-医疗与医生项目",), "录屏软件医疗网站设置.mp4"),
-         (("12-团队Web", "健康之路医疗网站"), "录屏文件.mp4"),
-         (("03-课程项目", "健康之路"), "录屏文件.mp4")),
+         (("03-课程项目",), "web-group.mp4")),
     ]
     for item in web:
         put("web-dev", item[0], *item[1:])
