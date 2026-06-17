@@ -40,6 +40,8 @@ MIRROR_FALLBACK: tuple[str, ...] = (
     "health-food-logo.png",
     "health-food-rank.png",
     "health-food-home.png",
+    "health-food-login.png",
+    "health-food-profile.png",
     "peking-opera-cover.png",
     "moyan-cover.png",
 )
@@ -63,13 +65,9 @@ MAPPING: list[tuple[str, str, tuple[str, ...]]] = [
     ("looptrace-poster.jpg", "2220048 秦艺榕 基于微信小程序“惜食小站”珍惜粮食与积分兑换系统的设计与开发 作品海报.jpg", ("毕业设计",)),
     ("looptrace-poster.jpg", "2220048 秦艺榕 基于微信小程序“惜食小站”珍惜粮食与积分兑换系统的设计与开发 作品海报.jpg", ("01-设计稿",)),
     ("looptrace-poster.jpg", "2220048 秦艺榕 基于微信小程序“惜食小站”珍惜粮食与积分兑换系统的设计与开发 作品海报.jpg", ("03-毕设-惜食小站",)),
-    ("health-food-login.png", "2220048_秦艺榕__列表页.JPG", ("UI设计稿",)),
-    ("health-food-login.png", "2220048_秦艺榕__列表页.JPG", ("03-设计素材",)),
-    ("health-food-home-general.png", "2220048_秦艺榕_首页.png", ("UI设计稿", "03-设计素材")),
-    ("health-food-home-ai.png", "2220048_秦艺榕_作业1.png", ("UI设计稿", "03-设计素材")),
-    ("health-food-home-nutritionist.png", "2220048_秦艺榕_作业2.png", ("UI设计稿", "03-设计素材")),
-    ("health-food-profile.png", "2220048_秦艺榕_我的.png", ("UI设计稿", "03-设计素材")),
-    # health-food-logo / cover / bubble / rank：桌面无对应源文件，保留仓库版本不覆盖
+    # health-food-home-general / home-ai / home-nutritionist：仅保留在仓库/投递版镜像，
+    # 勿映射到 UI 课作业素材（2220048_作业*.png 等为英语/音乐模板，非健康食途）
+    # health-food-login / profile / logo / cover / bubble / rank：从投递版镜像同步
     ("medical-home.jpg", "首页.jpg", ("健康医疗网站", "低保")),
     ("medical-home.jpg", "首页.jpg", ("健康医疗网站", "高保")),
     ("medical-home.jpg", "首页.jpg", ("new-doctor",)),
