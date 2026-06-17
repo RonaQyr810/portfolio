@@ -59,12 +59,20 @@ function updateUrlForVideo(item, index) {
   history.replaceState({ videoId: id }, '', url);
 }
 
-function showVideoLoadError(mainVideo, playerDesc) {
+function showVideoLoadError(mainVideo, playerDesc, item) {
   if (playerDesc) {
-    playerDesc.textContent =
-      '视频加载失败，请检查网络或稍后重试。部分大文件首次加载可能较慢。';
+    const hint = item?.paths?.length
+      ? '视频文件无法播放，可能已损坏或未正确导出。请用 Premiere 重新导出 MP4 后运行 sync-videos，再刷新页面。'
+      : '视频加载失败，请检查网络或稍后重试。部分大文件首次加载可能较慢。';
+    playerDesc.textContent = hint;
   }
   if (mainVideo) mainVideo.removeAttribute('src');
+}
+
+function markCardState(index, state) {
+  const card = document.querySelectorAll('.video-card')[index];
+  if (!card) return;
+  card.classList.toggle('load-error', state === 'error');
 }
 
 function initVideoPage(videos, options = {}) {
@@ -89,9 +97,13 @@ function initVideoPage(videos, options = {}) {
   let candidateIndex = 0;
 
   function resolveCandidates(item) {
-    if (item.file) return buildVideoCandidates(item.file, assetBase);
-    if (item.path) return [resolveLocalPath(item.path)];
-    return [];
+    const candidates = [];
+    if (item.file) candidates.push(...buildVideoCandidates(item.file, assetBase));
+    const localPaths = item.paths || (item.path ? [item.path] : []);
+    if (isLocalPreview()) {
+      localPaths.forEach(rel => candidates.push(resolveLocalPath(rel)));
+    }
+    return [...new Set(candidates)];
   }
 
   function onVideoError() {
@@ -101,7 +113,9 @@ function initVideoPage(videos, options = {}) {
       mainVideo.load();
       return;
     }
-    showVideoLoadError(mainVideo, playerDesc);
+    const item = videos[currentIndex];
+    showVideoLoadError(mainVideo, playerDesc, item);
+    markCardState(currentIndex, 'error');
   }
 
   mainVideo.addEventListener('error', onVideoError);
@@ -113,7 +127,8 @@ function initVideoPage(videos, options = {}) {
     candidateIndex = 0;
 
     if (!activeCandidates.length) {
-      showVideoLoadError(mainVideo, playerDesc);
+      showVideoLoadError(mainVideo, playerDesc, item);
+      markCardState(index, 'error');
       return;
     }
 
@@ -127,6 +142,7 @@ function initVideoPage(videos, options = {}) {
     document.querySelectorAll('.video-card').forEach((card, i) => {
       const active = i === index;
       card.classList.toggle('active', active);
+      card.classList.toggle('load-error', false);
       if (active && scrollCard) {
         requestAnimationFrame(() => {
           card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });

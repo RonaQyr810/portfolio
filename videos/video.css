@@ -158,7 +158,23 @@ body.video-page .wrap {
   outline-offset: 0;
 }
 
+.video-card.load-error {
+  border-color: #d64545;
+}
+
+.video-card.load-error .video-thumb::after {
+  content: '无法播放';
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.72rem;
+  color: #ffb4b4;
+}
+
 .video-thumb {
+  position: relative;
   aspect-ratio: 16/9;
   background: var(--bg-dark);
   display: flex;
