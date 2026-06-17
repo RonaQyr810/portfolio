@@ -7,7 +7,7 @@ $dst = Join-Path $root 'assets\videos'
 $map = @{
     'web-dev' = @{
         'flask-house.mp4'     = '..\学校文档\2220048-秦艺榕\03-课程项目\Flask功能演示.mp4'
-        'web-group.mp4'       = '..\学校文档\2220048-秦艺榕\03-课程项目\web-group.mp4'
+        'web-group.mp4'       = '..\学校文档\2220048-秦艺榕\03-代码项目\文人四友-网站设计\录屏文件.mp4'
         'health-pathway.mp4'  = '01-视频动画\01-从主目录\02-医疗与医生项目\录屏软件医疗网站设置.mp4'
     }
     'xishixiaozhan' = @{
@@ -16,17 +16,11 @@ $map = @{
     }
     'peking-opera' = @{
         'final.mp4'        = '梨园之韵\梨园之韵 最终成品.mp4'
-        'opera-1.mp4'      = '梨园之韵\京剧1.mp4'
-        'opera-2.mp4'      = '梨园之韵\京剧2.mp4'
-        'opera-3.mp4'      = '梨园之韵\京剧3.mp4'
-        'revised-full.mp4' = '梨园之韵\京剧修改后.mp4'
-        'revised-short.mp4'= '梨园之韵\京剧修改后_1.mp4'
     }
     'campus-media' = @{
         'shizhu.mp4'       = '实训文件\拾筑.mp4'
         'script-video.mp4' = '实训文件\2220048 秦艺榕 剧本视频.mp4'
         'ui-defense.mp4'   = 'UI设计\录屏文件.mp4'
-        'liyuan-short.mp4' = '梨园之韵\梨园.mp4'
     }
     'ae-effects' = @{
         'mg-intro.mp4'    = '2220048 秦艺榕.mp4'

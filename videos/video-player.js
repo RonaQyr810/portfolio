@@ -98,9 +98,12 @@ function initVideoPage(videos, options = {}) {
 
   function resolveCandidates(item) {
     const candidates = [];
-    if (item.file) candidates.push(...buildVideoCandidates(item.file, assetBase));
     const localPaths = item.paths || (item.path ? [item.path] : []);
     if (isLocalPreview()) {
+      localPaths.forEach(rel => candidates.push(resolveLocalPath(rel)));
+    }
+    if (item.file) candidates.push(...buildVideoCandidates(item.file, assetBase));
+    if (!isLocalPreview()) {
       localPaths.forEach(rel => candidates.push(resolveLocalPath(rel)));
     }
     return [...new Set(candidates)];
@@ -152,7 +155,7 @@ function initVideoPage(videos, options = {}) {
     if (updateUrl) updateUrlForVideo(item, index);
   }
 
-  if (grid) {
+  if (grid && videos.length > 1) {
     videos.forEach((item, index) => {
       const card = document.createElement('article');
       card.className = 'video-card' + (index === currentIndex ? ' active' : '');
