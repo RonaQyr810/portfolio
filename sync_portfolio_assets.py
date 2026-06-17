@@ -18,6 +18,32 @@ SEARCH_ROOTS = [
     DESKTOP / "学校文档",
 ]
 
+MIRROR_BASE = DESKTOP / "作品集" / "00-投递版本"
+MIRROR_SUBPATH = Path("07-在线作品集-个人主页") / "assets" / "portfolio"
+MIRROR_DELIVERY_NAMES = ("作品集-投递版-综合岗", "作品集-投递版-产品经理岗")
+
+# 桌面重组后 DocWala / 健康食途封面等仅保留在投递版镜像中
+MIRROR_FALLBACK: tuple[str, ...] = (
+    "medical-home.jpg",
+    "medical-guide.jpg",
+    "medical-hospital.jpg",
+    "medical-about.png",
+    "medical-help.png",
+    "medical-donation.png",
+    "medical-contact.png",
+    "medical-register.jpg",
+    "medical-login-web.jpg",
+    "medical-sitemap.png",
+    "health-pathway.jpg",
+    "health-food-cover.jpg",
+    "health-food-bubble.png",
+    "health-food-logo.png",
+    "health-food-rank.png",
+    "health-food-home.png",
+    "peking-opera-cover.png",
+    "moyan-cover.png",
+)
+
 MAPPING: list[tuple[str, str, tuple[str, ...]]] = [
     ("looptrace-home.png", "首页.png", ("惜食小站", "原型图")),
     ("looptrace-list.png", "智能购物清单.png", ("惜食小站", "原型图")),
@@ -36,11 +62,13 @@ MAPPING: list[tuple[str, str, tuple[str, ...]]] = [
     ("looptrace-settings.png", "设置.png", ("惜食小站", "原型图")),
     ("looptrace-poster.jpg", "2220048 秦艺榕 基于微信小程序“惜食小站”珍惜粮食与积分兑换系统的设计与开发 作品海报.jpg", ("毕业设计",)),
     ("looptrace-poster.jpg", "2220048 秦艺榕 基于微信小程序“惜食小站”珍惜粮食与积分兑换系统的设计与开发 作品海报.jpg", ("01-设计稿",)),
+    ("looptrace-poster.jpg", "2220048 秦艺榕 基于微信小程序“惜食小站”珍惜粮食与积分兑换系统的设计与开发 作品海报.jpg", ("03-毕设-惜食小站",)),
     ("health-food-login.png", "2220048_秦艺榕__列表页.JPG", ("UI设计稿",)),
-    ("health-food-home-general.png", "2220048_秦艺榕_首页.png", ("UI设计稿",)),
-    ("health-food-home-ai.png", "2220048_秦艺榕_作业1.png", ("UI设计稿",)),
-    ("health-food-home-nutritionist.png", "2220048_秦艺榕_作业2.png", ("UI设计稿",)),
-    ("health-food-profile.png", "2220048_秦艺榕_我的.png", ("UI设计稿",)),
+    ("health-food-login.png", "2220048_秦艺榕__列表页.JPG", ("03-设计素材",)),
+    ("health-food-home-general.png", "2220048_秦艺榕_首页.png", ("UI设计稿", "03-设计素材")),
+    ("health-food-home-ai.png", "2220048_秦艺榕_作业1.png", ("UI设计稿", "03-设计素材")),
+    ("health-food-home-nutritionist.png", "2220048_秦艺榕_作业2.png", ("UI设计稿", "03-设计素材")),
+    ("health-food-profile.png", "2220048_秦艺榕_我的.png", ("UI设计稿", "03-设计素材")),
     # health-food-logo / cover / bubble / rank：桌面无对应源文件，保留仓库版本不覆盖
     ("medical-home.jpg", "首页.jpg", ("健康医疗网站", "低保")),
     ("medical-home.jpg", "首页.jpg", ("健康医疗网站", "高保")),
@@ -56,9 +84,10 @@ MAPPING: list[tuple[str, str, tuple[str, ...]]] = [
     ("health-pathway.jpg", "网页展板.jpg", ("C1 秦艺榕",)),
     ("health-pathway.jpg", "网页展板.jpg", ("12-团队Web",)),
     ("web-house-sample.jpg", "house-gb.jpg", ("house", "static", "img")),
-    ("brand-logo-main.png", "2220048 秦艺榕 名字logo.png", ("01-设计稿",)),
-    ("brand-logo-alt.png", "2220048 秦艺榕 名字logo-01.png", ("01-设计稿",)),
-    ("brand-logo-restored.png", "2220048 秦艺榕 名字logo-01.png", ("01-设计稿",)),
+    ("web-house-sample.jpg", "2220048_秦艺榕_列表页截图.png", ("12-团队Web", "页面截图")),
+    ("brand-logo-main.png", "2220048 秦艺榕 名字logo.png", ("01-设计稿", "05-UI与平面设计")),
+    ("brand-logo-alt.png", "2220048 秦艺榕 名字logo-01.png", ("01-设计稿", "05-UI与平面设计")),
+    ("brand-logo-restored.png", "2220048 秦艺榕 名字logo-01.png", ("01-设计稿", "05-UI与平面设计")),
     # peking-opera-cover：桌面 Web 截图易误配 C4D 图，保留仓库/投递版版本
 ]
 
@@ -76,7 +105,15 @@ RUN_SCREEN_ORDER = [
     "屏幕截图 2026-05-25 220247.png",
 ]
 
-RUN_HINTS = ("惜食小站", "运行截图", "作品截图", "03-毕设-惜食小站", "03-设计素材", "毕业设计")
+RUN_HINTS = (
+    "惜食小站",
+    "运行截图",
+    "作品截图",
+    "03-毕设-惜食小站",
+    "03-设计素材",
+    "惜食小站-作品截图",
+    "毕业设计",
+)
 
 
 def score_path(path: Path, hints: tuple[str, ...], filename: str) -> int:
@@ -136,6 +173,42 @@ def copy_file(src: Path, dst: Path) -> None:
     shutil.copy2(src, dst)
 
 
+def mirror_roots() -> list[Path]:
+    roots: list[Path] = []
+    for name in MIRROR_DELIVERY_NAMES:
+        p = MIRROR_BASE / name / MIRROR_SUBPATH
+        if p.is_dir():
+            roots.append(p)
+    return roots
+
+
+def sync_from_mirror(seen: set[str]) -> tuple[int, list[str]]:
+    ok = 0
+    synced: list[str] = []
+    for root in mirror_roots():
+        for rel in MIRROR_FALLBACK:
+            if rel in seen:
+                continue
+            src = root / rel
+            if not src.is_file():
+                continue
+            copy_file(src, PORT / rel)
+            print("OK (mirror)", rel, "<-", src.relative_to(DESKTOP))
+            ok += 1
+            seen.add(rel)
+            synced.append(rel)
+        lixiang_src = root / "lixiang"
+        if lixiang_src.is_dir():
+            for src in lixiang_src.glob("*.png"):
+                dst = PORT / "lixiang" / src.name
+                before = dst.stat().st_size if dst.is_file() else -1
+                copy_file(src, dst)
+                if not dst.is_file() or dst.stat().st_size != before:
+                    print("OK (mirror)", dst.relative_to(PORT), "<-", src.name)
+                    ok += 1
+    return ok, synced
+
+
 def main() -> int:
     if not any(r.is_dir() for r in SEARCH_ROOTS):
         print("[错误] 找不到桌面素材目录")
@@ -168,6 +241,10 @@ def main() -> int:
         ok += 1
     if len(screens) < 11:
         missing.append(f"looptrace-run: {len(screens)}/11")
+
+    mirror_ok, mirror_synced = sync_from_mirror(seen)
+    ok += mirror_ok
+    missing = [m for m in missing if not m.split(" <= ")[0].split(":")[0] in mirror_synced]
 
     print(f"\n完成: {ok} 个文件已同步")
     if missing:
